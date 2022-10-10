@@ -62,15 +62,19 @@ public class weaponController : MonoBehaviour
 
     IEnumerator ResetAttackCooldown()
     {
+        
         StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
         CanAttack = true;
+        
 
     }
 
     IEnumerator ResetAttackBool()
     {
+        
         yield return new WaitForSeconds(0.5f);
         isAttacking = false;
+        
     }
 }

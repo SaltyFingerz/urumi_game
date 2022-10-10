@@ -10,8 +10,8 @@ public class CamController : MonoBehaviour
     public Transform orientation;
     public Transform cameraPos;
 
-    float xRotation;
-    float yRotation;
+    public static float xRotation;
+    public static float yRotation;
 
 
 

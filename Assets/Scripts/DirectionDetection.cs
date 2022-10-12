@@ -25,13 +25,16 @@ public class DirectionDetection : MonoBehaviour
     public bool fromRight = false;
     public bool fromLeft = false;
 
+    public GameObject targetPoint;
+    private TrailRenderer tr;
+
     [SerializeField]
     float eulerAngY;
   
     // Start is called before the first frame update
     void Start()
     {
-        
+        tr = targetPoint.GetComponent<TrailRenderer>();
     }
     public void SwordAttackR()
     {
@@ -73,16 +76,21 @@ public class DirectionDetection : MonoBehaviour
              mouseXStart = CamController.yRotation; //this works, after trying many variables here
             // mouseYStart = mousePos.y;
             print("startX is" + mouseXStart);
+            tr.emitting = true;
+
         }
 
         if (Input.GetMouseButtonUp(0))
         {
              mouseXEnd = CamController.yRotation;
            // mouseYEnd = mousePos.y;
-            print("endX is" + mouseXEnd);
+            
             mouseXMove = (mouseXEnd - mouseXStart);
+
+            tr.emitting = false;
+
             // mouseYMove = mouseYEnd - mouseYStart;
-            print("movement X is" + mouseXMove);
+            
 
            
             if (mouseXMove < 0)

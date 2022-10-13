@@ -16,6 +16,7 @@ public class DirectionDetection : MonoBehaviour
     private float mouseXEnd;
 
     public GameObject cam;
+    public GameObject cam2;
     private float xRotation;
 
     public bool CanAttack = true;
@@ -24,6 +25,8 @@ public class DirectionDetection : MonoBehaviour
     public bool isAttacking = false;
     public bool fromRight = false;
     public bool fromLeft = false;
+
+  
 
     public GameObject targetPoint;
     private TrailRenderer tr;
@@ -36,7 +39,9 @@ public class DirectionDetection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         tr = targetPoint.GetComponent<TrailRenderer>();
+        tr.emitting = false;
     }
     public void SwordAttackR()
     {
@@ -116,23 +121,30 @@ public class DirectionDetection : MonoBehaviour
 
         //for right mouse button - camera not moving
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
             mouseXStart = CamController.yRotation2;
 
-            targetPoint.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
-            orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
+            
+            
             CamController.xRotation2 = Mathf.Clamp(CamController.xRotation2, -90f, 90f);
+            
+            cam2.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
+            orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
             // mouseYStart = mousePos.y;
-            print("startX is" + mouseXStart);
             tr.emitting = true;
 
         }
 
         if (Input.GetMouseButtonUp(1))
         {
+            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
+            //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
+            cam2.transform.rotation = cam.transform.rotation;
+            //orientation.rotation = Quaternion.Euler(0, CamController.yRotation, 0);
+
             CamController.sensX = 1000;
             CamController.sensY = 1000;
 
@@ -145,7 +157,8 @@ public class DirectionDetection : MonoBehaviour
 
             // mouseYMove = mouseYEnd - mouseYStart;
 
-
+            print("xrotation is" + CamController.xRotation + "xrotation2 is" + CamController.xRotation2);
+            print("yrotation is" + CamController.yRotation + "yrotation2 is" + CamController.yRotation2);
 
             if (mouseXMove < 0)
             {

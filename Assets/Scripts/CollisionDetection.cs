@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollisionDetection : MonoBehaviour
 {
-    public weaponController wc;
+    private weaponController wc;
     public GameObject HitParticle;
 
     private void OnTriggerEnter(Collider other)

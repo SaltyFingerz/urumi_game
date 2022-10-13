@@ -37,8 +37,8 @@ public class CamController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
-        float mouseX2 = Input.GetAxisRaw("Mouse X") * Time.deltaTime;
-        float mouseY2 = Input.GetAxisRaw("Mouse Y") * Time.deltaTime;
+        float mouseX2 = Input.GetAxisRaw("Mouse X") * Time.deltaTime * 1000;
+        float mouseY2 = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * 1000;
 
         yRotation += mouseX;
         xRotation -= mouseY;
@@ -47,6 +47,7 @@ public class CamController : MonoBehaviour
         xRotation2 -= mouseY2;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 

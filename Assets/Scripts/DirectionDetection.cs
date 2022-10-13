@@ -28,6 +28,8 @@ public class DirectionDetection : MonoBehaviour
     public GameObject targetPoint;
     private TrailRenderer tr;
 
+    public Transform orientation;
+
     [SerializeField]
     float eulerAngY;
   
@@ -64,7 +66,7 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
       
         eulerAngY = cam.transform.localEulerAngles.y;
 
@@ -77,6 +79,8 @@ public class DirectionDetection : MonoBehaviour
             // mouseYStart = mousePos.y;
             print("startX is" + mouseXStart);
             tr.emitting = true;
+           
+
 
         }
 
@@ -102,6 +106,56 @@ public class DirectionDetection : MonoBehaviour
             }
 
             else if (mouseXMove > 0) 
+            {
+                if (CanAttack)
+                {
+                    SwordAttackL();
+                }
+            }
+        }
+
+        //for right mouse button - camera not moving
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            CamController.sensX = 0;
+            CamController.sensY = 0;
+            mouseXStart = CamController.yRotation2;
+
+            targetPoint.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
+            orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
+            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation2, -90f, 90f);
+            // mouseYStart = mousePos.y;
+            print("startX is" + mouseXStart);
+            tr.emitting = true;
+
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            CamController.sensX = 1000;
+            CamController.sensY = 1000;
+
+            mouseXEnd = CamController.yRotation2;
+            // mouseYEnd = mousePos.y;
+
+            mouseXMove = (mouseXEnd - mouseXStart);
+
+            tr.emitting = false;
+
+            // mouseYMove = mouseYEnd - mouseYStart;
+
+
+
+            if (mouseXMove < 0)
+            {
+                if (CanAttack)
+                {
+                    SwordAttackR();
+                }
+            }
+
+            else if (mouseXMove > 0)
             {
                 if (CanAttack)
                 {

@@ -24,6 +24,7 @@ public class CamController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        yRotation2 = yRotation;
     }
 
 

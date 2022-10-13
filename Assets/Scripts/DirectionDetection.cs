@@ -42,6 +42,9 @@ public class DirectionDetection : MonoBehaviour
         
         tr = targetPoint.GetComponent<TrailRenderer>();
         tr.emitting = false;
+
+        
+
     }
     public void SwordAttackR()
     {
@@ -138,9 +141,18 @@ public class DirectionDetection : MonoBehaviour
 
         }
 
+        else
+        {
+            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
+            CamController.yRotation2 = CamController.yRotation;
+            //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
+            cam2.transform.rotation = cam.transform.rotation;
+        }
+
         if (Input.GetMouseButtonUp(1))
         {
             CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
+            CamController.yRotation2 = CamController.yRotation;
             //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
             cam2.transform.rotation = cam.transform.rotation;
             //orientation.rotation = Quaternion.Euler(0, CamController.yRotation, 0);
@@ -151,7 +163,7 @@ public class DirectionDetection : MonoBehaviour
             mouseXEnd = CamController.yRotation2;
             // mouseYEnd = mousePos.y;
 
-            mouseXMove = (mouseXEnd - mouseXStart);
+            mouseXMove = (mouseXStart - mouseXEnd); //the reverse of the dynamic attack is used in the static attack here
 
             tr.emitting = false;
 
@@ -176,6 +188,8 @@ public class DirectionDetection : MonoBehaviour
                 }
             }
         }
+
+       
 
     }
 

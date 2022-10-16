@@ -8,10 +8,14 @@ public class DirectionDetection : MonoBehaviour
     public GameObject Sword, Urumi, Shield;
 
     public static float mouseXMove;
+    public static float mouseXMove2;
+
     [SerializeField]
     public float mouseYMove;
     [SerializeField]
     private float mouseXStart;
+    [SerializeField]
+    private float mouseXStart2;
     [SerializeField]
     private float mouseXEnd;
 
@@ -25,7 +29,8 @@ public class DirectionDetection : MonoBehaviour
     public bool isAttacking = false;
     public bool fromRight = false;
     public bool fromLeft = false;
-
+    public bool fromCentre = false;
+    public bool canStab = false;
   
 
     public GameObject targetPoint;
@@ -48,9 +53,11 @@ public class DirectionDetection : MonoBehaviour
     }
     public void SwordAttackR()
     {
+        canStab = false;
         isAttacking = true;
         fromRight = true;
         fromLeft = false;
+        fromCentre = false;
        // CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
@@ -61,9 +68,11 @@ public class DirectionDetection : MonoBehaviour
 
     public void SwordAttackL()
     {
+        canStab = false;
         isAttacking = true;
         fromLeft = true;
         fromRight = false;
+        fromCentre = false;
        // CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
@@ -71,60 +80,106 @@ public class DirectionDetection : MonoBehaviour
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
     }
+
+
+    public void SwordAttackS()
+    {
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = true;
+        // CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackS");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+        canStab = false;
+    }
     // Update is called once per frame
     void Update()
     {
         
-      
-        eulerAngY = cam.transform.localEulerAngles.y;
+        if (Mathf.Abs(mouseXMove) == 0f)
+        {
+            print("mouseMove Abs = 0");
+        }
+
+            eulerAngY = cam.transform.localEulerAngles.y;
 
         //Vector3 mousePos = Input.mousePosition;
 
         if (Input.GetMouseButtonDown(0))
         {
             
-             mouseXStart = CamController.yRotation; //this works, after trying many variables here
+             mouseXStart = CamController.yRotation; 
             // mouseYStart = mousePos.y;
-            print("startX is" + mouseXStart);
+            
             tr.emitting = true;
-           
+            canStab = true;
 
 
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-             mouseXEnd = CamController.yRotation;
-           // mouseYEnd = mousePos.y;
-            
-            mouseXMove = (mouseXEnd - mouseXStart);
 
+            mouseXEnd = CamController.yRotation;
+            // mouseYEnd = mousePos.y;
+
+            mouseXMove = (mouseXEnd - mouseXStart);
+            print(mouseXMove);
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
-            
 
-           
-            if (mouseXMove < 0)
+
+            if (Mathf.Abs(mouseXMove) > 0.2f)
             {
-                if (CanAttack)
+                if (mouseXMove < 0)
                 {
-                    SwordAttackR();
+                    if (CanAttack)
+                    {
+                        SwordAttackR();
+                    }
+                }
+
+                else if (mouseXMove > 0)
+                {
+                    if (CanAttack)
+                    {
+                        SwordAttackL();
+                    }
                 }
             }
 
-            else if (mouseXMove > 0) 
-            {
-                if (CanAttack)
-                {
-                    SwordAttackL();
-                }
-            }
+
+            else if (Mathf.Abs(mouseXMove) < 0.2f)
+                
+                
+                    {
+
+                        if (CanAttack)
+                        {
+                            if (canStab)
+                            {
+                                SwordAttackS();
+                                canStab = false;
+                            }
+                        }
+                    }
+                
         }
-
         //for right mouse button - camera not moving
 
-        if (Input.GetMouseButton(1))
+      /*  if (Input.GetMouseButtonDown(1))
+        {
+            mouseXStart2 = CamController.yRotation2;
+            canStab = true;
+        }
+      */
+
+            if (Input.GetMouseButton(1))
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
@@ -140,6 +195,8 @@ public class DirectionDetection : MonoBehaviour
             tr.emitting = true;
 
         }
+
+       
 
         else
         {
@@ -164,7 +221,7 @@ public class DirectionDetection : MonoBehaviour
             // mouseYEnd = mousePos.y;
 
             mouseXMove = (mouseXStart - mouseXEnd); //the reverse of the dynamic attack is used in the static attack here
-
+          //  mouseXMove2 = (mouseXStart2 - mouseXEnd); // this is to check the single value from the mousebuttonDown for determining if it is a stab or not.
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
@@ -172,24 +229,43 @@ public class DirectionDetection : MonoBehaviour
             print("xrotation is" + CamController.xRotation + "xrotation2 is" + CamController.xRotation2);
             print("yrotation is" + CamController.yRotation + "yrotation2 is" + CamController.yRotation2);
 
-            if (mouseXMove < 0)
-            {
-                if (CanAttack)
+        //    if (Mathf.Abs(mouseXMove2) > 0.2f)
+         //   {
+
+                if (mouseXMove < 0)
                 {
-                    SwordAttackR();
+                    if (CanAttack)
+                    {
+                        SwordAttackR();
+                    }
+                }
+
+                else if (mouseXMove > 0)
+                {
+                    if (CanAttack)
+                    {
+                        SwordAttackL();
+                    }
                 }
             }
-
-            else if (mouseXMove > 0)
+      //  }
+        /*
+        else if (Mathf.Abs(mouseXMove2) < 0.2f)
+        {
             {
+
                 if (CanAttack)
                 {
-                    SwordAttackL();
+                    if (canStab)
+                    {
+                        SwordAttackS();
+                        canStab = false;
+                    }
                 }
             }
         }
 
-       
+        */
 
     }
 

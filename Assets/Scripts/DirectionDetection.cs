@@ -31,7 +31,8 @@ public class DirectionDetection : MonoBehaviour
     public bool fromLeft = false;
     public bool fromCentre = false;
     public bool canStab = false;
-  
+    public bool canStab2 = false;
+
 
     public GameObject targetPoint;
     private TrailRenderer tr;
@@ -54,6 +55,7 @@ public class DirectionDetection : MonoBehaviour
     public void SwordAttackR()
     {
         canStab = false;
+        canStab2 = false;
         isAttacking = true;
         fromRight = true;
         fromLeft = false;
@@ -69,6 +71,7 @@ public class DirectionDetection : MonoBehaviour
     public void SwordAttackL()
     {
         canStab = false;
+        canStab2 = false;
         isAttacking = true;
         fromLeft = true;
         fromRight = false;
@@ -84,6 +87,8 @@ public class DirectionDetection : MonoBehaviour
 
     public void SwordAttackS()
     {
+        canStab = false;
+        canStab2 = false;
         isAttacking = true;
         fromRight = false;
         fromLeft = false;
@@ -94,7 +99,7 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
-        canStab = false;
+        
     }
     // Update is called once per frame
     void Update()
@@ -172,12 +177,12 @@ public class DirectionDetection : MonoBehaviour
         }
         //for right mouse button - camera not moving
 
-      /*  if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             mouseXStart2 = CamController.yRotation2;
-            canStab = true;
+            canStab2 = true;
         }
-      */
+      
 
             if (Input.GetMouseButton(1))
         {
@@ -193,6 +198,7 @@ public class DirectionDetection : MonoBehaviour
             orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
             // mouseYStart = mousePos.y;
             tr.emitting = true;
+            
 
         }
 
@@ -221,7 +227,7 @@ public class DirectionDetection : MonoBehaviour
             // mouseYEnd = mousePos.y;
 
             mouseXMove = (mouseXStart - mouseXEnd); //the reverse of the dynamic attack is used in the static attack here
-          //  mouseXMove2 = (mouseXStart2 - mouseXEnd); // this is to check the single value from the mousebuttonDown for determining if it is a stab or not.
+            mouseXMove2 = (mouseXStart2 - mouseXEnd); // this is to check the single value from the mousebuttonDown for determining if it is a stab or not.
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
@@ -229,13 +235,14 @@ public class DirectionDetection : MonoBehaviour
             print("xrotation is" + CamController.xRotation + "xrotation2 is" + CamController.xRotation2);
             print("yrotation is" + CamController.yRotation + "yrotation2 is" + CamController.yRotation2);
 
-        //    if (Mathf.Abs(mouseXMove2) > 0.2f)
-         //   {
+           if (Mathf.Abs(mouseXMove2) > 0.2f)
+            {
 
                 if (mouseXMove < 0)
                 {
                     if (CanAttack)
                     {
+                        canStab2 = false;
                         SwordAttackR();
                     }
                 }
@@ -244,28 +251,30 @@ public class DirectionDetection : MonoBehaviour
                 {
                     if (CanAttack)
                     {
+                        canStab2 = false;
                         SwordAttackL();
                     }
                 }
             }
-      //  }
-        /*
+        }
+        
         else if (Mathf.Abs(mouseXMove2) < 0.2f)
         {
             {
 
                 if (CanAttack)
                 {
-                    if (canStab)
+                    if (canStab2)
                     {
+                        canStab2 = false;
                         SwordAttackS();
-                        canStab = false;
+                        
                     }
                 }
             }
         }
 
-        */
+        
 
     }
 

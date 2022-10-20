@@ -104,11 +104,8 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Mathf.Abs(mouseXMove) == 0f)
-        {
-            print("mouseMove Abs = 0");
-        }
+
+        print(canStab2);
 
             eulerAngY = cam.transform.localEulerAngles.y;
 
@@ -168,6 +165,7 @@ public class DirectionDetection : MonoBehaviour
                         {
                             if (canStab)
                             {
+                        print("stab1");
                                 SwordAttackS();
                                 canStab = false;
                             }
@@ -182,9 +180,9 @@ public class DirectionDetection : MonoBehaviour
             mouseXStart2 = CamController.yRotation2;
             canStab2 = true;
         }
-      
 
-            if (Input.GetMouseButton(1))
+        
+         if (Input.GetMouseButton(1))
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
@@ -202,17 +200,18 @@ public class DirectionDetection : MonoBehaviour
 
         }
 
-       
-
-        else
+        else 
         {
             CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
             CamController.yRotation2 = CamController.yRotation;
             //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
             cam2.transform.rotation = cam.transform.rotation;
         }
+        
 
-        if (Input.GetMouseButtonUp(1))
+
+
+         if (Input.GetMouseButtonUp(1) && !Input.GetMouseButtonDown(1))
         {
             CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
             CamController.yRotation2 = CamController.yRotation;
@@ -235,7 +234,7 @@ public class DirectionDetection : MonoBehaviour
             print("xrotation is" + CamController.xRotation + "xrotation2 is" + CamController.xRotation2);
             print("yrotation is" + CamController.yRotation + "yrotation2 is" + CamController.yRotation2);
 
-           if (Mathf.Abs(mouseXMove2) > 0.2f)
+            if (Mathf.Abs(mouseXMove2) > 0.2f)
             {
 
                 if (mouseXMove < 0)
@@ -256,25 +255,32 @@ public class DirectionDetection : MonoBehaviour
                     }
                 }
             }
-        }
-        
-        else if (Mathf.Abs(mouseXMove2) < 0.2f)
-        {
-            {
 
-                if (CanAttack)
+            else if (Mathf.Abs(mouseXMove2) < 0.2f)
+            {
                 {
-                    if (canStab2)
+
+                    if (CanAttack)
                     {
-                        canStab2 = false;
-                        SwordAttackS();
-                        
+                        if (canStab2)
+                        {
+                            print("stab2");
+                            canStab2 = false;
+
+                            SwordAttackS();
+
+
+                        }
                     }
                 }
             }
+
+       
         }
 
-        
+
+
+
 
     }
 

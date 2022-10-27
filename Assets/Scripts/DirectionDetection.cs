@@ -60,7 +60,7 @@ public class DirectionDetection : MonoBehaviour
         fromRight = true;
         fromLeft = false;
         fromCentre = false;
-       // CanAttack = false;
+        CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -76,11 +76,11 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = true;
         fromRight = false;
         fromCentre = false;
-       // CanAttack = false;
+        CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
         AudioSource ac = GetComponent<AudioSource>();
-        ac.PlayOneShot(SwordAttackSound);
+       ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
     }
 
@@ -93,11 +93,11 @@ public class DirectionDetection : MonoBehaviour
         fromRight = false;
         fromLeft = false;
         fromCentre = true;
-        // CanAttack = false;
+         CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
-        ac.PlayOneShot(SwordAttackSound);
+      ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
         
     }
@@ -296,7 +296,7 @@ public class DirectionDetection : MonoBehaviour
 
     IEnumerator ResetAttackBool()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         isAttacking = false;
         print("resetattackbool");
     }

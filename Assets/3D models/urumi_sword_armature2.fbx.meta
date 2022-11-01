@@ -1,12 +1,27 @@
 fileFormatVersion: 2
-guid: cf7a199b37135dc459907a9b0bd9560b
+guid: 8cc4c2c4291658b4c8c5b043a34c2752
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable:
   - first:
       74: -4292799828444799959
     second: Armature.001|Whip Snap
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.011
+    second: {fileID: 2100000, guid: 3861b7b34152375489a671b77f9f3118, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.012
+    second: {fileID: 2100000, guid: 8b3f383118461c346a5dbba216612d43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.013
+    second: {fileID: 2100000, guid: 1b164da79e5884e419f6af7b1e6643a1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -114,11 +114,13 @@ public class DirectionDetection : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             
-             mouseXStart = CamController.yRotation; 
+             mouseXStart = CamController.yRotation;
             // mouseYStart = mousePos.y;
-            
-            tr.emitting = true;
-            canStab = true;
+            if (CanAttack)
+            {
+                tr.emitting = true;
+                canStab = true;
+            }
 
 
         }
@@ -195,7 +197,10 @@ public class DirectionDetection : MonoBehaviour
             cam2.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
             orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
             // mouseYStart = mousePos.y;
-            tr.emitting = true;
+            if (CanAttack)
+            {
+                tr.emitting = true;
+            }
             
 
         }

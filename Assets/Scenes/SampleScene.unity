@@ -442,6 +442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: urumi_sword_armature2 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b37a04952f97d454791ede802a32e6f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2090680735061876697, guid: b37a04952f97d454791ede802a32e6f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 9.743139
@@ -545,6 +549,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &131546650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131546648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 146936c3f8bea9744a8c01a9d55f4b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitParticle: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
+--- !u!64 &131546651
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131546648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &151446122
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,14 +599,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151446122}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7773822, y: -0.0000000074505797, z: 0.000000005587935, w: -0.6290286}
+  m_LocalPosition: {x: 0, y: 76.55158, z: 14.075296}
+  m_LocalScale: {x: 71.18343, y: 71.183426, z: 71.18342}
   m_Children:
   - {fileID: 131546647}
   - {fileID: 1682069412}
   - {fileID: 754186746}
-  m_Father: {fileID: 1687258585}
+  m_Father: {fileID: 622376653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &397570326 stripped
@@ -660,7 +691,7 @@ RectTransform:
   m_GameObject: {fileID: 425827155}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.51695085, y: 0.51695085, z: 0.51695085}
+  m_LocalScale: {x: 0.1292377, y: 0.1292377, z: 0.1292377}
   m_Children: []
   m_Father: {fileID: 918746378}
   m_RootOrder: 0
@@ -920,7 +951,8 @@ Transform:
   m_LocalRotation: {x: 0.7773822, y: 0.0000000074505797, z: -0.000000005587935, w: -0.6290286}
   m_LocalPosition: {x: 0, y: 0.030999929, z: 1.0930002}
   m_LocalScale: {x: 0.014048214, y: 0.014048212, z: 0.014048209}
-  m_Children: []
+  m_Children:
+  - {fileID: 151446123}
   m_Father: {fileID: 1478228159}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 257.957, y: 0, z: 0}
@@ -1232,13 +1264,14 @@ GameObject:
   - component: {fileID: 754214364}
   - component: {fileID: 754214365}
   - component: {fileID: 754214366}
+  - component: {fileID: 754214367}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &754214363
 Animator:
   serializedVersion: 3
@@ -1267,7 +1300,7 @@ BoxCollider:
   m_GameObject: {fileID: 754214362}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.13258666, y: 0.57, z: 0.6992886}
   m_Center: {x: 0.000032414082, y: 0.25, z: -0.23311874}
@@ -1297,6 +1330,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitParticle: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
+--- !u!64 &754214367
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754214362}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 3f6f5cc41e1179f4d81c25bfd5bf78eb, type: 3}
 --- !u!1001 &917707912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1482,6 +1529,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &953206235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8416272007918961125, guid: b37a04952f97d454791ede802a32e6f8, type: 3}
+  m_PrefabInstance: {fileID: 131546646}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &953206238
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953206235}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &953206239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953206235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 146936c3f8bea9744a8c01a9d55f4b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitParticle: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
 --- !u!1001 &1031945236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1780,7 +1859,7 @@ Transform:
   m_Children:
   - {fileID: 622376653}
   m_Father: {fileID: 1687258585}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20.146, y: 195.09, z: 0.001}
 --- !u!114 &1478228160
 MonoBehaviour:
@@ -2122,7 +2201,6 @@ Transform:
   m_LocalPosition: {x: 2.32, y: 1.203, z: 3.738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 151446123}
   - {fileID: 1478228159}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2186,7 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e94a6756914ac4091f13d6144657af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sword: {fileID: 131546648}
+  Sword: {fileID: 754214362}
   Urumi: {fileID: 0}
   Shield: {fileID: 0}
   mouseYMove: 0

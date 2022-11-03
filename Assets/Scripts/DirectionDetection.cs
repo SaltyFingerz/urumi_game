@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class DirectionDetection : MonoBehaviour
 {
-
+    public GameObject lastHit;
+    public GameObject HitParticle;
+    RaycastHit whatHit;
+    public Vector3 collision = Vector3.zero;
+    public Vector3 target = new Vector3(0, 0, 10);
+    public LayerMask layer;
     public GameObject Sword, Urumi, Shield;
 
     public static float mouseXMove;
@@ -24,12 +29,16 @@ public class DirectionDetection : MonoBehaviour
     private float xRotation;
 
     public bool CanAttack = true;
-    public float AttackCooldown = 1.0f;
+    public static bool ShouldAttack = false; //this is so that it only attacks when it had made a strike path first.
+    public float AttackCooldown = 0.1f;
     public AudioClip SwordAttackSound;
-    public bool isAttacking = false;
-    public bool fromRight = false;
-    public bool fromLeft = false;
-    public bool fromCentre = false;
+    public static bool isAttacking = false;
+    public static bool fromRight = false;
+    public static bool fromLeft = false;
+    public static bool fromCentre = false;
+
+    public static bool enemyHit = false;
+
     public bool canStab = false;
     public bool canStab2 = false;
 
@@ -101,24 +110,59 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
         
     }
+
+    private void OnDrawGizmos()
+    {
+
+        if (whatHit.collider.gameObject.CompareTag("Enemy"))
+        {
+            Gizmos.color = Color.red;
+        }
+        else
+        { Gizmos.color = Color.green; }
+
+       Gizmos.DrawWireSphere(collision, radius: 0.5f);
+        Gizmos.DrawLine(transform.position, collision);
+    }
     // Update is called once per frame
     void Update()
     {
 
-        print(canStab2);
+        //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
+
+
+        var ray = new Ray(origin: this.transform.position, direction: this.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out whatHit, maxDistance: 5))
+        {
+            //lastHit = hit.transform.gameObject;
+            collision = whatHit.point;
+        }
+
+
+        
+
+
 
             eulerAngY = cam.transform.localEulerAngles.y;
 
         //Vector3 mousePos = Input.mousePosition;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             
-             mouseXStart = CamController.yRotation;
+            
             // mouseYStart = mousePos.y;
             if (CanAttack)
             {
+                if (whatHit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    enemyHit = true;
+                }
+                    mouseXStart = CamController.yRotation;
+                Time.timeScale = 0.5f;
                 tr.emitting = true;
+                ShouldAttack = true; //it should only attack if the trail has been emitted.
                 canStab = true;
             }
 
@@ -127,12 +171,16 @@ public class DirectionDetection : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-
-            mouseXEnd = CamController.yRotation;
-            // mouseYEnd = mousePos.y;
-
-            mouseXMove = (mouseXEnd - mouseXStart);
-            print(mouseXMove);
+            
+            Time.timeScale = 1f;
+            if (CanAttack)
+            {
+                mouseXEnd = CamController.yRotation;
+                // mouseYEnd = mousePos.y;
+            }
+                mouseXMove = (mouseXEnd - mouseXStart);
+            
+           
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
@@ -142,7 +190,7 @@ public class DirectionDetection : MonoBehaviour
             {
                 if (mouseXMove < 0)
                 {
-                    if (CanAttack)
+                    if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
                     {
                         SwordAttackR();
                     }
@@ -150,7 +198,7 @@ public class DirectionDetection : MonoBehaviour
 
                 else if (mouseXMove > 0)
                 {
-                    if (CanAttack)
+                    if (ShouldAttack)
                     {
                         SwordAttackL();
                     }
@@ -163,24 +211,66 @@ public class DirectionDetection : MonoBehaviour
                 
                     {
 
-                        if (CanAttack)
+                        if (ShouldAttack)
                         {
                             if (canStab)
                             {
-                        print("stab1");
+                        
                                 SwordAttackS();
                                 canStab = false;
                             }
                         }
                     }
-                
+
+
+            if (enemyHit)
+            {
+                if (whatHit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                    HitParticle.SetActive(true);
+                    if (fromRight)
+                    {
+                        print("hurt from right");
+                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
+                            transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
+                       // EnemyController.EnemyHealth = -1;
+
+                    }
+                    else if (fromLeft)
+                    {
+                        print("hurt from left");
+                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
+                            transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+                     //   EnemyController.EnemyHealth = -1;
+
+
+                    }
+
+                    else if (fromCentre)
+                    {
+
+                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
+                            transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+                     //   EnemyController.EnemyHealth = -3;
+
+
+                    }
+                }
+            }
+            enemyHit = false;
+
         }
         //for right mouse button - camera not moving
 
         if (Input.GetMouseButtonDown(1))
         {
-            mouseXStart2 = CamController.yRotation2;
-            canStab2 = true;
+            if (CanAttack)
+            {
+                mouseXStart2 = CamController.yRotation2;
+
+                canStab2 = true;
+            }
         }
 
         
@@ -188,8 +278,11 @@ public class DirectionDetection : MonoBehaviour
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
-            mouseXStart = CamController.yRotation2;
 
+            if (CanAttack)
+            {
+                mouseXStart = CamController.yRotation2;
+            }
             
             
             CamController.xRotation2 = Mathf.Clamp(CamController.xRotation2, -90f, 90f);
@@ -200,6 +293,7 @@ public class DirectionDetection : MonoBehaviour
             if (CanAttack)
             {
                 tr.emitting = true;
+                ShouldAttack = true;
             }
             
 
@@ -226,25 +320,25 @@ public class DirectionDetection : MonoBehaviour
 
             CamController.sensX = 1000;
             CamController.sensY = 1000;
-
-            mouseXEnd = CamController.yRotation2;
-            // mouseYEnd = mousePos.y;
-
+            if (CanAttack)
+            {
+                mouseXEnd = CamController.yRotation2;
+                // mouseYEnd = mousePos.y;
+            }
             mouseXMove = (mouseXStart - mouseXEnd); //the reverse of the dynamic attack is used in the static attack here
             mouseXMove2 = (mouseXStart2 - mouseXEnd); // this is to check the single value from the mousebuttonDown for determining if it is a stab or not.
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
 
-            print("xrotation is" + CamController.xRotation + "xrotation2 is" + CamController.xRotation2);
-            print("yrotation is" + CamController.yRotation + "yrotation2 is" + CamController.yRotation2);
+            
 
             if (Mathf.Abs(mouseXMove2) > 0.2f)
             {
 
                 if (mouseXMove < 0)
                 {
-                    if (CanAttack)
+                    if (ShouldAttack)
                     {
                         canStab2 = false;
                         SwordAttackR();
@@ -253,7 +347,7 @@ public class DirectionDetection : MonoBehaviour
 
                 else if (mouseXMove > 0)
                 {
-                    if (CanAttack)
+                    if (ShouldAttack)
                     {
                         canStab2 = false;
                         SwordAttackL();
@@ -265,11 +359,11 @@ public class DirectionDetection : MonoBehaviour
             {
                 {
 
-                    if (CanAttack)
+                    if (ShouldAttack)
                     {
                         if (canStab2)
                         {
-                            print("stab2");
+                            
                             canStab2 = false;
 
                             SwordAttackS();
@@ -292,18 +386,19 @@ public class DirectionDetection : MonoBehaviour
 
     IEnumerator ResetAttackCooldown()
     {
-
+        ShouldAttack = false;
         StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
         CanAttack = true;
-        print("resetattackcooldown");
+        
+       
     }
 
     IEnumerator ResetAttackBool()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.1f);
         isAttacking = false;
-        print("resetattackbool");
+        
     }
 
 

@@ -40,8 +40,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+     
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+       
+        
+
         //when to jump
         if(Input.GetKey(jumpKey) && readyToJump && grounded)
         {
@@ -95,7 +99,14 @@ public class PlayerMovement : MonoBehaviour
     {
         //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
+        if (DirectionDetection.ShouldAttack)
+        {
+            moveSpeed = 0f;
+        }
+        else
+        {
+            moveSpeed = 7f;
+        }
         MyInput();
         SpeedControl();
 

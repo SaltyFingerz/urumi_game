@@ -9,7 +9,7 @@ public class DirectionDetection : MonoBehaviour
     RaycastHit whatHit;
     public Vector3 collision = Vector3.zero;
     public Vector3 target = new Vector3(0, 0, 10);
-    public LayerMask layer;
+   
     public GameObject Sword, Urumi, Shield;
 
     public static float mouseXMove;
@@ -129,11 +129,11 @@ public class DirectionDetection : MonoBehaviour
     {
 
         //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
-
-
+        int mask = 1 << LayerMask.NameToLayer("Default");
+        //mask |= 1 << LayerMask.NameToLayer("Enemy"); //this is for adding additional layers
         var ray = new Ray(origin: this.transform.position, direction: this.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out whatHit, maxDistance: 5))
+        if (Physics.Raycast(ray, out whatHit, maxDistance: 5, mask )) //mask is used so that the raycast does not detect the sword/weapon
         {
             //lastHit = hit.transform.gameObject;
             collision = whatHit.point;
@@ -155,15 +155,18 @@ public class DirectionDetection : MonoBehaviour
             // mouseYStart = mousePos.y;
             if (CanAttack)
             {
-                if (whatHit.collider.gameObject.CompareTag("Enemy"))
-                {
-                    enemyHit = true;
-                }
+               
+               
                     mouseXStart = CamController.yRotation;
                 Time.timeScale = 0.5f;
                 tr.emitting = true;
                 ShouldAttack = true; //it should only attack if the trail has been emitted.
                 canStab = true;
+
+                if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. 
+                {
+                    enemyHit = true;
+                }
             }
 
 

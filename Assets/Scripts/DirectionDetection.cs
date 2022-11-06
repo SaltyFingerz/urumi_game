@@ -150,13 +150,10 @@ public class DirectionDetection : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            
-            
             // mouseYStart = mousePos.y;
             if (CanAttack)
             {
-               
-               
+
                     mouseXStart = CamController.yRotation;
                 Time.timeScale = 0.5f;
                 tr.emitting = true;
@@ -234,19 +231,19 @@ public class DirectionDetection : MonoBehaviour
                     HitParticle.SetActive(true);
                     if (fromRight)
                     {
-                        print("hurt from right");
+                        
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
-                       // EnemyController.EnemyHealth = -1;
-
+                        EnemyController.EnemyHealth -= -1;
+                        print("enemy health" + EnemyController.EnemyHealth);
                     }
                     else if (fromLeft)
                     {
-                        print("hurt from left");
+                        
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
-                     //   EnemyController.EnemyHealth = -1;
-
+                        EnemyController.EnemyHealth -= 1;
+                        print("enemy health" + EnemyController.EnemyHealth);
 
                     }
 
@@ -255,8 +252,8 @@ public class DirectionDetection : MonoBehaviour
 
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
                             transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
-                     //   EnemyController.EnemyHealth = -3;
-
+                        EnemyController.EnemyHealth -= 3;
+                        print("enemy health" + EnemyController.EnemyHealth);
 
                     }
                 }

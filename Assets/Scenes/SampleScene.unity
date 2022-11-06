@@ -692,7 +692,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397570326}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4453572ec3639884fa268303c3042c73, type: 3}
   m_Name: 
@@ -1897,9 +1897,6 @@ MonoBehaviour:
   HitParticle: {fileID: 0}
   collision: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 10}
-  layer:
-    serializedVersion: 2
-    m_Bits: 0
   Sword: {fileID: 754214362}
   Urumi: {fileID: 0}
   Shield: {fileID: 0}
@@ -2291,9 +2288,6 @@ MonoBehaviour:
   HitParticle: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
   collision: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 10}
-  layer:
-    serializedVersion: 2
-    m_Bits: 1045
   Sword: {fileID: 754214362}
   Urumi: {fileID: 0}
   Shield: {fileID: 0}

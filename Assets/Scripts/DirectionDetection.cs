@@ -32,6 +32,7 @@ public class DirectionDetection : MonoBehaviour
     public static bool ShouldAttack = false; //this is so that it only attacks when it had made a strike path first.
     public float AttackCooldown = 0.1f;
     public AudioClip SwordAttackSound;
+    public AudioClip WhipAttackSound;
     public static bool isAttacking = false;
     public static bool fromRight = false;
     public static bool fromLeft = false;
@@ -45,6 +46,8 @@ public class DirectionDetection : MonoBehaviour
 
     public GameObject targetPoint;
     private TrailRenderer tr;
+    private bool SwordActive = true;
+    private bool UrumiActive = false; 
 
     public Transform orientation;
 
@@ -111,6 +114,56 @@ public class DirectionDetection : MonoBehaviour
         
     }
 
+    public void UrumiAttackR()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = true;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackR");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiAttackL()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromLeft = true;
+        fromRight = false;
+        fromCentre = false;
+        CanAttack = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackL");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+
+    public void UrumiAttackS()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = true;
+        CanAttack = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackS");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+
+    }
+
     private void OnDrawGizmos()
     {
 
@@ -133,10 +186,22 @@ public class DirectionDetection : MonoBehaviour
         //mask |= 1 << LayerMask.NameToLayer("Enemy"); //this is for adding additional layers
         var ray = new Ray(origin: this.transform.position, direction: this.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out whatHit, maxDistance: 5, mask )) //mask is used so that the raycast does not detect the sword/weapon
+        if (SwordActive)
         {
-            //lastHit = hit.transform.gameObject;
-            collision = whatHit.point;
+            if (Physics.Raycast(ray, out whatHit, maxDistance: 3, mask)) //mask is used so that the raycast does not detect the sword/weapon
+            {
+                //lastHit = hit.transform.gameObject;
+                collision = whatHit.point;
+            }
+        }
+        else if (UrumiActive) // a different raycast is used for the urumi, with a larger max distance to detect attacks from a further distance as the urumi sword is longer than the standard sword.
+        {
+            if (Physics.Raycast(ray, out whatHit, maxDistance: 10, mask)) //mask is used so that the raycast does not detect the sword/weapon
+            {
+                //lastHit = hit.transform.gameObject;
+                collision = whatHit.point;
+            }
+
         }
 
 
@@ -147,6 +212,38 @@ public class DirectionDetection : MonoBehaviour
             eulerAngY = cam.transform.localEulerAngles.y;
 
         //Vector3 mousePos = Input.mousePosition;
+
+        //To Change Weapon:
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            if(SwordActive)
+            {
+                
+                UrumiActive = true;
+                SwordActive = false;
+            }
+
+            else if (UrumiActive)
+            {
+                
+                SwordActive = true;
+                UrumiActive = false;
+            }
+        }
+
+        if (SwordActive)
+        {
+            Urumi.SetActive(false);
+            Sword.SetActive(true);
+            
+        }
+
+        else if (UrumiActive)
+        {
+            Sword.SetActive(false);
+            Urumi.SetActive(true);
+        }
 
         if (Input.GetMouseButton(0))
         {
@@ -192,7 +289,10 @@ public class DirectionDetection : MonoBehaviour
                 {
                     if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
                     {
-                        SwordAttackR();
+                        if (SwordActive)
+                            SwordAttackR();
+                        else if (UrumiActive)
+                            UrumiAttackR();
                     }
                 }
 
@@ -200,7 +300,10 @@ public class DirectionDetection : MonoBehaviour
                 {
                     if (ShouldAttack)
                     {
+                        if (SwordActive)
                         SwordAttackL();
+                         else if (UrumiActive)
+                            UrumiAttackL();
                     }
                 }
             }
@@ -211,14 +314,21 @@ public class DirectionDetection : MonoBehaviour
                 
                     {
 
-                        if (ShouldAttack)
+                     if (ShouldAttack)
+                      {
+                        if (canStab)
+                       {
+                        if (SwordActive)
                         {
-                            if (canStab)
-                            {
-                        
-                                SwordAttackS();
-                                canStab = false;
-                            }
+                            SwordAttackS();
+                            canStab = false;
+                        }
+                        else if (UrumiActive)
+                        {
+                            UrumiAttackS();
+                            canStab = false;
+                        }
+                        }
                         }
                     }
 
@@ -234,7 +344,10 @@ public class DirectionDetection : MonoBehaviour
                         
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
-                        EnemyController.EnemyHealth -= -1;
+                        if (SwordActive)
+                        EnemyController.EnemyHealth -= 1;
+                        else if (UrumiActive)
+                            EnemyController.EnemyHealth -= 2;
                         print("enemy health" + EnemyController.EnemyHealth);
                     }
                     else if (fromLeft)
@@ -242,7 +355,10 @@ public class DirectionDetection : MonoBehaviour
                         
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
-                        EnemyController.EnemyHealth -= 1;
+                        if (SwordActive)
+                            EnemyController.EnemyHealth -= 1;
+                        else if (UrumiActive)
+                            EnemyController.EnemyHealth -= 2;
                         print("enemy health" + EnemyController.EnemyHealth);
 
                     }
@@ -252,7 +368,10 @@ public class DirectionDetection : MonoBehaviour
 
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
                             transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
-                        EnemyController.EnemyHealth -= 3;
+                        if (SwordActive)
+                            EnemyController.EnemyHealth -= 2;
+                        else if (UrumiActive)
+                            EnemyController.EnemyHealth -= 4;
                         print("enemy health" + EnemyController.EnemyHealth);
 
                     }

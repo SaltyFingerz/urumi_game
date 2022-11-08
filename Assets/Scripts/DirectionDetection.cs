@@ -48,6 +48,8 @@ public class DirectionDetection : MonoBehaviour
     private TrailRenderer tr;
     private bool SwordActive = true;
     private bool UrumiActive = false; 
+    
+    private bool UrumiHit = false;
 
     public Transform orientation;
 
@@ -130,6 +132,24 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void UrumiHitR()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = true;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("HitR");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+
+
     public void UrumiAttackL()
     {
         canStab = false;
@@ -141,6 +161,22 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiHitL()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = true;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("HitL");
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(WhipAttackSound);
         StartCoroutine(ResetAttackCooldown());
@@ -164,19 +200,19 @@ public class DirectionDetection : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
-    {
+    /* private void OnDrawGizmos()
+     {
 
-        if (whatHit.collider.gameObject.CompareTag("Enemy"))
-        {
-            Gizmos.color = Color.red;
-        }
-        else
-        { Gizmos.color = Color.green; }
+         if (whatHit.collider.gameObject.CompareTag("Enemy"))
+         {
+             Gizmos.color = Color.red;
+         }
+         else
+         { Gizmos.color = Color.green; }
 
-       Gizmos.DrawWireSphere(collision, radius: 0.5f);
-        Gizmos.DrawLine(transform.position, collision);
-    }
+        Gizmos.DrawWireSphere(collision, radius: 0.5f);
+         Gizmos.DrawLine(transform.position, collision);
+     }*/
     // Update is called once per frame
     void Update()
     {
@@ -245,21 +281,37 @@ public class DirectionDetection : MonoBehaviour
             Urumi.SetActive(true);
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (CanAttack)
+            {
+
+                mouseXStart = CamController.yRotation;
+                ShouldAttack = true; //it should only attack if the trail has been emitted.
+                canStab = true;
+            }
+        }
+
         if (Input.GetMouseButton(0))
         {
             // mouseYStart = mousePos.y;
             if (CanAttack)
             {
 
-                    mouseXStart = CamController.yRotation;
+                 
                 Time.timeScale = 0.5f;
                 tr.emitting = true;
-                ShouldAttack = true; //it should only attack if the trail has been emitted.
-                canStab = true;
-
-                if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. 
+                
+                if (whatHit.collider != null)
                 {
-                    enemyHit = true;
+                    if (UrumiActive)
+                    {
+                        UrumiHit = true;
+                    }
+                    if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. 
+                    {
+                        enemyHit = true;
+                    }
                 }
             }
 
@@ -292,7 +344,12 @@ public class DirectionDetection : MonoBehaviour
                         if (SwordActive)
                             SwordAttackR();
                         else if (UrumiActive)
-                            UrumiAttackR();
+                        {
+                            if (!UrumiHit)
+                                UrumiAttackR();
+                            else if (UrumiHit)
+                                UrumiHitR();
+                        }
                     }
                 }
 
@@ -301,9 +358,14 @@ public class DirectionDetection : MonoBehaviour
                     if (ShouldAttack)
                     {
                         if (SwordActive)
-                        SwordAttackL();
-                         else if (UrumiActive)
-                            UrumiAttackL();
+                            SwordAttackL();
+                        else if (UrumiActive)
+                        {
+                            if (!UrumiHit)
+                                UrumiAttackL();
+                            else if (UrumiHit)
+                                UrumiHitL();
+                        }
                     }
                 }
             }
@@ -509,6 +571,7 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
         CanAttack = true;
+        UrumiHit = false;
         
        
     }

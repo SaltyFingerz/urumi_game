@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b37a04952f97d454791ede802a32e6f8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2090680735061876697, guid: b37a04952f97d454791ede802a32e6f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1318,7 +1318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754214362}
   m_LocalRotation: {x: 0.10764727, y: -0.8127846, z: -0.5675748, w: -0.075181104}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0.048, y: 2.043, z: 0.063}
   m_LocalScale: {x: 2.7717714, y: 2.411816, z: 2.7385979}
   m_Children: []
   m_Father: {fileID: 151446123}
@@ -1345,7 +1345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &754214363
 Animator:
   serializedVersion: 3
@@ -1941,7 +1941,6 @@ MonoBehaviour:
   Sword: {fileID: 754214362}
   Urumi: {fileID: 131546648}
   Shield: {fileID: 0}
-  mouseYMove: 0
   mouseXStart: 0
   mouseXStart2: 0
   mouseXEnd: 0
@@ -2329,7 +2328,6 @@ MonoBehaviour:
   Sword: {fileID: 754214362}
   Urumi: {fileID: 131546648}
   Shield: {fileID: 0}
-  mouseYMove: 0
   mouseXStart: 0
   mouseXStart2: 0
   mouseXEnd: 0

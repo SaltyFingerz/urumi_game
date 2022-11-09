@@ -14,15 +14,17 @@ public class DirectionDetection : MonoBehaviour
 
     public static float mouseXMove;
     public static float mouseXMove2;
+    public static float mouseYMove;
 
-    [SerializeField]
-    public float mouseYMove;
+   
     [SerializeField]
     private float mouseXStart;
+    private float mouseYStart;
     [SerializeField]
     private float mouseXStart2;
     [SerializeField]
     private float mouseXEnd;
+    private float mouseYEnd;
 
     public GameObject cam;
     public GameObject cam2;
@@ -37,7 +39,7 @@ public class DirectionDetection : MonoBehaviour
     public static bool fromRight = false;
     public static bool fromLeft = false;
     public static bool fromCentre = false;
-
+    public static bool fromBelow = false;
     public static bool enemyHit = false;
 
     public bool canStab = false;
@@ -74,6 +76,7 @@ public class DirectionDetection : MonoBehaviour
         fromRight = true;
         fromLeft = false;
         fromCentre = false;
+        fromBelow = false;
         CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
@@ -81,6 +84,8 @@ public class DirectionDetection : MonoBehaviour
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
     }
+
+
 
     public void SwordAttackL()
     {
@@ -91,6 +96,7 @@ public class DirectionDetection : MonoBehaviour
         fromRight = false;
         fromCentre = false;
         CanAttack = false;
+        fromBelow = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -108,12 +114,31 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = true;
          CanAttack = false;
+        fromBelow = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
       ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
         
+    }
+
+    public void SwordAttackUC()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromBelow = true;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackUC");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+
     }
 
     public void UrumiAttackR()
@@ -125,6 +150,7 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
+        fromBelow = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -140,6 +166,7 @@ public class DirectionDetection : MonoBehaviour
         fromRight = true;
         fromLeft = false;
         fromCentre = false;
+        fromBelow = false;
         CanAttack = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("HitR");
@@ -158,6 +185,7 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = true;
         fromRight = false;
         fromCentre = false;
+        fromBelow = false;
         CanAttack = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
@@ -174,6 +202,7 @@ public class DirectionDetection : MonoBehaviour
         fromRight = true;
         fromLeft = false;
         fromCentre = false;
+        fromBelow = false;
         CanAttack = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("HitL");
@@ -191,6 +220,7 @@ public class DirectionDetection : MonoBehaviour
         fromRight = false;
         fromLeft = false;
         fromCentre = true;
+        fromBelow = false;
         CanAttack = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
@@ -287,6 +317,7 @@ public class DirectionDetection : MonoBehaviour
             {
 
                 mouseXStart = CamController.yRotation;
+                mouseYStart = CamController.xRotation;
                 ShouldAttack = true; //it should only attack if the trail has been emitted.
                 canStab = true;
             }
@@ -325,18 +356,31 @@ public class DirectionDetection : MonoBehaviour
             if (CanAttack)
             {
                 mouseXEnd = CamController.yRotation;
+                mouseYEnd = CamController.xRotation;
                 // mouseYEnd = mousePos.y;
             }
                 mouseXMove = (mouseXEnd - mouseXStart);
+            mouseYMove = (mouseYEnd = mouseYStart);
             
            
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
 
+         /*   if (Mathf.Abs(mouseYMove) > 0.2f)
+            {
+                if (mouseYMove > 0)
+                    if (ShouldAttack)
+                    {
+                        if (SwordActive)
+                            SwordAttackUC();
+                    }
+            } */
 
             if (Mathf.Abs(mouseXMove) > 0.2f)
             {
+                
+
                 if (mouseXMove < 0)
                 {
                     if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
@@ -371,7 +415,7 @@ public class DirectionDetection : MonoBehaviour
             }
 
 
-            else if (Mathf.Abs(mouseXMove) < 0.2f)
+            else if (Mathf.Abs(mouseXMove) < 0.2f && Mathf.Abs(mouseYMove) < 0.2f)
                 
                 
                     {

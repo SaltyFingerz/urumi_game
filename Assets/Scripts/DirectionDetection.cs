@@ -407,10 +407,11 @@ public class DirectionDetection : MonoBehaviour
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
                         if (SwordActive)
-                        EnemyController.EnemyHealth -= 1;
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
+                        
                         else if (UrumiActive)
-                            EnemyController.EnemyHealth -= 2;
-                        print("enemy health" + EnemyController.EnemyHealth);
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        
                     }
                     else if (fromLeft)
                     {
@@ -418,10 +419,10 @@ public class DirectionDetection : MonoBehaviour
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
                         if (SwordActive)
-                            EnemyController.EnemyHealth -= 1;
-                        else if (UrumiActive)
-                            EnemyController.EnemyHealth -= 2;
-                        print("enemy health" + EnemyController.EnemyHealth);
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                         else if (UrumiActive)
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                       
 
                     }
 
@@ -431,10 +432,10 @@ public class DirectionDetection : MonoBehaviour
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
                             transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
                         if (SwordActive)
-                            EnemyController.EnemyHealth -= 2;
-                        else if (UrumiActive)
-                            EnemyController.EnemyHealth -= 4;
-                        print("enemy health" + EnemyController.EnemyHealth);
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(2);
+                         else if (UrumiActive)
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(4);
+
 
                     }
                 }

@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        print(EnemyHealth);
         if(EnemyHealth <= 0)
         {
             Destroy(gameObject);

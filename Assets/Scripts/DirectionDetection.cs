@@ -33,6 +33,7 @@ public class DirectionDetection : MonoBehaviour
     public float AttackCooldown = 0.1f;
     public AudioClip SwordAttackSound;
     public AudioClip WhipAttackSound;
+    public AudioClip SwordClashSound;
     public static bool isAttacking = false;
     public static bool fromRight = false;
     public static bool fromLeft = false;
@@ -82,6 +83,22 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void SwordClashR()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = true;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("ClashR");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
     public void SwordAttackL()
     {
         canStab = false;
@@ -98,6 +115,21 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void SwordClashL()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = true;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("ClashL");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
 
     public void SwordAttackS()
     {
@@ -312,6 +344,7 @@ public class DirectionDetection : MonoBehaviour
                     {
                         enemyHit = true;
                     }
+
                 }
             }
 
@@ -342,7 +375,14 @@ public class DirectionDetection : MonoBehaviour
                     if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
                     {
                         if (SwordActive)
-                            SwordAttackR();
+                        {
+                            if (whatHit.collider.gameObject.name.Contains("right"))
+                            {
+                                SwordClashR();
+                            }
+                            else
+                                SwordAttackR();
+                        }
                         else if (UrumiActive)
                         {
                             if (!UrumiHit)
@@ -358,7 +398,14 @@ public class DirectionDetection : MonoBehaviour
                     if (ShouldAttack)
                     {
                         if (SwordActive)
+                        {
+                            if(whatHit.collider.gameObject.name.Contains("left"))
+                            {
+                                SwordClashL();
+                            }
+                            else
                             SwordAttackL();
+                        }
                         else if (UrumiActive)
                         {
                             if (!UrumiHit)
@@ -399,42 +446,51 @@ public class DirectionDetection : MonoBehaviour
             {
                 if (whatHit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
-                    HitParticle.SetActive(true);
+                    
                     if (fromRight)
                     {
-                        
-                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
+
+                        if (!whatHit.collider.gameObject.name.Contains("right"))
+                        {
+                            whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                            HitParticle.SetActive(true);
+                            Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
-                        if (SwordActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
-                        
-                        else if (UrumiActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+
+                            if (SwordActive)
+                                whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
+
+                            else if (UrumiActive)
+                                whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        }
                         
                     }
                     else if (fromLeft)
                     {
-                        
-                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
-                            transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
-                        if (SwordActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
-                         else if (UrumiActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
-                       
-
+                        if (!whatHit.collider.gameObject.name.Contains("left"))
+                        {
+                            whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                            HitParticle.SetActive(true);
+                            Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
+                                transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+                            if (SwordActive)
+                                whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                            else if (UrumiActive)
+                                whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        }
                     }
 
-                    else if (fromCentre)
+                    else if (fromCentre && !whatHit.collider.gameObject.name.Contains("center"))
                     {
-
+                        
+                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                        HitParticle.SetActive(true);
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
                             transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
                         if (SwordActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(2);
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
                          else if (UrumiActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(4);
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
 
 
                     }

@@ -44,6 +44,7 @@ public class DirectionDetection : MonoBehaviour
     public bool canStab = false;
     public bool canStab2 = false;
 
+    
 
     public GameObject targetPoint;
     private TrailRenderer tr;
@@ -69,6 +70,8 @@ public class DirectionDetection : MonoBehaviour
     }
     public void SwordAttackR()
     {
+
+        ShouldAttack = false;
         canStab = false;
         canStab2 = false;
         isAttacking = true;
@@ -85,6 +88,7 @@ public class DirectionDetection : MonoBehaviour
 
     public void SwordClashR()
     {
+        ShouldAttack = false;
         canStab = false;
         canStab2 = false;
         isAttacking = true;
@@ -101,6 +105,7 @@ public class DirectionDetection : MonoBehaviour
 
     public void SwordAttackL()
     {
+        ShouldAttack = false;
         canStab = false;
         canStab2 = false;
         isAttacking = true;
@@ -117,11 +122,12 @@ public class DirectionDetection : MonoBehaviour
 
     public void SwordClashL()
     {
+        ShouldAttack = false;
         canStab = false;
         canStab2 = false;
         isAttacking = true;
-        fromRight = true;
-        fromLeft = false;
+        fromRight = false;
+        fromLeft = true;
         fromCentre = false;
         CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
@@ -133,6 +139,7 @@ public class DirectionDetection : MonoBehaviour
 
     public void SwordAttackS()
     {
+        ShouldAttack = false;
         canStab = false;
         canStab2 = false;
         isAttacking = true;
@@ -248,6 +255,10 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            print(ShouldAttack);
+        }
 
         //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
         int mask = 1 << LayerMask.NameToLayer("Default");
@@ -283,34 +294,38 @@ public class DirectionDetection : MonoBehaviour
 
         //To Change Weapon:
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if(SwordActive)
+
+            if (SwordActive)
             {
-                
+
                 UrumiActive = true;
                 SwordActive = false;
             }
 
             else if (UrumiActive)
             {
-                
+
                 SwordActive = true;
                 UrumiActive = false;
             }
-        }
 
-        if (SwordActive)
-        {
-            Urumi.SetActive(false);
-            Sword.SetActive(true);
-            
-        }
+           
 
-        else if (UrumiActive)
-        {
-            Sword.SetActive(false);
-            Urumi.SetActive(true);
+            if (SwordActive)
+            {
+                Urumi.SetActive(false);
+                Sword.SetActive(true);
+
+            }
+
+            else if (UrumiActive)
+            {
+                Sword.SetActive(false);
+                Urumi.SetActive(true);
+            }
+
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -376,13 +391,21 @@ public class DirectionDetection : MonoBehaviour
                     {
                         if (SwordActive)
                         {
-                            if (whatHit.collider.gameObject.name.Contains("right"))
-                            {
-                                SwordClashR();
-                            }
-                            else
-                                SwordAttackR();
+
+                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("right"))
+                            { SwordAttackR();
                         }
+
+                        else if (whatHit.collider.gameObject.name.Contains("right"))
+                        {
+                            SwordClashR();
+                        }
+                        }
+
+                        
+                          
+                        
+
                         else if (UrumiActive)
                         {
                             if (!UrumiHit)
@@ -399,12 +422,16 @@ public class DirectionDetection : MonoBehaviour
                     {
                         if (SwordActive)
                         {
-                            if(whatHit.collider.gameObject.name.Contains("left"))
+                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("left"))
+                                {
+                                SwordAttackL();
+                            }
+                               else if (whatHit.collider.gameObject.name.Contains("left"))
                             {
                                 SwordClashL();
                             }
-                            else
-                            SwordAttackL();
+                           
+                           
                         }
                         else if (UrumiActive)
                         {
@@ -473,6 +500,7 @@ public class DirectionDetection : MonoBehaviour
                             HitParticle.SetActive(true);
                             Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
                                 transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+
                             if (SwordActive)
                                 whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
                             else if (UrumiActive)
@@ -640,6 +668,6 @@ public class DirectionDetection : MonoBehaviour
         
     }
 
-
+   
 }
 

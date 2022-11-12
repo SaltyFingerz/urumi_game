@@ -15,14 +15,20 @@ public class DirectionDetection : MonoBehaviour
     public static float mouseXMove;
     public static float mouseXMove2;
 
-    [SerializeField]
-    public float mouseYMove;
+    
+    public static float mouseYMove;
     [SerializeField]
     private float mouseXStart;
+    [SerializeField]
+    private float mouseYStart;
+    [SerializeField]
+    private float mouseYStart2;
     [SerializeField]
     private float mouseXStart2;
     [SerializeField]
     private float mouseXEnd;
+    [SerializeField]
+    private float mouseYEnd;
 
     public GameObject cam;
     public GameObject cam2;
@@ -38,7 +44,8 @@ public class DirectionDetection : MonoBehaviour
     public static bool fromRight = false;
     public static bool fromLeft = false;
     public static bool fromCentre = false;
-
+    public static bool fromOver = false;
+    public static bool fromUnder = false;
     public static bool enemyHit = false;
 
     public bool canStab = false;
@@ -79,6 +86,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -96,6 +105,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -113,6 +124,8 @@ public class DirectionDetection : MonoBehaviour
         fromRight = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -130,6 +143,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = true;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -147,6 +162,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = true;
          CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
@@ -154,7 +171,86 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
         
     }
+   
+    public void SwordAttackO()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = true;
+        fromUnder = false;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackO");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
 
+    }
+
+    public void SwordClashO()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = true;
+        fromUnder = false;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("ClashO");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+
+    }
+
+    public void SwordAttackU()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = false;
+        fromUnder = true;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackU");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+
+    }
+
+    public void SwordClashU()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = false;
+        fromUnder = true;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("ClashU");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+
+    }
     public void UrumiAttackR()
     {
         canStab = false;
@@ -164,6 +260,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -180,6 +278,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("HitR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -198,6 +298,8 @@ public class DirectionDetection : MonoBehaviour
         fromRight = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -214,6 +316,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("HitL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -231,6 +335,8 @@ public class DirectionDetection : MonoBehaviour
         fromLeft = false;
         fromCentre = true;
         CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
@@ -239,7 +345,7 @@ public class DirectionDetection : MonoBehaviour
 
     }
 
-    /* private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
      {
 
          if (whatHit.collider.gameObject.CompareTag("Enemy"))
@@ -334,6 +440,7 @@ public class DirectionDetection : MonoBehaviour
             {
 
                 mouseXStart = CamController.yRotation;
+                mouseYStart = CamController.xRotation;
                 ShouldAttack = true; //it should only attack if the trail has been emitted.
                 canStab = true;
             }
@@ -373,87 +480,162 @@ public class DirectionDetection : MonoBehaviour
             if (CanAttack)
             {
                 mouseXEnd = CamController.yRotation;
+                mouseYEnd = CamController.xRotation;
                 // mouseYEnd = mousePos.y;
             }
                 mouseXMove = (mouseXEnd - mouseXStart);
+            mouseYMove = (mouseYEnd - mouseYStart);
             
+           
            
             tr.emitting = false;
 
             // mouseYMove = mouseYEnd - mouseYStart;
-
-
-            if (Mathf.Abs(mouseXMove) > 0.2f)
+            if (Mathf.Abs(mouseYMove) < Mathf.Abs(mouseXMove))
             {
-                if (mouseXMove < 0)
+
+
+
+                if (Mathf.Abs(mouseXMove) >= 0.2f)
+                {
+                    if (mouseXMove < 0)
+                    {
+                        if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
+                        {
+                            if (SwordActive)
+                            {
+
+                                if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("right"))
+                                {
+                                    SwordAttackR();
+                                }
+
+                                else if (whatHit.collider.gameObject.name.Contains("right"))
+                                {
+                                    SwordClashR();
+                                }
+                            }
+
+
+
+
+
+                            else if (UrumiActive)
+                            {
+                                if (!UrumiHit)
+                                    UrumiAttackR();
+                                else if (UrumiHit)
+                                    UrumiHitR();
+                            }
+                        }
+                    }
+
+                    else if (mouseXMove > 0)
+                    {
+                        if (ShouldAttack)
+                        {
+                            if (SwordActive)
+                            {
+                                if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("left"))
+                                {
+                                    SwordAttackL();
+                                }
+                                else if (whatHit.collider.gameObject.name.Contains("left"))
+                                {
+                                    SwordClashL();
+                                }
+
+
+                            }
+                            else if (UrumiActive)
+                            {
+                                if (!UrumiHit)
+                                    UrumiAttackL();
+                                else if (UrumiHit)
+                                    UrumiHitL();
+                            }
+                        }
+                    }
+                }
+            }
+
+            else if (Mathf.Abs(mouseYMove) > Mathf.Abs(mouseXMove))
+            {
+                if (mouseYMove < 0)
                 {
                     if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
                     {
                         if (SwordActive)
                         {
+                            if (whatHit.collider != null && (whatHit.collider.gameObject.name.Contains("down") || whatHit.collider.gameObject.name.Contains("center")))
+                            {
+                                print("clash");
+                                SwordClashU();
+                            }
+                            else if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center")) //(whatHit.collider != null  || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center"))
+                            {
+                                print("uppercut");
+                                SwordAttackU();
+                            }
 
-                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("right"))
-                            { SwordAttackR();
+                            
                         }
 
-                        else if (whatHit.collider.gameObject.name.Contains("right"))
-                        {
-                            SwordClashR();
-                        }
-                        }
 
-                        
-                          
-                        
 
-                        else if (UrumiActive)
+
+
+                      /*  else if (UrumiActive)
                         {
                             if (!UrumiHit)
                                 UrumiAttackR();
                             else if (UrumiHit)
                                 UrumiHitR();
-                        }
+                        }*/
                     }
                 }
 
-                else if (mouseXMove > 0)
+                else if (mouseYMove > 0)
                 {
                     if (ShouldAttack)
                     {
                         if (SwordActive)
                         {
-                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("left"))
-                                {
-                                SwordAttackL();
-                            }
-                               else if (whatHit.collider.gameObject.name.Contains("left"))
+                            if (whatHit.collider != null && (whatHit.collider.gameObject.name.Contains("up") || whatHit.collider.gameObject.name.Contains("center")))
                             {
-                                SwordClashL();
+                               
+                                SwordClashO();
                             }
-                           
-                           
+                            else if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("up") || !whatHit.collider.gameObject.name.Contains("center")) //(whatHit.collider != null  || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center"))
+                            {
+                                
+                                SwordAttackO();
+                            }
+
+
                         }
+                        /*
                         else if (UrumiActive)
                         {
                             if (!UrumiHit)
                                 UrumiAttackL();
                             else if (UrumiHit)
                                 UrumiHitL();
-                        }
+                        }*/
                     }
                 }
             }
+        
+
+            else if (Mathf.Abs(mouseXMove) < 0.2f && Mathf.Abs(mouseYMove) < 0.2f)
 
 
-            else if (Mathf.Abs(mouseXMove) < 0.2f)
-                
-                
+            {
+
+                if (ShouldAttack)
+                {
+                    if (canStab)
                     {
-
-                     if (ShouldAttack)
-                      {
-                        if (canStab)
-                       {
                         if (SwordActive)
                         {
                             SwordAttackS();
@@ -464,9 +646,9 @@ public class DirectionDetection : MonoBehaviour
                             UrumiAttackS();
                             canStab = false;
                         }
-                        }
-                        }
                     }
+                }
+            }
 
 
             if (enemyHit)

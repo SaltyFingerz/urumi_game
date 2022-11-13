@@ -661,7 +661,7 @@ public class DirectionDetection : MonoBehaviour
 
                         if (!whatHit.collider.gameObject.name.Contains("right"))
                         {
-                            whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                            whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
                             HitParticle.SetActive(true);
                             Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
@@ -678,7 +678,7 @@ public class DirectionDetection : MonoBehaviour
                     {
                         if (!whatHit.collider.gameObject.name.Contains("left"))
                         {
-                            whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                            whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
                             HitParticle.SetActive(true);
                             Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
                                 transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
@@ -693,7 +693,7 @@ public class DirectionDetection : MonoBehaviour
                     else if (fromCentre && !whatHit.collider.gameObject.name.Contains("center"))
                     {
                         
-                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
                         HitParticle.SetActive(true);
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
                             transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
@@ -850,6 +850,7 @@ public class DirectionDetection : MonoBehaviour
         
     }
 
-   
+  
+
 }
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public static int PlayerHealth = 10;
+    public static bool inRange = false;
     [Header("Movement")]
     public float moveSpeed;
 
@@ -119,9 +120,34 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.drag = 0;
 
+
+        if (PlayerHealth <= 0)
+        {
+            print("playerDeadLol");
+        }
+
     }
     private void FixedUpdate()
     {
         MovePlayer(); 
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            inRange = true;
+            print("enemy attack");
+            other.GetComponent<Animator>().SetBool("Attack", true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            inRange = false;
+            print("enemy stop attack");
+            other.GetComponent<Animator>().SetBool("Attack" , false);
+        }
     }
 }

@@ -17,10 +17,11 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
       
-        print(EnemyHealth);
+       
         if(EnemyHealth <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(EnemyDie());
+            
         }
 
         Vector3 targetPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
@@ -41,5 +42,21 @@ public class EnemyController : MonoBehaviour
     public int GetHealth()
     {
         return EnemyHealth;
+    }
+
+    IEnumerator EnemyDie()
+    {
+        gameObject.GetComponent<Animator>().SetTrigger("Death");
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
+
+    }
+
+    public void HitPlayer()
+    {
+        if (PlayerMovement.inRange)
+        {
+            PlayerMovement.PlayerHealth -= 1;
+        }
     }
 }

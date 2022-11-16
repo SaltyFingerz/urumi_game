@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectionDetection : MonoBehaviour
+public class DirectionDetection2 : MonoBehaviour
 {
     public GameObject lastHit;
     public GameObject HitParticle;
-     RaycastHit whatHit;
-     Vector3 collision = Vector3.zero;
-     Vector3 target = new Vector3(0, 0, 10);
-
+    RaycastHit whatHit;
+    public Vector3 collision = Vector3.zero;
+    public Vector3 target = new Vector3(0, 0, 10);
+   
     public GameObject Sword, Urumi, Shield;
 
     public static float mouseXMove;
@@ -48,8 +48,6 @@ public class DirectionDetection : MonoBehaviour
     public static bool fromOver = false;
     public static bool fromUnder = false;
     public static bool enemyHit = false;
-    private bool enemyRightHit = false;
-    private bool enemyLeftHit = false;
 
     public bool canStab = false;
     public bool canStab2 = false;
@@ -58,8 +56,8 @@ public class DirectionDetection : MonoBehaviour
 
     public GameObject targetPoint;
     private TrailRenderer tr;
-    public static bool SwordActive = true;
-    public static bool UrumiActive = false; 
+    private bool SwordActive = true;
+    private bool UrumiActive = false; 
     
     private bool UrumiHit = false;
 
@@ -364,33 +362,30 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        
+        if (Input.GetKey(KeyCode.Q))
+        {
+            print(ShouldAttack);
+        }
+
         //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
         int mask = 1 << LayerMask.NameToLayer("Default");
         //mask |= 1 << LayerMask.NameToLayer("Enemy"); //this is for adding additional layers
-        var ray = new Ray(origin: cam2.transform.position, direction: cam2.transform.forward);
-            RaycastHit hit;
+        var ray = new Ray(origin: this.transform.position, direction: this.transform.forward);
+        RaycastHit hit;
         if (SwordActive)
         {
-           // if (gameObject.CompareTag("RayCaster"))
+            if (Physics.Raycast(ray, out whatHit, maxDistance: 3, mask)) //mask is used so that the raycast does not detect the sword/weapon
             {
-                if (Physics.Raycast(ray, out whatHit, maxDistance: 3, mask)) //mask is used so that the raycast does not detect the sword/weapon
-                {
-                    //lastHit = hit.transform.gameObject;
-                    collision = whatHit.point;
-                }
+                //lastHit = hit.transform.gameObject;
+                collision = whatHit.point;
             }
         }
         else if (UrumiActive) // a different raycast is used for the urumi, with a larger max distance to detect attacks from a further distance as the urumi sword is longer than the standard sword.
         {
-          //  if (gameObject.CompareTag("RayCaster"))
+            if (Physics.Raycast(ray, out whatHit, maxDistance: 10, mask)) //mask is used so that the raycast does not detect the sword/weapon
             {
-                if (Physics.Raycast(ray, out whatHit, maxDistance: 10, mask)) //mask is used so that the raycast does not detect the sword/weapon
-                {
-                    //lastHit = hit.transform.gameObject;
-                    collision = whatHit.point;
-                }
+                //lastHit = hit.transform.gameObject;
+                collision = whatHit.point;
             }
 
         }
@@ -513,7 +508,6 @@ public class DirectionDetection : MonoBehaviour
 
                                 if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("right"))
                                 {
-                                    
                                     SwordAttackR();
                                 }
 
@@ -576,12 +570,12 @@ public class DirectionDetection : MonoBehaviour
                         {
                             if (whatHit.collider != null && (whatHit.collider.gameObject.name.Contains("down") || whatHit.collider.gameObject.name.Contains("center")))
                             {
-                                
+                                print("clash");
                                 SwordClashU();
                             }
                             else if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center")) //(whatHit.collider != null  || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center"))
                             {
-                                
+                                print("uppercut");
                                 SwordAttackU();
                             }
 
@@ -699,7 +693,7 @@ public class DirectionDetection : MonoBehaviour
 
                     else if (fromCentre && !whatHit.collider.gameObject.name.Contains("center"))
                     {
-
+                        
                         whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
                         HitParticle.SetActive(true);
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
@@ -714,8 +708,6 @@ public class DirectionDetection : MonoBehaviour
                 }
             }
             enemyHit = false;
-            
-            //this is to reset these variables 
 
         }
         //for right mouse button - camera not moving
@@ -736,7 +728,8 @@ public class DirectionDetection : MonoBehaviour
 
                 canStab2 = true;
 
-               
+                print("mouseXStart" + mouseXStart);
+                print("mouseXStart2" + mouseXStart2);
             }
         }
 
@@ -755,21 +748,9 @@ public class DirectionDetection : MonoBehaviour
                     {
                         UrumiHit = true;
                     }
-                    if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. (not anymore?)
+                    if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. 
                     {
                         enemyHit = true;
-                        print("enemy hit");
-                        if(whatHit.collider.gameObject.name.Contains("right"))
-                        {
-                            enemyRightHit = true;
-                            print("enemyRightHit");
-                        }
-                        else if (whatHit.collider.gameObject.name.Contains("left"))
-                        {
-                            enemyLeftHit = true;
-                            print("enemyLeftHit");
-                        }
-                       
                     }
 
                 }
@@ -811,7 +792,7 @@ public class DirectionDetection : MonoBehaviour
             {
                 mouseXEnd = CamController.yRotation2;
                 mouseYEnd = CamController.xRotation2;
-                
+                print("mouseXEnd" + mouseXEnd);
                 // mouseYEnd = mousePos.y;
             }
             mouseXMove = (mouseXEnd - mouseXStart);
@@ -836,13 +817,13 @@ public class DirectionDetection : MonoBehaviour
                  mouseXEnd = CamController.yRotation2;
                  // mouseYEnd = mousePos.y;
              }*/
-            
+            print("mouseXEnd again" + mouseXEnd);
             mouseXMove = (mouseXEnd - mouseXStart);
             mouseYMove = (mouseYEnd - mouseYStart);
           //  mouseXMove2 = (mouseXStart2 - mouseXEnd); // this is to check the single value from the mousebuttonDown for determining if it is a stab or not.
            // mouseYMove2 = (mouseYStart2 - mouseYEnd);
             tr.emitting = false;
-            
+            print("mouseXMove" + mouseXMove);
             // mouseYMove = mouseYEnd - mouseYStart;
 
             
@@ -860,17 +841,15 @@ public class DirectionDetection : MonoBehaviour
 
                         if (SwordActive)
                         {
-                          
-                            if (!enemyRightHit)
+
+                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("right"))
                             {
                                 SwordAttackR();
-                                print("enemyRightHit" + enemyRightHit);
                             }
 
-                            else if (enemyRightHit)
+                            else if (whatHit.collider.gameObject.name.Contains("right"))
                             {
                                 SwordClashR();
-                                enemyRightHit = false;
                             }
                         }
 
@@ -897,14 +876,13 @@ public class DirectionDetection : MonoBehaviour
                         canStab2 = false;
                         if (SwordActive)
                         {
-                            if (!enemyLeftHit)
+                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("left"))
                             {
                                 SwordAttackL();
                             }
-                            else if (enemyLeftHit)
+                            else if (whatHit.collider.gameObject.name.Contains("left"))
                             {
                                 SwordClashL();
-                                enemyLeftHit = false;
                             }
 
 
@@ -952,8 +930,8 @@ public class DirectionDetection : MonoBehaviour
        
         }
 
-        enemyHit = false;
-       
+
+
 
 
     }

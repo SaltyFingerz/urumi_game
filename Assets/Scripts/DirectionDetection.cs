@@ -472,7 +472,7 @@ public class DirectionDetection : MonoBehaviour
                 canStab = true;
             }
         }
-
+        /*
         if (Input.GetMouseButton(0))
         {
             // mouseYStart = mousePos.y;
@@ -619,7 +619,7 @@ public class DirectionDetection : MonoBehaviour
                                 UrumiAttackR();
                             else if (UrumiHit)
                                 UrumiHitR();
-                        }*/
+                        }*//*
                     }
                 }
 
@@ -649,7 +649,7 @@ public class DirectionDetection : MonoBehaviour
                                 UrumiAttackL();
                             else if (UrumiHit)
                                 UrumiHitL();
-                        }*/
+                        }*//*
                     }
                 }
             }
@@ -746,7 +746,7 @@ public class DirectionDetection : MonoBehaviour
             
             //this is to reset these variables 
 
-        }
+        }*/
         //for right mouse button - camera not moving
 
         if (Input.GetMouseButtonDown(1))
@@ -898,12 +898,14 @@ public class DirectionDetection : MonoBehaviour
                             if (!enemyRightHit)
                             {
                                 SwordAttackR();
+                                enemyHit = true;
                                 print("enemyRightHit" + enemyRightHit);
                             }
 
                             else if (enemyRightHit)
                             {
                                 SwordClashR();
+                                enemyHit = false;
                                 enemyRightHit = false;
                             }
                         }
@@ -934,10 +936,12 @@ public class DirectionDetection : MonoBehaviour
                             if (!enemyLeftHit)
                             {
                                 SwordAttackL();
+                                enemyHit = true;
                             }
                             else if (enemyLeftHit)
                             {
                                 SwordClashL();
+                                enemyHit = false;
                                 enemyLeftHit = false;
                             }
 
@@ -971,12 +975,14 @@ public class DirectionDetection : MonoBehaviour
                                 if (!enemyCenterHit)
                                 {
                                     SwordAttackS();
+                                    enemyHit = true;
                                     canStab = false;
                                 }
                                 else if (enemyCenterHit)
                                 {
                                     SwordClashS();
                                     canStab = false;
+                                    enemyHit = false;
                                     enemyCenterHit = false;
                                 }
 
@@ -992,9 +998,74 @@ public class DirectionDetection : MonoBehaviour
                     }
                 }
             }
+            if (enemyHit)
+            {
+                /*  if (enemyRightHit || enemyCenterHit || enemyLeftHit)
+                  {
+                      enemyHit = false;
+                  }*/
 
-       
+                // else //if (whatHit.collider.gameObject.CompareTag("Enemy"))
+                // {
+
+                if (fromRight)
+                {
+
+                    if (!enemyRightHit)
+                    {
+                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
+                        HitParticle.SetActive(true);
+                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
+                        transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
+
+                        if (SwordActive)
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
+
+                        else if (UrumiActive)
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                    }
+
+                }
+                else if (fromLeft)
+                {
+                    if (!enemyLeftHit)
+                    {
+                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
+                        HitParticle.SetActive(true);
+                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
+                            transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+
+                        if (SwordActive)
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        else if (UrumiActive)
+                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                    }
+                }
+
+                else if (fromCentre && !enemyCenterHit)
+                {
+
+                    whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
+                    HitParticle.SetActive(true);
+                    Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
+                        transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+                    if (SwordActive)
+                        whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                    else if (UrumiActive)
+                        whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+
+
+                }
+            }
+            //}
+
+
         }
+
+
+
+
+
 
         enemyHit = false;
        

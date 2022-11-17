@@ -50,6 +50,7 @@ public class DirectionDetection : MonoBehaviour
     public static bool enemyHit = false;
     private bool enemyRightHit = false;
     private bool enemyLeftHit = false;
+    private bool enemyCenterHit = false;
 
     public bool canStab = false;
     public bool canStab2 = false;
@@ -174,7 +175,27 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
         
     }
-   
+
+    public void SwordClashS()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = true;
+        fromOver = false;
+        fromUnder = false;
+        CanAttack = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("ClashS");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+
+    }
+
     public void SwordAttackO()
     {
         ShouldAttack = false;
@@ -645,8 +666,16 @@ public class DirectionDetection : MonoBehaviour
                     {
                         if (SwordActive)
                         {
-                            SwordAttackS();
-                            canStab = false;
+                            if (whatHit.collider == null || !whatHit.collider.gameObject.name.Contains("center"))
+                            {
+                                SwordAttackS();
+                                canStab = false;
+                            }
+                            else if (whatHit.collider.gameObject.name.Contains("center"))
+                            {
+                                SwordClashS();
+                                canStab = false;
+                            }
                         }
                         else if (UrumiActive)
                         {
@@ -768,6 +797,11 @@ public class DirectionDetection : MonoBehaviour
                         {
                             enemyLeftHit = true;
                             print("enemyLeftHit");
+                        }
+                        else if (whatHit.collider.gameObject.name.Contains("center"))
+                        {
+                            enemyCenterHit = true;
+                            print("enemyCenterHit");
                         }
                        
                     }
@@ -934,8 +968,18 @@ public class DirectionDetection : MonoBehaviour
 
                             if (SwordActive)
                             {
-                                SwordAttackS();
-                                canStab = false;
+                                if (!enemyCenterHit)
+                                {
+                                    SwordAttackS();
+                                    canStab = false;
+                                }
+                                else if (enemyCenterHit)
+                                {
+                                    SwordClashS();
+                                    canStab = false;
+                                    enemyCenterHit = false;
+                                }
+
                             }
                             else if (UrumiActive)
                             {

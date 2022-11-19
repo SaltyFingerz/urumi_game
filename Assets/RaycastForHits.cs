@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RaycastForHits : MonoBehaviour
 {
-
+    /*
     public static RaycastHit whatHit;
     public static Vector3 collision = Vector3.zero;
     public static Vector3 target = new Vector3(0, 0, 10);
@@ -62,5 +62,5 @@ public class RaycastForHits : MonoBehaviour
             }
 
         }
-    }
+    }*/
 }

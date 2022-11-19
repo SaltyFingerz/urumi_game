@@ -11,21 +11,21 @@ public class DirectionDetection : MonoBehaviour
      Vector3 target = new Vector3(0, 0, 10);
 
     public GameObject Sword, Urumi, Shield;
+    [SerializeField]
+    private  float mouseXMove;
+   // public static float mouseXMove2;
+  //  public static float mouseYMove2;
 
-    public static float mouseXMove;
-    public static float mouseXMove2;
-    public static float mouseYMove2;
-
-    
-    public static float mouseYMove;
+    [SerializeField]
+    private float mouseYMove;
     [SerializeField]
     private float mouseXStart;
     [SerializeField]
     private float mouseYStart;
-    [SerializeField]
+ /*   [SerializeField]
     private float mouseYStart2;
     [SerializeField]
-    private float mouseXStart2;
+    private float mouseXStart2;*/
     [SerializeField]
     private float mouseXEnd;
     [SerializeField]
@@ -35,13 +35,13 @@ public class DirectionDetection : MonoBehaviour
     public GameObject cam2;
     private float xRotation;
 
-    public bool CanAttack = true;
-    public static bool ShouldAttack = false; //this is so that it only attacks when it had made a strike path first.
+    private bool CanAttack = true;
+    public static bool ShouldAttack = true; //this is so that it only attacks when it had made a strike path first.
     public float AttackCooldown = 0.1f;
     public AudioClip SwordAttackSound;
     public AudioClip WhipAttackSound;
     public AudioClip SwordClashSound;
-    public static bool isAttacking = false;
+    private bool isAttacking = false;
     public static bool fromRight = false;
     public static bool fromLeft = false;
     public static bool fromCentre = false;
@@ -59,8 +59,8 @@ public class DirectionDetection : MonoBehaviour
 
     public GameObject targetPoint;
     private TrailRenderer tr;
-    public static bool SwordActive = true;
-    public static bool UrumiActive = false; 
+    private bool SwordActive = true;
+    private bool UrumiActive = false; 
     
     private bool UrumiHit = false;
 
@@ -171,7 +171,7 @@ public class DirectionDetection : MonoBehaviour
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
-      ac.PlayOneShot(SwordAttackSound);
+        ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
         
     }
@@ -369,7 +369,7 @@ public class DirectionDetection : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
+   /* private void OnDrawGizmos()
      {
 
          if (whatHit.collider.gameObject.CompareTag("Enemy"))
@@ -381,7 +381,7 @@ public class DirectionDetection : MonoBehaviour
 
         Gizmos.DrawWireSphere(collision, radius: 0.5f);
          Gizmos.DrawLine(transform.position, collision);
-     }
+     }*/
     // Update is called once per frame
     void Update()
     {
@@ -457,6 +457,7 @@ public class DirectionDetection : MonoBehaviour
             {
                 Sword.SetActive(false);
                 Urumi.SetActive(true);
+                
             }
 
         }
@@ -472,7 +473,7 @@ public class DirectionDetection : MonoBehaviour
                 canStab = true;
             }
         }
-        /*
+        
         if (Input.GetMouseButton(0))
         {
             // mouseYStart = mousePos.y;
@@ -613,13 +614,13 @@ public class DirectionDetection : MonoBehaviour
 
 
 
-                      /*  else if (UrumiActive)
+                        else if (UrumiActive)
                         {
                             if (!UrumiHit)
                                 UrumiAttackR();
                             else if (UrumiHit)
                                 UrumiHitR();
-                        }*//*
+                        }
                     }
                 }
 
@@ -642,14 +643,14 @@ public class DirectionDetection : MonoBehaviour
 
 
                         }
-                        /*
+                        
                         else if (UrumiActive)
                         {
                             if (!UrumiHit)
                                 UrumiAttackL();
                             else if (UrumiHit)
                                 UrumiHitL();
-                        }*//*
+                        }
                     }
                 }
             }
@@ -691,12 +692,15 @@ public class DirectionDetection : MonoBehaviour
             {
                 if (whatHit.collider.gameObject.CompareTag("Enemy"))
                 {
+
                     
                     if (fromRight)
                     {
+                       
 
                         if (!whatHit.collider.gameObject.name.Contains("right"))
                         {
+                           
                             whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
                             HitParticle.SetActive(true);
                             Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
@@ -746,20 +750,21 @@ public class DirectionDetection : MonoBehaviour
             
             //this is to reset these variables 
 
-        }*/
+        }
         //for right mouse button - camera not moving
 
         if (Input.GetMouseButtonDown(1))
         {
+            mouseXStart = CamController.yRotation;
+            mouseYStart = CamController.xRotation;
             if (CanAttack)
             {
-                mouseXStart2 = CamController.yRotation2;
-                mouseYStart2 = CamController.xRotation2;
+               /* mouseXStart2 = CamController.yRotation2;
+                mouseYStart2 = CamController.xRotation2;*/
 
 
 
-                mouseXStart = CamController.yRotation;
-                mouseYStart = CamController.xRotation;
+                
                 ShouldAttack = true; //it should only attack if the trail has been emitted.
                 canStab = true;
 
@@ -775,8 +780,16 @@ public class DirectionDetection : MonoBehaviour
             CamController.sensX = 0;
             CamController.sensY = 0;
 
+            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation2, -90f, 90f);
+
+            cam2.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
+            orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
+
+
             if (CanAttack)
             {
+                tr.emitting = true;
+                ShouldAttack = true;
 
                 if (whatHit.collider != null)
                 {
@@ -810,58 +823,49 @@ public class DirectionDetection : MonoBehaviour
                 //mouseXStart = CamController.yRotation2;
             }
             
-            
-            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation2, -90f, 90f);
-            
-            cam2.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
-            orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
-            // mouseYStart = mousePos.y;
-            if (CanAttack)
-            {
-                tr.emitting = true;
-                ShouldAttack = true;
-            }
+            //for the trail  to move
+          
+          
+
+          
             
 
         }
 
-        else 
-        {
-            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
-            CamController.yRotation2 = CamController.yRotation;
-            //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
-            cam2.transform.rotation = cam.transform.rotation;
-        }
+       
+        
+            
         
 
 
 
-         if (Input.GetMouseButtonUp(1) && !Input.GetMouseButtonDown(1))
+         if (Input.GetMouseButtonUp(1))
         {
 
 
 
-            if (CanAttack)
-            {
+           
                 mouseXEnd = CamController.yRotation2;
                 mouseYEnd = CamController.xRotation2;
                 
                 // mouseYEnd = mousePos.y;
-            }
+           
             mouseXMove = (mouseXEnd - mouseXStart);
             mouseYMove = (mouseYEnd - mouseYStart);
 
-
-
             tr.emitting = false;
-
-
 
             CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
             CamController.yRotation2 = CamController.yRotation;
             //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
             cam2.transform.rotation = cam.transform.rotation;
-            //orientation.rotation = Quaternion.Euler(0, CamController.yRotation, 0);
+
+
+            
+
+
+            
+            
 
             CamController.sensX = 1000;
             CamController.sensY = 1000;
@@ -869,13 +873,16 @@ public class DirectionDetection : MonoBehaviour
              {
                  mouseXEnd = CamController.yRotation2;
                  // mouseYEnd = mousePos.y;
-             }*/
+             }
             
             mouseXMove = (mouseXEnd - mouseXStart);
             mouseYMove = (mouseYEnd - mouseYStart);
           //  mouseXMove2 = (mouseXStart2 - mouseXEnd); // this is to check the single value from the mousebuttonDown for determining if it is a stab or not.
            // mouseYMove2 = (mouseYStart2 - mouseYEnd);
+
+            
             tr.emitting = false;
+            */
             
             // mouseYMove = mouseYEnd - mouseYStart;
 
@@ -916,10 +923,17 @@ public class DirectionDetection : MonoBehaviour
 
                         else if (UrumiActive)
                         {
-                            if (!UrumiHit)
+                            if (!enemyRightHit)
+                            {
                                 UrumiAttackR();
-                            else if (UrumiHit)
+                                enemyHit = true;
+                            }
+                            else if (enemyRightHit)
+                            {
                                 UrumiHitR();
+                                enemyHit = false;
+                                enemyRightHit = false;
+                            }
                         }
 
 
@@ -949,10 +963,17 @@ public class DirectionDetection : MonoBehaviour
                         }
                         else if (UrumiActive)
                         {
-                            if (!UrumiHit)
+                            if (!enemyLeftHit)
+                            {
                                 UrumiAttackL();
-                            else if (UrumiHit)
+                                enemyHit = true;
+                            }
+                            else if (enemyLeftHit)
+                            {
                                 UrumiHitL();
+                                enemyHit = false;
+                                enemyLeftHit = false;
+                            }
                         }
                     }
                 }
@@ -964,10 +985,10 @@ public class DirectionDetection : MonoBehaviour
 
                     if (ShouldAttack)
                     {
-                        if (canStab2)
-                        {
+                      //  if (canStab2)
+                        //{
                             
-                            canStab2 = false;
+                           // canStab2 = false;
 
 
                             if (SwordActive)
@@ -989,12 +1010,22 @@ public class DirectionDetection : MonoBehaviour
                             }
                             else if (UrumiActive)
                             {
-                                UrumiAttackS();
-                                canStab = false;
+                                if (!enemyCenterHit)
+                                {
+                                    UrumiAttackS();
+                                    enemyHit = true;
+                                    canStab = false;
+                                }
+                                else if (enemyCenterHit)
+                                {
+                                    UrumiAttackS();
+                                    enemyHit = false;
+                                    canStab = false;
+                                }
                             }
 
 
-                        }
+                        //}
                     }
                 }
             }
@@ -1024,7 +1055,7 @@ public class DirectionDetection : MonoBehaviour
                         else if (UrumiActive)
                             whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
                     }
-
+                    enemyHit = false;
                 }
                 else if (fromLeft)
                 {
@@ -1040,6 +1071,7 @@ public class DirectionDetection : MonoBehaviour
                         else if (UrumiActive)
                             whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
                     }
+                    enemyHit = false;
                 }
 
                 else if (fromCentre && !enemyCenterHit)
@@ -1054,9 +1086,11 @@ public class DirectionDetection : MonoBehaviour
                     else if (UrumiActive)
                         whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
 
+                    enemyHit = false;
 
                 }
             }
+           // StartCoroutine(ResetCam2());
             //}
 
 
@@ -1067,8 +1101,8 @@ public class DirectionDetection : MonoBehaviour
 
 
 
-        enemyHit = false;
-       
+        
+        
 
 
     }
@@ -1092,7 +1126,15 @@ public class DirectionDetection : MonoBehaviour
         
     }
 
-  
+  IEnumerator ResetCam2()
+    {
+        yield return new WaitForSeconds(1f);
+        CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
+        CamController.yRotation2 = CamController.yRotation;
+        //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
+        cam2.transform.rotation = cam.transform.rotation;
+        //orientation.rotation = Quaternion.Euler(0, CamController.yRotation, 0);
+    }
 
 }
 

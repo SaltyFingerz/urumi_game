@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollisionDetection : MonoBehaviour
 {
-    
+    /*
     public GameObject HitParticle;
 
 
@@ -46,7 +46,7 @@ public class CollisionDetection : MonoBehaviour
         }
     }
 
-
+    */
    
 
   

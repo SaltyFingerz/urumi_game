@@ -346,7 +346,7 @@ public class DirectionDetection2 : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
+   /* private void OnDrawGizmos()
      {
 
          if (whatHit.collider.gameObject.CompareTag("Enemy"))
@@ -358,7 +358,7 @@ public class DirectionDetection2 : MonoBehaviour
 
         Gizmos.DrawWireSphere(collision, radius: 0.5f);
          Gizmos.DrawLine(transform.position, collision);
-     }
+     }*/
     // Update is called once per frame
     void Update()
     {

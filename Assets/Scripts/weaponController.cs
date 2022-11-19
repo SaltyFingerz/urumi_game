@@ -42,7 +42,7 @@ public class weaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Input.GetMouseButtonDown(1)) //0 stands for left click 1 for right
+       /* //Input.GetMouseButtonDown(1)) //0 stands for left click 1 for right
         if (Input.GetMouseButtonUp(0) && DirectionDetection.mouseXMove < 0 )
         {
             if (CanAttack)
@@ -57,7 +57,7 @@ public class weaponController : MonoBehaviour
             {
                 SwordAttackL();
             }
-        }
+        }*/
     }
 
     IEnumerator ResetAttackCooldown()

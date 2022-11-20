@@ -888,7 +888,7 @@ public class DirectionDetection : MonoBehaviour
 
             
 
-           if (Mathf.Abs(mouseXMove) > 0.2f)
+           if (Mathf.Abs(mouseXMove) >= 0.4f)
             {
 
                 if (mouseXMove < 0)
@@ -979,7 +979,7 @@ public class DirectionDetection : MonoBehaviour
                 }
             }
 
-           else if (Mathf.Abs(mouseXMove) < 0.2f)
+           else if (Mathf.Abs(mouseXMove) < 0.4f)
             {
                 {
 

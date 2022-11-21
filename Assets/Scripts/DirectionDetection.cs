@@ -503,7 +503,7 @@ public class DirectionDetection : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            
+            print("mouse button up");
             Time.timeScale = 1f;
             if (CanAttack)
             {
@@ -888,7 +888,7 @@ public class DirectionDetection : MonoBehaviour
 
             
 
-           if (Mathf.Abs(mouseXMove) >= 0.4f)
+           if (Mathf.Abs(mouseXMove) >= 0.5f)
             {
 
                 if (mouseXMove < 0)
@@ -979,7 +979,7 @@ public class DirectionDetection : MonoBehaviour
                 }
             }
 
-           else if (Mathf.Abs(mouseXMove) < 0.4f)
+           else if (Mathf.Abs(mouseXMove) < 0.5f)
             {
                 {
 
@@ -1110,18 +1110,19 @@ public class DirectionDetection : MonoBehaviour
 
     IEnumerator ResetAttackCooldown()
     {
+        print("reset attack cooldown");
         ShouldAttack = false;
         StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
         CanAttack = true;
         UrumiHit = false;
-        
+        print("attack RESET");
        
     }
 
     IEnumerator ResetAttackBool()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1.5f);
         isAttacking = false;
         
     }

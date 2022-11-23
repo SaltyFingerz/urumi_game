@@ -1062,15 +1062,15 @@ public class DirectionDetection : MonoBehaviour
 
                     if (!enemyRightHit)
                     {
-                        print("YES1");
+                        
                         EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-                        print("YES2");
+                       
                        // StartCoroutine(EnemyHurtRight());
                         HitParticle.SetActive(true);
-                        print("YES3");
-                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
-                        transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
-                        print("YES4");
+                       
+                        Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x - 0.6f,
+                        transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z + 0.6f), EnemyID.gameObject.transform.rotation);
+                        
 
 
                         if (SwordActive)

@@ -55,7 +55,7 @@ public class DirectionDetection : MonoBehaviour
     public bool canStab = false;
     public bool canStab2 = false;
 
-    
+    public static GameObject EnemyID;
 
     public GameObject targetPoint;
     private TrailRenderer tr;
@@ -385,10 +385,21 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        
-        //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
-        int mask = 1 << LayerMask.NameToLayer("Default");
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            print("enemy hit" + enemyHit);
+            print(EnemyID.name);
+            print("enemy right hit" + enemyRightHit);
+            print("from right" + fromRight);
+        }
+
+        if(!PlayerMovement.inRange)
+        {
+            EnemyID = null;
+        }
+
+            //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
+            int mask = 1 << LayerMask.NameToLayer("Default");
         //mask |= 1 << LayerMask.NameToLayer("Enemy"); //this is for adding additional layers
         var ray = new Ray(origin: cam2.transform.position, direction: cam2.transform.forward);
             RaycastHit hit;
@@ -690,6 +701,7 @@ public class DirectionDetection : MonoBehaviour
 
             if (enemyHit)
             {
+               
                 if (whatHit.collider.gameObject.CompareTag("Enemy"))
                 {
 
@@ -800,24 +812,30 @@ public class DirectionDetection : MonoBehaviour
                     if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. (not anymore?)
                     {
                         enemyHit = true;
-                        print("enemy hit");
-                        if(whatHit.collider.gameObject.name.Contains("right"))
+
+                        EnemyID = whatHit.collider.gameObject;
+
+                        
+                        if(EnemyID.name.Contains("right"))
                         {
                             enemyRightHit = true;
-                            print("enemyRightHit");
+
+
+                            
                         }
-                        else if (whatHit.collider.gameObject.name.Contains("left"))
+                        else if (EnemyID.name.Contains("left"))
                         {
                             enemyLeftHit = true;
-                            print("enemyLeftHit");
+                          
                         }
-                        else if (whatHit.collider.gameObject.name.Contains("center"))
+                        else if (EnemyID.name.Contains("center"))
                         {
                             enemyCenterHit = true;
-                            print("enemyCenterHit");
+                            
                         }
                        
                     }
+                    
 
                 }
                 //mouseXStart = CamController.yRotation2;
@@ -1038,61 +1056,74 @@ public class DirectionDetection : MonoBehaviour
 
                 // else //if (whatHit.collider.gameObject.CompareTag("Enemy"))
                 // {
-
+               
                 if (fromRight)
                 {
 
                     if (!enemyRightHit)
                     {
-                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
+                        print("YES1");
+                        EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+                        print("YES2");
+                       // StartCoroutine(EnemyHurtRight());
                         HitParticle.SetActive(true);
+                        print("YES3");
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x - 0.6f,
                         transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z + 0.6f), whatHit.collider.gameObject.transform.rotation);
+                        print("YES4");
+
 
                         if (SwordActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
-
-                        else if (UrumiActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        { EnemyID.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
+                        print("YES5");
                     }
-                    enemyHit = false;
+                    else if (UrumiActive)
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+                       
+                    }
+                 
                 }
                 else if (fromLeft)
                 {
                     if (!enemyLeftHit)
                     {
-                        whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
+                        EnemyID.GetComponent<Animator>().SetTrigger("Damage");
                         HitParticle.SetActive(true);
                         Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
                             transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
 
                         if (SwordActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                            EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
                         else if (UrumiActive)
-                            whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                            EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+
+                     
                     }
-                    enemyHit = false;
+                    
                 }
 
                 else if (fromCentre && !enemyCenterHit)
                 {
 
-                    whatHit.collider.gameObject.GetComponent<Animator>().SetTrigger("Damage");
+                    EnemyID.GetComponent<Animator>().SetTrigger("Damage");
                     HitParticle.SetActive(true);
                     Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
                         transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
                     if (SwordActive)
-                        whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
                     else if (UrumiActive)
-                        whatHit.collider.gameObject.GetComponent<EnemyController>().ReduceHealth(1);
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
 
-                    enemyHit = false;
+                  
 
                 }
             }
            // StartCoroutine(ResetCam2());
             //}
-
+          /*  IEnumerator EnemyHurtRight()
+            {
+                new WaitForSeconds(1);
+            }*/
 
         }
 

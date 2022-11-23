@@ -146,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             inRange = false;
+           
             print("enemy stop attack");
             other.GetComponent<Animator>().SetBool("Attack" , false);
         }

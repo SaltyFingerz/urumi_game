@@ -32,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    public static GameObject EnemyID;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -136,18 +139,22 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             inRange = true;
-            print("enemy attack");
+            
             other.GetComponent<Animator>().SetBool("Attack", true);
+            EnemyID = other.gameObject;
         }
     }
+
+  
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
             inRange = false;
-            print("enemy stop attack");
+            
             other.GetComponent<Animator>().SetBool("Attack" , false);
+            EnemyID = null;
         }
     }
 }

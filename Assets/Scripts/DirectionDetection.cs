@@ -51,6 +51,8 @@ public class DirectionDetection : MonoBehaviour
     private bool enemyRightHit = false;
     private bool enemyLeftHit = false;
     private bool enemyCenterHit = false;
+    private bool enemyUpHit = false;
+    private bool enemyDownHit = false;
 
     public bool canStab = false;
     public bool canStab2 = false;
@@ -391,6 +393,11 @@ public class DirectionDetection : MonoBehaviour
             print(EnemyID.name);
             print("enemy right hit" + enemyRightHit);
             print("from right" + fromRight);
+        }
+
+        if(fromUnder || fromOver)
+        {
+            print("from under or from over");
         }
 
         if(!PlayerMovement.inRange)
@@ -819,21 +826,50 @@ public class DirectionDetection : MonoBehaviour
                         if(EnemyID.name.Contains("right"))
                         {
                             enemyRightHit = true;
-
-
-                            
+                            enemyLeftHit = false;
+                            enemyCenterHit = false;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
                         }
                         else if (EnemyID.name.Contains("left"))
                         {
                             enemyLeftHit = true;
-                          
+                            enemyCenterHit = false;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
+                            enemyRightHit = false;
+
                         }
                         else if (EnemyID.name.Contains("center"))
                         {
                             enemyCenterHit = true;
-                            
+                            enemyLeftHit = false;
+                            enemyRightHit = false;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
+
                         }
-                       
+
+                        else if (EnemyID.name.Contains("down"))
+                        {
+                            enemyDownHit = true;
+                            enemyUpHit = false;
+                            enemyLeftHit = false;
+                            enemyRightHit = false;
+                            enemyCenterHit = false;
+                        }
+
+                        else if (EnemyID.name.Contains("up"))
+                        {
+                            enemyUpHit = true;
+                            enemyLeftHit = false;
+                            enemyCenterHit = false;
+                            enemyDownHit = false;
+                            enemyRightHit = false;
+
+
+                        }
+
                     }
                     
 
@@ -850,24 +886,24 @@ public class DirectionDetection : MonoBehaviour
 
         }
 
-       
-        
-            
-        
 
 
 
-         if (Input.GetMouseButtonUp(1))
+
+
+
+
+        if (Input.GetMouseButtonUp(1))
         {
 
 
 
-           
-                mouseXEnd = CamController.yRotation2;
-                mouseYEnd = CamController.xRotation2;
-                
-                // mouseYEnd = mousePos.y;
-           
+
+            mouseXEnd = CamController.yRotation2;
+            mouseYEnd = CamController.xRotation2;
+
+            // mouseYEnd = mousePos.y;
+
             mouseXMove = (mouseXEnd - mouseXStart);
             mouseYMove = (mouseYEnd - mouseYStart);
 
@@ -879,11 +915,11 @@ public class DirectionDetection : MonoBehaviour
             cam2.transform.rotation = cam.transform.rotation;
 
 
-            
 
 
-            
-            
+
+
+
 
             CamController.sensX = 1000;
             CamController.sensY = 1000;
@@ -901,152 +937,226 @@ public class DirectionDetection : MonoBehaviour
             
             tr.emitting = false;
             */
-            
+
             // mouseYMove = mouseYEnd - mouseYStart;
 
-            
 
-           if (Mathf.Abs(mouseXMove) >= 0.5f)
+
+            if (Mathf.Abs(mouseXMove) >= 0.4f || Mathf.Abs(mouseYMove) >= 0.4f)
             {
-
-                if (mouseXMove < 0)
-                {
-                    if (ShouldAttack)
+                if (Mathf.Abs(mouseXMove) > Mathf.Abs(mouseYMove))
                     {
-                        canStab2 = false;
-                       
-
-
-                        if (SwordActive)
-                        {
-                          
-                            if (!enemyRightHit)
-                            {
-                                SwordAttackR();
-                                enemyHit = true;
-                                print("enemyRightHit" + enemyRightHit);
-                            }
-
-                            else if (enemyRightHit)
-                            {
-                                SwordClashR();
-                                enemyHit = false;
-                                enemyRightHit = false;
-                            }
-                        }
-
-
-
-
-
-                        else if (UrumiActive)
-                        {
-                            if (!enemyRightHit)
-                            {
-                                UrumiAttackR();
-                                enemyHit = true;
-                            }
-                            else if (enemyRightHit)
-                            {
-                                UrumiHitR();
-                                enemyHit = false;
-                                enemyRightHit = false;
-                            }
-                        }
-
-
-                    }
-                }
-
-                else if (mouseXMove > 0)
-                {
-                    if (ShouldAttack)
+                    if (mouseXMove < 0)
                     {
-                        canStab2 = false;
-                        if (SwordActive)
+                        if (ShouldAttack)
                         {
-                            if (!enemyLeftHit)
-                            {
-                                SwordAttackL();
-                                enemyHit = true;
-                            }
-                            else if (enemyLeftHit)
-                            {
-                                SwordClashL();
-                                enemyHit = false;
-                                enemyLeftHit = false;
-                            }
+                            canStab2 = false;
 
-
-                        }
-                        else if (UrumiActive)
-                        {
-                            if (!enemyLeftHit)
-                            {
-                                UrumiAttackL();
-                                enemyHit = true;
-                            }
-                            else if (enemyLeftHit)
-                            {
-                                UrumiHitL();
-                                enemyHit = false;
-                                enemyLeftHit = false;
-                            }
-                        }
-                    }
-                }
-            }
-
-           else if (Mathf.Abs(mouseXMove) < 0.5f)
-            {
-                {
-
-                    if (ShouldAttack)
-                    {
-                      //  if (canStab2)
-                        //{
-                            
-                           // canStab2 = false;
 
 
                             if (SwordActive)
                             {
-                                if (!enemyCenterHit)
+
+                                if (!enemyRightHit)
                                 {
-                                    SwordAttackS();
+                                    SwordAttackR();
                                     enemyHit = true;
-                                    canStab = false;
+                                    print("enemyRightHit" + enemyRightHit);
                                 }
-                                else if (enemyCenterHit)
+
+                                else if (enemyRightHit)
                                 {
-                                    SwordClashS();
-                                    canStab = false;
+                                    SwordClashR();
                                     enemyHit = false;
-                                    enemyCenterHit = false;
+                                    enemyRightHit = false;
                                 }
+                            }
+
+
+
+
+
+                            else if (UrumiActive)
+                            {
+                                if (!enemyRightHit)
+                                {
+                                    UrumiAttackR();
+                                    enemyHit = true;
+                                }
+                                else if (enemyRightHit)
+                                {
+                                    UrumiHitR();
+                                    enemyHit = false;
+                                    enemyRightHit = false;
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    else if (mouseXMove > 0)
+                    {
+                        if (ShouldAttack)
+                        {
+                            canStab2 = false;
+                            if (SwordActive)
+                            {
+                                if (!enemyLeftHit)
+                                {
+                                    SwordAttackL();
+                                    enemyHit = true;
+                                }
+                                else if (enemyLeftHit)
+                                {
+                                    SwordClashL();
+                                    enemyHit = false;
+                                    enemyLeftHit = false;
+                                }
+
 
                             }
                             else if (UrumiActive)
                             {
-                                if (!enemyCenterHit)
+                                if (!enemyLeftHit)
                                 {
-                                    UrumiAttackS();
+                                    UrumiAttackL();
                                     enemyHit = true;
-                                    canStab = false;
                                 }
-                                else if (enemyCenterHit)
+                                else if (enemyLeftHit)
                                 {
-                                    UrumiAttackS();
+                                    UrumiHitL();
                                     enemyHit = false;
-                                    canStab = false;
+                                    enemyLeftHit = false;
                                 }
+                            }
+                        }
+                    }
+                }
+
+                else if (Mathf.Abs(mouseXMove) <= Mathf.Abs(mouseYMove))
+                {
+
+                    if (mouseYMove < 0)
+                    {
+                        if (ShouldAttack) //this was changed from the tutorial, as the tutorial did not use strike paths and used CanAttack here, but for this game resulted in attacks without strike paths.
+                        {
+                            if (SwordActive)
+                            {
+                                if (enemyDownHit)
+                                {
+
+                                    SwordClashU();
+                                }
+                                else if (!enemyDownHit) //(whatHit.collider != null  || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center"))
+                                {
+
+                                    SwordAttackU();
+                                }
+
+
                             }
 
 
-                        //}
+                            else if (UrumiActive)
+                            {
+                                if (!UrumiHit)
+                                    UrumiAttackR();
+                                else if (UrumiHit)
+                                    UrumiHitR();
+                            }
+                        }
                     }
+
+                    else if (mouseYMove > 0)
+                    {
+                        if (ShouldAttack)
+                        {
+                            if (SwordActive)
+                            {
+                                if (enemyUpHit)
+                                {
+
+                                    SwordClashO();
+                                }
+                                else if (!enemyUpHit) //(whatHit.collider != null  || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center"))
+                                {
+
+                                    SwordAttackO();
+                                }
+
+
+                            }
+
+                            else if (UrumiActive)
+                            {
+                                if (!UrumiHit)
+                                    UrumiAttackL();
+                                else if (UrumiHit)
+                                    UrumiHitL();
+                            }
+                        }
+                    }
+
+
+
+
+
+                }
+            } 
+
+        else if (Mathf.Abs(mouseXMove) < 0.4f && Mathf.Abs(mouseYMove) <0.4f)
+        {
+            {
+
+                if (ShouldAttack)
+                {
+                    //  if (canStab2)
+                    //{
+
+                    // canStab2 = false;
+
+
+                    if (SwordActive)
+                    {
+                        if (!enemyCenterHit)
+                        {
+                            SwordAttackS();
+                            enemyHit = true;
+                            canStab = false;
+                        }
+                        else if (enemyCenterHit)
+                        {
+                            SwordClashS();
+                            canStab = false;
+                            enemyHit = false;
+                            enemyCenterHit = false;
+                        }
+
+                    }
+                    else if (UrumiActive)
+                    {
+                        if (!enemyCenterHit)
+                        {
+                            UrumiAttackS();
+                            enemyHit = true;
+                            canStab = false;
+                        }
+                        else if (enemyCenterHit)
+                        {
+                            UrumiAttackS();
+                            enemyHit = false;
+                            canStab = false;
+                        }
+                    }
+
+
+                    //}
                 }
             }
+        }
+            
+            
             if (enemyHit)
             {
                 /*  if (enemyRightHit || enemyCenterHit || enemyLeftHit)
@@ -1056,6 +1166,7 @@ public class DirectionDetection : MonoBehaviour
 
                 // else //if (whatHit.collider.gameObject.CompareTag("Enemy"))
                 // {
+              
                
                 if (fromRight)
                 {
@@ -1083,14 +1194,31 @@ public class DirectionDetection : MonoBehaviour
                     }
                  
                 }
+
+                else if (fromOver && !enemyUpHit)
+                {
+                    EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+                    HitParticle.SetActive(true);
+                    Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
+                        transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+
+                    if (SwordActive)
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+                    else if (UrumiActive)
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+
+
+
+                }
+
                 else if (fromLeft)
                 {
                     if (!enemyLeftHit)
                     {
                         EnemyID.GetComponent<Animator>().SetTrigger("Damage");
                         HitParticle.SetActive(true);
-                        Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.9f,
-                            transform.position.y + 0.2f, whatHit.collider.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+                        Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
+                            transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
 
                         if (SwordActive)
                             EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
@@ -1107,8 +1235,8 @@ public class DirectionDetection : MonoBehaviour
 
                     EnemyID.GetComponent<Animator>().SetTrigger("Damage");
                     HitParticle.SetActive(true);
-                    Instantiate(HitParticle, new Vector3(whatHit.collider.gameObject.transform.position.x + 0.3f,
-                        transform.position.y + 0.4f, whatHit.collider.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+                    Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.3f,
+                        transform.position.y + 0.4f, EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
                     if (SwordActive)
                         EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
                     else if (UrumiActive)
@@ -1117,7 +1245,28 @@ public class DirectionDetection : MonoBehaviour
                   
 
                 }
-            }
+
+
+
+                
+
+                else if (fromUnder && !enemyDownHit)
+                {
+
+                    EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+                    HitParticle.SetActive(true);
+                    Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.3f,
+                        transform.position.y + 0.4f, EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+                    if (SwordActive)
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+                    else if (UrumiActive)
+                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+
+
+
+                }
+
+            } 
            // StartCoroutine(ResetCam2());
             //}
           /*  IEnumerator EnemyHurtRight()
@@ -1141,12 +1290,14 @@ public class DirectionDetection : MonoBehaviour
 
     IEnumerator ResetAttackCooldown()
     {
+        enemyHit = false;
         print("reset attack cooldown");
         ShouldAttack = false;
         StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
         CanAttack = true;
         UrumiHit = false;
+        
         print("attack RESET");
        
     }

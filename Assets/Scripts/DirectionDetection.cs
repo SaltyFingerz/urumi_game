@@ -79,6 +79,7 @@ public class DirectionDetection : MonoBehaviour
         tr = targetPoint.GetComponent<TrailRenderer>();
         tr.emitting = false;
 
+
         
 
     }
@@ -372,7 +373,7 @@ public class DirectionDetection : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
+   /* private void OnDrawGizmos()
      {
 
          if (whatHit.collider.gameObject.CompareTag("Enemy"))
@@ -384,7 +385,7 @@ public class DirectionDetection : MonoBehaviour
 
         Gizmos.DrawWireSphere(collision, radius: 0.5f);
          Gizmos.DrawLine(transform.position, collision);
-     }
+     } */
     // Update is called once per frame
     void Update()
     {
@@ -481,6 +482,7 @@ public class DirectionDetection : MonoBehaviour
 
         }
 
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             if (CanAttack)
@@ -771,12 +773,19 @@ public class DirectionDetection : MonoBehaviour
             //this is to reset these variables 
 
         }
+        */
         //for right mouse button - camera not moving
 
         if (Input.GetMouseButtonDown(1))
         {
             mouseXStart = CamController.yRotation;
             mouseYStart = CamController.xRotation;
+
+            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
+            CamController.yRotation2 = CamController.yRotation;
+            //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
+            cam2.transform.rotation = cam.transform.rotation;
+
             if (CanAttack)
             {
                /* mouseXStart2 = CamController.yRotation2;
@@ -794,8 +803,8 @@ public class DirectionDetection : MonoBehaviour
             }
         }
 
-        
-         if (Input.GetMouseButton(1))
+
+        if (Input.GetMouseButton(1))
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
@@ -804,6 +813,10 @@ public class DirectionDetection : MonoBehaviour
 
             cam2.transform.rotation = Quaternion.Euler(CamController.xRotation2, CamController.yRotation2, 0);
             orientation.rotation = Quaternion.Euler(0, CamController.yRotation2, 0);
+
+
+
+
 
 
             if (CanAttack)
@@ -874,21 +887,25 @@ public class DirectionDetection : MonoBehaviour
                     }
                     else
                         enemyHit2 = false;
-               
-                    
+
+
 
                 }
                 //mouseXStart = CamController.yRotation2;
             }
-            
-            //for the trail  to move
-          
-          
 
-          
-            
+            //for the trail  to move
+
+
+
+
+
 
         }
+
+        
+           
+        
 
 
 
@@ -901,8 +918,7 @@ public class DirectionDetection : MonoBehaviour
         {
 
 
-
-
+           
             mouseXEnd = CamController.yRotation2;
             mouseYEnd = CamController.xRotation2;
 
@@ -911,12 +927,7 @@ public class DirectionDetection : MonoBehaviour
             mouseXMove = (mouseXEnd - mouseXStart);
             mouseYMove = (mouseYEnd - mouseYStart);
 
-            tr.emitting = false;
-
-            CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
-            CamController.yRotation2 = CamController.yRotation;
-            //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
-            cam2.transform.rotation = cam.transform.rotation;
+            StartCoroutine(DeactivateTrail());
 
 
 
@@ -1332,6 +1343,17 @@ public class DirectionDetection : MonoBehaviour
         //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
         cam2.transform.rotation = cam.transform.rotation;
         //orientation.rotation = Quaternion.Euler(0, CamController.yRotation, 0);
+    }
+
+    IEnumerator DeactivateTrail()
+    {
+        
+       tr.emitting = false;
+        yield return new WaitForSeconds(0.2f); //this is to ensure the trail emittance is stopped before returning the trail to the centre, to prevent the trail being seen to return, to match single slashes with the trail.
+        CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
+        CamController.yRotation2 = CamController.yRotation;
+        //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
+        cam2.transform.rotation = cam.transform.rotation;
     }
 
 }

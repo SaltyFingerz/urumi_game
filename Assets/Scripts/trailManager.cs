@@ -7,12 +7,19 @@ public class trailManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(DirectionDetection.enemyHit)
+        { SetSingleColor(this.GetComponent<TrailRenderer>(), Color.magenta); }
+    }
+
+    void SetSingleColor(TrailRenderer trailRendererToChange, Color newColor)
+    {
+        trailRendererToChange.startColor = newColor;
+        trailRendererToChange.endColor = newColor;
     }
 }

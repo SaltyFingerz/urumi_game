@@ -371,7 +371,7 @@ public class DirectionDetection : MonoBehaviour
 
     }
 
-   /* private void OnDrawGizmos()
+    private void OnDrawGizmos()
      {
 
          if (whatHit.collider.gameObject.CompareTag("Enemy"))
@@ -383,7 +383,7 @@ public class DirectionDetection : MonoBehaviour
 
         Gizmos.DrawWireSphere(collision, radius: 0.5f);
          Gizmos.DrawLine(transform.position, collision);
-     }*/
+     }
     // Update is called once per frame
     void Update()
     {
@@ -822,8 +822,8 @@ public class DirectionDetection : MonoBehaviour
 
                         EnemyID = whatHit.collider.gameObject;
 
-                        
-                        if(EnemyID.name.Contains("right"))
+
+                        if (EnemyID.name.Contains("right"))
                         {
                             enemyRightHit = true;
                             enemyLeftHit = false;
@@ -871,6 +871,7 @@ public class DirectionDetection : MonoBehaviour
                         }
 
                     }
+               
                     
 
                 }
@@ -980,8 +981,9 @@ public class DirectionDetection : MonoBehaviour
                             {
                                 if (!enemyRightHit)
                                 {
-                                    UrumiAttackR();
                                     enemyHit = true;
+                                    UrumiAttackR();
+                                    
                                 }
                                 else if (enemyRightHit)
                                 {
@@ -1004,8 +1006,10 @@ public class DirectionDetection : MonoBehaviour
                             {
                                 if (!enemyLeftHit)
                                 {
+                                    
                                     SwordAttackL();
                                     enemyHit = true;
+
                                 }
                                 else if (enemyLeftHit)
                                 {
@@ -1022,6 +1026,7 @@ public class DirectionDetection : MonoBehaviour
                                 {
                                     UrumiAttackL();
                                     enemyHit = true;
+
                                 }
                                 else if (enemyLeftHit)
                                 {
@@ -1045,13 +1050,14 @@ public class DirectionDetection : MonoBehaviour
                             {
                                 if (enemyDownHit)
                                 {
-
+                                   
                                     SwordClashU();
                                 }
                                 else if (!enemyDownHit) //(whatHit.collider != null  || !whatHit.collider.gameObject.name.Contains("down") || !whatHit.collider.gameObject.name.Contains("center"))
                                 {
-
+                                  
                                     SwordAttackU();
+                                    enemyHit = true;
                                 }
 
 
@@ -1060,10 +1066,10 @@ public class DirectionDetection : MonoBehaviour
 
                             else if (UrumiActive)
                             {
-                                if (!UrumiHit)
-                                    UrumiAttackR();
-                                else if (UrumiHit)
-                                    UrumiHitR();
+                               // if (!UrumiHit)
+                                //    UrumiAttackR(); needs for urui uppercut animation
+                             //   else if (UrumiHit)
+                                  //  UrumiHitR();
                             }
                         }
                     }
@@ -1083,6 +1089,7 @@ public class DirectionDetection : MonoBehaviour
                                 {
 
                                     SwordAttackO();
+                                    enemyHit = true;
                                 }
 
 
@@ -1090,10 +1097,10 @@ public class DirectionDetection : MonoBehaviour
 
                             else if (UrumiActive)
                             {
-                                if (!UrumiHit)
-                                    UrumiAttackL();
-                                else if (UrumiHit)
-                                    UrumiHitL();
+                               // if (!UrumiHit)
+                                //    UrumiAttackL(); needs urumi undercut animation
+                               // else if (UrumiHit)
+                               //     UrumiHitL();
                             }
                         }
                     }
@@ -1197,9 +1204,10 @@ public class DirectionDetection : MonoBehaviour
 
                 else if (fromOver && !enemyUpHit)
                 {
+                    print("FROM OVER YES");
                     EnemyID.GetComponent<Animator>().SetTrigger("Damage");
                     HitParticle.SetActive(true);
-                    Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
+                   Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
                         transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
 
                     if (SwordActive)
@@ -1213,6 +1221,7 @@ public class DirectionDetection : MonoBehaviour
 
                 else if (fromLeft)
                 {
+                    print("FROM LEFT YES");
                     if (!enemyLeftHit)
                     {
                         EnemyID.GetComponent<Animator>().SetTrigger("Damage");

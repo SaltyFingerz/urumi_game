@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class DamageTiming : MonoBehaviour
 {
-    /*
+    
     public static bool damageNow = false;
+
+
+ 
+    
     public GameObject HitParticle;
     public void DamageStab()
     {
@@ -17,6 +21,7 @@ public class DamageTiming : MonoBehaviour
 
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.3f,
                        transform.position.y + 0.4f, DirectionDetection.EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+        HitParticle.GetComponent<ParticleSystem>().Play();
 
 
         
@@ -76,5 +81,5 @@ public class DamageTiming : MonoBehaviour
     }
 
 
-*/
+
 }

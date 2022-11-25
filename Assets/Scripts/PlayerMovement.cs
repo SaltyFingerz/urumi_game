@@ -146,7 +146,12 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             inRange = false;
-           
+            DirectionDetection.EnemyID = null;
+            DirectionDetection.enemyCenterHit = false;
+            DirectionDetection.enemyLeftHit = false;
+            DirectionDetection.enemyRightHit = false;
+            DirectionDetection.enemyDownHit = false;
+            DirectionDetection.enemyUpHit = false;
             print("enemy stop attack");
             other.GetComponent<Animator>().SetBool("Attack" , false);
         }

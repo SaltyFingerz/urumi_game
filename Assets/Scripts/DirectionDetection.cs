@@ -48,11 +48,12 @@ public class DirectionDetection : MonoBehaviour
     public static bool fromOver = false;
     public static bool fromUnder = false;
     public static bool enemyHit = false;
-    private bool enemyRightHit = false;
-    private bool enemyLeftHit = false;
-    private bool enemyCenterHit = false;
-    private bool enemyUpHit = false;
-    private bool enemyDownHit = false;
+    public static bool enemyHit2 = false;
+    public static bool enemyRightHit = false;
+    public static bool enemyLeftHit = false;
+    public static bool enemyCenterHit = false;
+    public static bool enemyUpHit = false;
+    public static bool enemyDownHit = false;
 
     public bool canStab = false;
     public bool canStab2 = false;
@@ -819,7 +820,7 @@ public class DirectionDetection : MonoBehaviour
                     if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. (not anymore?)
                     {
                         enemyHit = true;
-
+                        enemyHit2 = true;
                         EnemyID = whatHit.collider.gameObject;
 
 
@@ -871,6 +872,8 @@ public class DirectionDetection : MonoBehaviour
                         }
 
                     }
+                    else
+                        enemyHit2 = false;
                
                     
 
@@ -1164,7 +1167,7 @@ public class DirectionDetection : MonoBehaviour
         }
             
             
-            if (enemyHit)
+          /*  if (enemyHit)
             {
                 /*  if (enemyRightHit || enemyCenterHit || enemyLeftHit)
                   {
@@ -1173,109 +1176,111 @@ public class DirectionDetection : MonoBehaviour
 
                 // else //if (whatHit.collider.gameObject.CompareTag("Enemy"))
                 // {
-              
-               
-                if (fromRight)
-                {
 
-                    if (!enemyRightHit)
+           /*
+
+                    if (fromRight)
                     {
-                        
-                        EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-                       
-                       // StartCoroutine(EnemyHurtRight());
-                        HitParticle.SetActive(true);
-                       
-                        Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x - 0.6f,
-                        transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z + 0.6f), EnemyID.gameObject.transform.rotation);
-                        
+
+                        if (!enemyRightHit)
+                        {
+
+                            EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+
+                            // StartCoroutine(EnemyHurtRight());
+                            HitParticle.SetActive(true);
+
+                            Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x - 0.6f,
+                            transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z + 0.6f), EnemyID.gameObject.transform.rotation);
 
 
-                        if (SwordActive)
-                        { EnemyID.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
-                        print("YES5");
+
+                            if (SwordActive)
+                            {
+                                EnemyID.GetComponent<EnemyController>().ReduceHealth(1); //reduces the enemy health in the isntance of the script on the game object hit 
+                                print("YES5");
+                            }
+                            else if (UrumiActive)
+                                EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+
+                        }
+
                     }
-                    else if (UrumiActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-                       
-                    }
-                 
-                }
 
-                else if (fromOver && !enemyUpHit)
-                {
-                    print("FROM OVER YES");
-                    EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-                    HitParticle.SetActive(true);
-                   Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
-                        transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
-
-                    if (SwordActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-                    else if (UrumiActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-
-
-
-                }
-
-                else if (fromLeft)
-                {
-                    print("FROM LEFT YES");
-                    if (!enemyLeftHit)
+                    else if (fromOver && !enemyUpHit)
                     {
+                        print("FROM OVER YES");
                         EnemyID.GetComponent<Animator>().SetTrigger("Damage");
                         HitParticle.SetActive(true);
                         Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
-                            transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
+                             transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
 
                         if (SwordActive)
                             EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
                         else if (UrumiActive)
                             EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
 
-                     
+
+
                     }
-                    
-                }
 
-                else if (fromCentre && !enemyCenterHit)
-                {
+                    else if (fromLeft)
+                    {
+                        print("FROM LEFT YES");
+                        if (!enemyLeftHit)
+                        {
+                            EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+                            HitParticle.SetActive(true);
+                            Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.9f,
+                                transform.position.y + 0.2f, EnemyID.gameObject.transform.position.z - 0.2f), Quaternion.Euler(0, 0, 0));
 
-                    EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-                    HitParticle.SetActive(true);
-                    Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.3f,
-                        transform.position.y + 0.4f, EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
-                    if (SwordActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-                    else if (UrumiActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-
-                  
-
-                }
+                            if (SwordActive)
+                                EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+                            else if (UrumiActive)
+                                EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
 
 
+                        }
 
+                    }
+
+                    else if (fromCentre && !enemyCenterHit)
+                    {
+
+                        EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+                        HitParticle.SetActive(true);
+                        Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.3f,
+                            transform.position.y + 0.4f, EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+                        if (SwordActive)
+                            EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+                        else if (UrumiActive)
+                            EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+
+
+
+                    }
+
+
+
+
+
+                    else if (fromUnder && !enemyDownHit)
+                    {
+
+                        EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+                        HitParticle.SetActive(true);
+                        Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.3f,
+                            transform.position.y + 0.4f, EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
+                        if (SwordActive)
+                            EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+                        else if (UrumiActive)
+                            EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+
+
+
+                    }
                 
-
-                else if (fromUnder && !enemyDownHit)
-                {
-
-                    EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-                    HitParticle.SetActive(true);
-                    Instantiate(HitParticle, new Vector3(EnemyID.gameObject.transform.position.x + 0.3f,
-                        transform.position.y + 0.4f, EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));
-                    if (SwordActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-                    else if (UrumiActive)
-                        EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
-
-
-
-                }
-
-            } 
+            } */
            // StartCoroutine(ResetCam2());
             //}
           /*  IEnumerator EnemyHurtRight()
@@ -1299,6 +1304,7 @@ public class DirectionDetection : MonoBehaviour
 
     IEnumerator ResetAttackCooldown()
     {
+        
         enemyHit = false;
         print("reset attack cooldown");
         ShouldAttack = false;

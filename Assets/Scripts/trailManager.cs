@@ -13,8 +13,11 @@ public class trailManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(DirectionDetection.enemyHit)
+        if (DirectionDetection.enemyRightHit  || DirectionDetection.enemyLeftHit || DirectionDetection.enemyCenterHit || DirectionDetection.enemyDownHit || DirectionDetection.enemyUpHit)
+       
         { SetSingleColor(this.GetComponent<TrailRenderer>(), Color.magenta); }
+        else
+            SetSingleColor(this.GetComponent<TrailRenderer>(), Color.green);
     }
 
     void SetSingleColor(TrailRenderer trailRendererToChange, Color newColor)

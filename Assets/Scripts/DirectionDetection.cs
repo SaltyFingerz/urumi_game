@@ -47,6 +47,13 @@ public class DirectionDetection : MonoBehaviour
     public static bool fromCentre = false;
     public static bool fromOver = false;
     public static bool fromUnder = false;
+
+
+    public static bool fromBottomRight = false;
+    public static bool fromBottomLeft = false;
+    public static bool fromTopRight = false;
+    public static bool fromTopLeft = false;
+
     public static bool enemyHit = false;
     public static bool enemyHit2 = false;
     public static bool enemyRightHit = false;
@@ -96,7 +103,11 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
-        Animator anim = Sword.GetComponent<Animator>();
+        fromBottomRight = false;
+    fromBottomLeft = false;
+    fromTopRight = false;
+    fromTopLeft = false;
+    Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
@@ -115,6 +126,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -134,6 +149,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -153,6 +172,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -172,6 +195,10 @@ public class DirectionDetection : MonoBehaviour
          CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
@@ -192,6 +219,10 @@ public class DirectionDetection : MonoBehaviour
         fromOver = false;
         fromUnder = false;
         CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashS");
         AudioSource ac = GetComponent<AudioSource>();
@@ -212,6 +243,10 @@ public class DirectionDetection : MonoBehaviour
         fromOver = true;
         fromUnder = false;
         CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackO");
         AudioSource ac = GetComponent<AudioSource>();
@@ -232,6 +267,10 @@ public class DirectionDetection : MonoBehaviour
         fromOver = true;
         fromUnder = false;
         CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashO");
         AudioSource ac = GetComponent<AudioSource>();
@@ -252,6 +291,10 @@ public class DirectionDetection : MonoBehaviour
         fromOver = false;
         fromUnder = true;
         CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackU");
         AudioSource ac = GetComponent<AudioSource>();
@@ -272,12 +315,110 @@ public class DirectionDetection : MonoBehaviour
         fromOver = false;
         fromUnder = true;
         CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("ClashU");
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
 
+    }
+
+
+    public void SwordAttackFromBottomRight()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = true;
+        fromUnder = false;
+        CanAttack = false;
+        fromBottomRight = true;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromBottomRight");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+
+    }
+
+    public void SwordAttackFromTopRight()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = true;
+        fromUnder = false;
+        CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = true;
+        fromTopLeft = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromTopRight");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void SwordAttackFromBottomLeft()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = true;
+        fromUnder = false;
+        CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = true;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromBottomLeft");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void SwordAttackFromTopLeft()
+    {
+        ShouldAttack = false;
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        fromOver = true;
+        fromUnder = false;
+        CanAttack = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = true;
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromTopLeft");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordAttackSound);
+        StartCoroutine(ResetAttackCooldown());
     }
     public void UrumiAttackR()
     {
@@ -290,6 +431,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -308,6 +453,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("HitR");
         AudioSource ac = GetComponent<AudioSource>();
@@ -328,6 +477,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -346,6 +499,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("HitL");
         AudioSource ac = GetComponent<AudioSource>();
@@ -365,6 +522,10 @@ public class DirectionDetection : MonoBehaviour
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("AttackS");
         AudioSource ac = GetComponent<AudioSource>();
@@ -959,7 +1120,36 @@ public class DirectionDetection : MonoBehaviour
 
             if (Mathf.Abs(mouseXMove) >= 0.4f || Mathf.Abs(mouseYMove) >= 0.4f)
             {
-                if (Mathf.Abs(mouseXMove) > Mathf.Abs(mouseYMove))
+                if(Mathf.Abs(mouseXMove) > 5f && Mathf.Abs(mouseYMove) > 5f)
+                {
+                    if (mouseXMove > 0 && mouseYMove > 0) // this means the attack is coming from topleft
+                    {
+                        SwordAttackFromTopLeft();
+                        enemyHit = true;
+                    }
+                    else if (mouseXMove > 0 && mouseYMove < 0) 
+                    {
+                        SwordAttackFromBottomLeft();
+                        enemyHit = true;
+                    }
+
+                    else if (mouseXMove < 0 && mouseYMove > 0) 
+                    {
+                        SwordAttackFromTopRight();
+                        enemyHit = true;
+                    }
+
+                    else if (mouseXMove < 0 && mouseYMove < 0)
+                    {
+                        SwordAttackFromBottomRight();
+                        enemyHit = true;
+                    }
+
+                }
+
+
+
+                else if (Mathf.Abs(mouseXMove) > Mathf.Abs(mouseYMove))
                     {
                     if (mouseXMove < 0)
                     {

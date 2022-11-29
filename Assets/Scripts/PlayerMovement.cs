@@ -152,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
             DirectionDetection.enemyRightHit = false;
             DirectionDetection.enemyDownHit = false;
             DirectionDetection.enemyUpHit = false;
+  
             print("enemy stop attack");
             other.GetComponent<Animator>().SetBool("Attack" , false);
         }

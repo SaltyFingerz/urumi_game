@@ -1,24 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
     private int EnemyHealth = 5;
     public Transform target;
-    
+
+
+    [Header("Damage Overlay")]
+    public Image overlay;
+    public float duration;
+    public float fadeSpeed;
+
+    private float durationTimer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-       
-        if(EnemyHealth <= 0)
+
+
+        if (overlay.color.a > 0)
+        {
+            durationTimer += Time.deltaTime;
+            if (durationTimer > duration)
+            {
+                float tempAlpha = overlay.color.a;
+                tempAlpha -= Time.deltaTime * fadeSpeed;
+                overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, tempAlpha);
+            }
+        }
+
+
+
+
+        if (EnemyHealth <= 0)
         {
             StartCoroutine(EnemyDie());
             
@@ -57,6 +80,8 @@ public class EnemyController : MonoBehaviour
         if (PlayerMovement.inRange)
         {
             PlayerMovement.PlayerHealth -= 1;
+            durationTimer = 0;
+            overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 1);
         }
     }
 }

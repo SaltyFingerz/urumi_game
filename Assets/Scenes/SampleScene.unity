@@ -968,6 +968,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  overlay: {fileID: 0}
+  duration: 0
+  fadeSpeed: 0
 --- !u!1 &425827155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 455542745}
+  overlay: {fileID: 1438827264}
+  duration: 2
+  fadeSpeed: 1
 --- !u!136 &446918887
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1368,6 +1374,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 455542745}
+  overlay: {fileID: 0}
+  duration: 0
+  fadeSpeed: 0
 --- !u!95 &548703015
 Animator:
   serializedVersion: 3
@@ -1417,6 +1426,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 455542745}
+    - target: {fileID: 86153348920102377, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
+      propertyPath: overlay
+      value: 
+      objectReference: {fileID: 1438827264}
+    - target: {fileID: 86153348920102377, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
+      propertyPath: duration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 86153348920102377, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
+      propertyPath: fadeSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2871950934927145408, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
       propertyPath: m_Name
       value: Skeleton_shield_center (1)
@@ -2280,6 +2301,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 425827156}
+  - {fileID: 1438827263}
   - {fileID: 1242649561}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -2354,6 +2376,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  overlay: {fileID: 0}
+  duration: 0
+  fadeSpeed: 0
 --- !u!95 &1005930076
 Animator:
   serializedVersion: 3
@@ -2814,7 +2839,7 @@ RectTransform:
   - {fileID: 1505012322}
   - {fileID: 1714096708}
   m_Father: {fileID: 918746378}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2964,6 +2989,81 @@ Transform:
   m_Father: {fileID: 455542745}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1438827262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1438827263}
+  - component: {fileID: 1438827265}
+  - component: {fileID: 1438827264}
+  m_Layer: 5
+  m_Name: DamageOverlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1438827263
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438827262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 918746378}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1438827264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438827262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 25fbe17d8fe811445a8b4cca1073f4a5, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1438827265
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438827262}
+  m_CullTransparentMesh: 1
 --- !u!1 &1478228158
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,6 +4535,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 455542745}
+  overlay: {fileID: 0}
+  duration: 0
+  fadeSpeed: 0
 --- !u!136 &1824976029
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4883,6 +4986,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 455542745}
+    - target: {fileID: 86153348920102377, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
+      propertyPath: overlay
+      value: 
+      objectReference: {fileID: 1438827264}
+    - target: {fileID: 86153348920102377, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
+      propertyPath: duration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 86153348920102377, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
+      propertyPath: fadeSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 115763617380413528, guid: 8a711caa970b16a40bbf41c84c7546cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.48264775
@@ -6684,5 +6799,17 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 455542745}
+    - target: {fileID: 9073007773820015576, guid: 5970f8a477604d84097d46e2bd94784e, type: 3}
+      propertyPath: overlay
+      value: 
+      objectReference: {fileID: 1438827264}
+    - target: {fileID: 9073007773820015576, guid: 5970f8a477604d84097d46e2bd94784e, type: 3}
+      propertyPath: duration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073007773820015576, guid: 5970f8a477604d84097d46e2bd94784e, type: 3}
+      propertyPath: fadeSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5970f8a477604d84097d46e2bd94784e, type: 3}

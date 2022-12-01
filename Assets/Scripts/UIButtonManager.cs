@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIButtonManager : MonoBehaviour
 {
     public GameObject ControlsPrompt;
+    public GameObject DeathScreen;
     void Start()
     {
         
@@ -21,6 +23,15 @@ public class UIButtonManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         ControlsPrompt.SetActive(false);
+        
+    }
+
+    public void Retry()
+    {
+        DeathScreen.SetActive(false);
+       // SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         
     }
 }

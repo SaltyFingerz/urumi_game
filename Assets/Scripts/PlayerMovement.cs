@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
 
     public float groundDrag;
-
+    public GameObject DeathScreen;
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -128,7 +128,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (PlayerHealth <= 0)
         {
-            print("playerDeadLol");
+            DeathScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
     }

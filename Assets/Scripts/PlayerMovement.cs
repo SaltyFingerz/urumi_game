@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump = true;
-
+    public AudioClip DeathSound;
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
@@ -129,6 +129,8 @@ public class PlayerMovement : MonoBehaviour
         if (PlayerHealth <= 0)
         {
             DeathScreen.SetActive(true);
+            AudioSource ac = GetComponent<AudioSource>();
+            ac.PlayOneShot(DeathSound);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             PlayerHealth = 10;

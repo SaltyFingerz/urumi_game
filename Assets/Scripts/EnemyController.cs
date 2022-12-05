@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     public float fadeSpeed;
 
     private float durationTimer;
-
+    public AudioClip AttackSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +79,8 @@ public class EnemyController : MonoBehaviour
     {
         if (PlayerMovement.inRange)
         {
+            AudioSource ac = GetComponent<AudioSource>();
+            ac.PlayOneShot(AttackSound);
             PlayerMovement.PlayerHealth -= 1;
             durationTimer = 0;
             overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0.5f);

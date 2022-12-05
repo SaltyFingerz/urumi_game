@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static int PlayerHealth = 10;
+    public static int PlayerHealth = 2;
     public static bool inRange = false;
     [Header("Movement")]
     public float moveSpeed;
@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
             DeathScreen.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            PlayerHealth = 10;
         }
 
     }

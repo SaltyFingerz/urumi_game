@@ -81,7 +81,7 @@ public class EnemyController : MonoBehaviour
         {
             PlayerMovement.PlayerHealth -= 1;
             durationTimer = 0;
-            overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 1);
+            overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0.5f);
         }
     }
 }

@@ -29,9 +29,8 @@ public class UIButtonManager : MonoBehaviour
     public void Retry()
     {
         DeathScreen.SetActive(false);
-       // SceneManager.LoadScene(0);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        SceneManager.LoadScene(0);
+     
         
     }
 }

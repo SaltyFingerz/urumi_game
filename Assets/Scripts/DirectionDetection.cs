@@ -442,6 +442,139 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void UrumiAttackU()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = true;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackU");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiAttackO()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = true;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackO");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiAttackFromTopLeft()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = true;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromTopLeft");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiAttackFromTopRight()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = true;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromTopRight");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+
+    public void UrumiAttackFromBottomLeft()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = true;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromBottomLeft");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiAttackFromBottomRight()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = true;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("AttackFromBottomRight");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
     public void UrumiHitR()
     {
         canStab = false;
@@ -1124,25 +1257,58 @@ public class DirectionDetection : MonoBehaviour
                 {
                     if (mouseXMove > 0 && mouseYMove > 0) // this means the attack is coming from topleft
                     {
-                        SwordAttackFromTopLeft();
-                        enemyHit = true;
+                        if (SwordActive)
+                        {
+                            SwordAttackFromTopLeft();
+                            enemyHit = true;
+                        }
+                        else if (UrumiActive)
+                        {
+                            UrumiAttackFromTopLeft();
+                            enemyHit = true;
+                        }
                     }
                     else if (mouseXMove > 0 && mouseYMove < 0) 
                     {
-                        SwordAttackFromBottomLeft();
-                        enemyHit = true;
+                        if (SwordActive)
+                        {
+                            SwordAttackFromBottomLeft();
+                            enemyHit = true;
+                        }
+                        else if (UrumiActive)
+                        {
+                            UrumiAttackFromBottomLeft();
+                            enemyHit = true;
+                        }
                     }
 
                     else if (mouseXMove < 0 && mouseYMove > 0) 
                     {
-                        SwordAttackFromTopRight();
-                        enemyHit = true;
+                        if (SwordActive)
+                        {
+                            SwordAttackFromTopRight();
+                            enemyHit = true;
+                        }
+
+                        else if (UrumiActive)
+                        {
+                            UrumiAttackFromTopRight();
+                            enemyHit = true;
+                        }
                     }
 
                     else if (mouseXMove < 0 && mouseYMove < 0)
-                    {
-                        SwordAttackFromBottomRight();
-                        enemyHit = true;
+                    {if (SwordActive)
+                        {
+                            SwordAttackFromBottomRight();
+                            enemyHit = true;
+                        }
+
+                    else if (UrumiActive)
+                        {
+                            UrumiAttackFromBottomRight();
+                            enemyHit = true;
+                        }
                     }
 
                 }
@@ -1166,7 +1332,7 @@ public class DirectionDetection : MonoBehaviour
                                 {
                                     SwordAttackR();
                                     enemyHit = true;
-                                    print("enemyRightHit" + enemyRightHit);
+                                   
                                 }
 
                                 else if (enemyRightHit)
@@ -1271,7 +1437,9 @@ public class DirectionDetection : MonoBehaviour
                             else if (UrumiActive)
                             {
                                // if (!UrumiHit)
-                                //    UrumiAttackR(); needs for urui uppercut animation
+                                    UrumiAttackU();
+                                if (!enemyDownHit)
+                                    enemyHit = true;
                              //   else if (UrumiHit)
                                   //  UrumiHitR();
                             }
@@ -1302,7 +1470,9 @@ public class DirectionDetection : MonoBehaviour
                             else if (UrumiActive)
                             {
                                // if (!UrumiHit)
-                                //    UrumiAttackL(); needs urumi undercut animation
+                                    UrumiAttackO();
+                                if (!enemyHit)
+                                    enemyHit = true;
                                // else if (UrumiHit)
                                //     UrumiHitL();
                             }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static int PlayerHealth = 2;
+    public static int PlayerHealth = 10;
     public static bool inRange = false;
     [Header("Movement")]
     public float moveSpeed;

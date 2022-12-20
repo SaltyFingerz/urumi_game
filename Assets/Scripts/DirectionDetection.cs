@@ -6,6 +6,8 @@ public class DirectionDetection : MonoBehaviour
 {
     public GameObject lastHit;
     public GameObject HitParticle;
+    public GameObject correctTick;
+    public GameObject incorrectCross;
      RaycastHit whatHit;
      Vector3 collision = Vector3.zero;
      Vector3 target = new Vector3(0, 0, 10);
@@ -65,6 +67,9 @@ public class DirectionDetection : MonoBehaviour
     public bool canStab = false;
     public bool canStab2 = false;
 
+    public static int correctAttacks = 0;
+   
+
     public static GameObject EnemyID;
 
     public GameObject targetPoint;
@@ -86,7 +91,7 @@ public class DirectionDetection : MonoBehaviour
         tr = targetPoint.GetComponent<TrailRenderer>();
         tr.emitting = false;
 
-
+        
         
 
     }
@@ -112,8 +117,31 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if(UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
+    IEnumerator ShowTick()
+    {
+        correctAttacks += 1;
+        correctTick.SetActive(true);
+        yield return new WaitForSeconds(1);
+        correctTick.SetActive(false);
+       
+    }
+
+    IEnumerator ShowCross()
+    {
+        incorrectCross.SetActive(true);
+        yield return new WaitForSeconds(1);
+        incorrectCross.SetActive(false);
+    }
     public void SwordClashR()
     {
         ShouldAttack = false;
@@ -135,6 +163,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordAttackL()
@@ -158,7 +198,23 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
        ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
+
+
+
     }
+
 
     public void SwordClashL()
     {
@@ -181,6 +237,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordAttackS()
@@ -204,7 +272,19 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
-        
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowTick());
+        }
+
     }
 
     public void SwordClashS()
@@ -228,6 +308,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowTick());
+        }
 
     }
 
@@ -252,6 +344,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
 
     }
 
@@ -276,7 +380,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
-
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordAttackU()
@@ -300,7 +415,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
-
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordClashU()
@@ -324,7 +450,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
-
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
 
@@ -349,7 +486,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
-
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordAttackFromTopRight()
@@ -373,6 +521,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordAttackFromBottomLeft()
@@ -396,6 +556,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     public void SwordAttackFromTopLeft()
@@ -419,6 +591,18 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
+        if (UIButtonManager.tuteRight)
+        {
+            StartCoroutine(ShowCross());
+        }
+        else if (UIButtonManager.tuteLeft)
+        {
+            StartCoroutine(ShowTick());
+        }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
     public void UrumiAttackR()
     {
@@ -741,7 +925,7 @@ public class DirectionDetection : MonoBehaviour
 
         //To Change Weapon:
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !UIButtonManager.tuteRight && !UIButtonManager.tuteLeft)
         {
 
             if (SwordActive)
@@ -1691,14 +1875,14 @@ public class DirectionDetection : MonoBehaviour
 
     IEnumerator ResetAttackBool()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.2f);
         isAttacking = false;
         
     }
 
   IEnumerator ResetCam2()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         CamController.xRotation2 = Mathf.Clamp(CamController.xRotation, -90f, 90f);
         CamController.yRotation2 = CamController.yRotation;
         //CamController.yRotation2 = Mathf.Clamp(CamController.yRotation, -90f, 90f);
@@ -1717,11 +1901,12 @@ public class DirectionDetection : MonoBehaviour
         cam2.transform.rotation = cam.transform.rotation;
     }
 
-    IEnumerator AttackTimer()
+    IEnumerator AttackTimer() // this is to trigger attacks without the player having to release the mouse button - the player can release the mouse button to attack slightly faster though
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         if(Input.GetMouseButton(1))
         attackNow = true;
+
     }
 
 }

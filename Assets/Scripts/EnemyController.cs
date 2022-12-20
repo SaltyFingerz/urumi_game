@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    private int EnemyHealth = 5;
+    private int EnemyHealth = 500;
     public Transform target;
 
 
@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyMesh.SetDestination(target.position);
+        
 
         if (overlay.color.a > 0)
         {
@@ -78,6 +78,10 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    public void ChasePlayer()
+    {
+        enemyMesh.SetDestination(target.position);
+    }
     public void HitPlayer()
     {
         if (PlayerMovement.inRange)

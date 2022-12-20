@@ -148,6 +148,9 @@ public class PlayerMovement : MonoBehaviour
             inRange = true;
             print("enemy attack");
             other.GetComponent<Animator>().SetBool("Attack", true);
+
+           other.GetComponent<EnemyController>().ChasePlayer(); //function name
+
         }
     }
 

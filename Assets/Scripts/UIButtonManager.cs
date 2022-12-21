@@ -19,12 +19,19 @@ public class UIButtonManager : MonoBehaviour
 
     void Start()
     {
-       
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        
+
+
         if (SceneManager.GetActiveScene().buildIndex == 0)
         correctAttacksTute.text = DirectionDetection.correctAttacks.ToString();
         if (tuteRight && DirectionDetection.correctAttacks >= 3)
@@ -67,6 +74,8 @@ public class UIButtonManager : MonoBehaviour
         tuteRight = true;
     }
 
+   
+
     public void Retry()
     {
         DeathScreen.SetActive(false);
@@ -78,5 +87,6 @@ public class UIButtonManager : MonoBehaviour
     public void Level1Button()
     {
         SceneManager.LoadScene(1);
+
     }
 }

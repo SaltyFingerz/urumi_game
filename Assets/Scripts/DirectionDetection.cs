@@ -1427,11 +1427,11 @@ public class DirectionDetection : MonoBehaviour
 
 
 
-            if (Mathf.Abs(mouseXMove) >= 0.4f || Mathf.Abs(mouseYMove) >= 0.4f)
+            if (Mathf.Abs(mouseXMove) >= 1f || Mathf.Abs(mouseYMove) >= 1f) // checks if the attack is not a stab
             {
-                if(Mathf.Abs(mouseXMove) > 8f && Mathf.Abs(mouseYMove) > 8f)
+                if(Mathf.Abs(mouseXMove) > 8f && Mathf.Abs(mouseYMove) > 8f) // checks if the attack is diagonal
                 {
-                    if (mouseXMove > 0 && mouseYMove > 0) // this means the attack is coming from topleft
+                    if (mouseXMove > 0 && mouseYMove > 0) //  means the attack is coming from topleft
                     {
                         if (SwordActive)
                         {
@@ -1662,7 +1662,7 @@ public class DirectionDetection : MonoBehaviour
                 }
             } 
 
-        else if (Mathf.Abs(mouseXMove) < 0.4f && Mathf.Abs(mouseYMove) <0.4f)
+        else if (Mathf.Abs(mouseXMove) < 1f && Mathf.Abs(mouseYMove) <1f)
         {
             {
 

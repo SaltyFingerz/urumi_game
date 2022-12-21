@@ -11,6 +11,7 @@ public class UIButtonManager : MonoBehaviour
     public  GameObject TutePrompt1;
     public GameObject TutePrompt2;
     public GameObject TutePrompt3;
+    public GameObject TutePrompt4;
     public Text correctAttacksTute;
     public static bool tuteRight = false;
     public static bool tuteLeft = false;
@@ -24,6 +25,7 @@ public class UIButtonManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         correctAttacksTute.text = DirectionDetection.correctAttacks.ToString();
         if (tuteRight && DirectionDetection.correctAttacks >= 3)
         {
@@ -47,7 +49,10 @@ public class UIButtonManager : MonoBehaviour
         {
             DirectionDetection.correctAttacks = 0;
             TutePrompt3.SetActive(false);
+            TutePrompt4.SetActive(true);
             tuteCentre = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
         }
     }
@@ -57,6 +62,7 @@ public class UIButtonManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         ControlsPrompt.SetActive(false);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         TutePrompt1.SetActive(true);
         tuteRight = true;
     }
@@ -64,8 +70,13 @@ public class UIButtonManager : MonoBehaviour
     public void Retry()
     {
         DeathScreen.SetActive(false);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
      
         
+    }
+
+    public void Level1Button()
+    {
+        SceneManager.LoadScene(1);
     }
 }

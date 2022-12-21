@@ -32,7 +32,7 @@ public class DirectionDetection : MonoBehaviour
     private float mouseXEnd;
     [SerializeField]
     private float mouseYEnd;
-
+    private bool preventAttack = false;
     public GameObject cam;
     public GameObject cam2;
     private float xRotation;
@@ -867,18 +867,9 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            print("enemy hit" + enemyHit);
-            print(EnemyID.name);
-            print("enemy right hit" + enemyRightHit);
-            print("from right" + fromRight);
-        }
+       
 
-        if(fromUnder || fromOver)
-        {
-            print("from under or from over");
-        }
+        
 
         if(!PlayerMovement.inRange)
         {
@@ -925,7 +916,7 @@ public class DirectionDetection : MonoBehaviour
 
         //To Change Weapon:
 
-        if (Input.GetKeyDown(KeyCode.E) && !UIButtonManager.tuteRight && !UIButtonManager.tuteLeft)
+        if (Input.GetKeyDown(KeyCode.E))
         {
 
             if (SwordActive)
@@ -1254,8 +1245,9 @@ public class DirectionDetection : MonoBehaviour
         */
         //for right mouse button - camera not moving
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) )
         {
+            preventAttack = false;
             mouseXStart = CamController.yRotation;
             mouseYStart = CamController.xRotation;
 
@@ -1284,7 +1276,7 @@ public class DirectionDetection : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && !preventAttack)
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
@@ -1394,7 +1386,7 @@ public class DirectionDetection : MonoBehaviour
 
 
 
-        if (attackNow || Input.GetMouseButtonUp(1))
+        if (attackNow || (Input.GetMouseButtonUp(1) && !attackNow && !preventAttack))
         {
 
             mouseXEnd = CamController.yRotation2;
@@ -1862,14 +1854,14 @@ public class DirectionDetection : MonoBehaviour
     {
         
         enemyHit = false;
-        print("reset attack cooldown");
+        
         ShouldAttack = false;
         StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(AttackCooldown);
         CanAttack = true;
         UrumiHit = false;
         
-        print("attack RESET");
+        
        
     }
 
@@ -1904,8 +1896,11 @@ public class DirectionDetection : MonoBehaviour
     IEnumerator AttackTimer() // this is to trigger attacks without the player having to release the mouse button - the player can release the mouse button to attack slightly faster though
     {
         yield return new WaitForSeconds(0.3f);
-        if(Input.GetMouseButton(1))
-        attackNow = true;
+        if (Input.GetMouseButton(1))
+        {
+            attackNow = true;
+            preventAttack = true;
+        }
 
     }
 

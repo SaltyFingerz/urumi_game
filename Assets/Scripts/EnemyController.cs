@@ -74,12 +74,13 @@ public class EnemyController : MonoBehaviour
     {
         gameObject.GetComponent<Animator>().SetTrigger("Death");
         yield return new WaitForSeconds(1.5f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
 
     }
 
     public void ChasePlayer()
     {
+        if(gameObject.GetComponent<NavMeshAgent>().isOnNavMesh)
         enemyMesh.SetDestination(target.position);
     }
     public void HitPlayer()

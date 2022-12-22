@@ -30,10 +30,13 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
-
-   
+    public GameObject SkeletonZone1;
+    public GameObject SkeletonZone2;
+    private bool chase1;
+    private bool chase2;
+    private bool chase;
     Vector3 moveDirection;
-
+    private GameObject chaseEnemyID;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -136,6 +139,22 @@ public class PlayerMovement : MonoBehaviour
             PlayerHealth = 10;
         }
 
+
+        if (chase1)
+        {
+            SkeletonZone1.GetComponent<EnemyController>().ChasePlayer();
+        }
+
+         if (chase2)
+        {
+            SkeletonZone2.GetComponent<EnemyController>().ChasePlayer();
+        }
+
+         if (chase)
+        {
+            chaseEnemyID.GetComponent<EnemyController>().ChasePlayer();
+        }
+
     }
     private void FixedUpdate()
     {
@@ -148,11 +167,25 @@ public class PlayerMovement : MonoBehaviour
             inRange = true;
             print("enemy attack");
             other.GetComponent<Animator>().SetBool("Attack", true);
-
+            chase = true;
+            chaseEnemyID = other.gameObject;
            other.GetComponent<EnemyController>().ChasePlayer(); //function name
 
         }
+
+        if (other.CompareTag("ChaseZone1"))
+        {
+            chase1 = true;
+        }
+
+         if (other.CompareTag("ChaseZone2"))
+        {
+            chase2 = true;
+        }
+
     }
+
+ 
 
     private void OnTriggerExit(Collider other)
     {

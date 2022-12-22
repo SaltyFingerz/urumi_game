@@ -7,6 +7,11 @@ TagManager:
   - Enemy
   - Shield
   - RayCaster
+  - firstGate
+  - ChaseZone1
+  - secondGate
+  - thirdGate
+  - ChaseZone2
   layers:
   - Default
   - TransparentFX

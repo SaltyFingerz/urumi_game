@@ -12,11 +12,12 @@ public class UIButtonManager : MonoBehaviour
     public GameObject TutePrompt2;
     public GameObject TutePrompt3;
     public GameObject TutePrompt4;
+    public GameObject WeaponSwitchPrompt;
     public Text correctAttacksTute;
     public static bool tuteRight = false;
     public static bool tuteLeft = false;
     public static bool tuteCentre = false;
-
+    private bool weaponSwitched;
     void Start()
     {
        
@@ -28,7 +29,15 @@ public class UIButtonManager : MonoBehaviour
     void Update()
     {
 
-        
+        if(PlayerMovement.UrumiPicked && !weaponSwitched)
+        {
+            WeaponSwitchPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {                                                  // E changes the weapon (in DirectionDetection.cs, when the player does this the prompt explaining how to change weapon goes away via the code here
+                WeaponSwitchPrompt.SetActive(false);
+                weaponSwitched = true;
+            }
+        }
 
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -63,6 +72,8 @@ public class UIButtonManager : MonoBehaviour
         }
     }
 
+    
+
     public  void CloseControlsPrompt()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -85,6 +96,7 @@ public class UIButtonManager : MonoBehaviour
 
     public void Retry()
     {
+        PlayerMovement.PlayerHealth = 50;
         DeathScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 

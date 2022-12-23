@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static int PlayerHealth = 100;
+    public static int PlayerHealth = 50;
     public static bool inRange = false;
     [Header("Movement")]
     public float moveSpeed;
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    public static bool UrumiPicked;
   
     public static bool chase1;
     public static bool chase2;
@@ -196,6 +197,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("ChaseZone7"))
         {
             chase7 = true;
+        }
+        if (other.CompareTag("Urumi"))
+        {
+            UrumiPicked = true;
+            other.gameObject.SetActive(false);
         }
 
     }

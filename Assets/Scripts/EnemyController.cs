@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    private int EnemyHealth = 5;
+    private int EnemyHealth = 3;
     public Transform target;
 
 

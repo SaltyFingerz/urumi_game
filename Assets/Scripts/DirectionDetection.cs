@@ -198,7 +198,7 @@ public class DirectionDetection : MonoBehaviour
         AudioSource ac = GetComponent<AudioSource>();
        ac.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackCooldown());
-        if (UIButtonManager.tuteRight)
+        if (UIButtonManager.tuteRight) 
         {
             StartCoroutine(ShowCross());
         }
@@ -867,10 +867,10 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*
         if (whatHit.collider == null)
             EnemyID = null;
-        
+        */
 
         if(!PlayerMovement.inRange)
         {
@@ -886,7 +886,7 @@ public class DirectionDetection : MonoBehaviour
         {
            // if (gameObject.CompareTag("RayCaster"))
             {
-                if (Physics.Raycast(ray, out whatHit, maxDistance: 3, mask)) //mask is used so that the raycast does not detect the sword/weapon
+                if (Physics.Raycast(ray, out whatHit, maxDistance: 1.5f, mask)) //mask is used so that the raycast does not detect the sword/weapon
                 {
                     //lastHit = hit.transform.gameObject;
                     collision = whatHit.point;
@@ -917,7 +917,7 @@ public class DirectionDetection : MonoBehaviour
 
         //To Change Weapon:
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && PlayerMovement.UrumiPicked)
         {
 
             if (SwordActive)

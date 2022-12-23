@@ -30,30 +30,15 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
-    public GameObject SkeletonZone1;
-    public GameObject SkeletonZone2;
-    public GameObject SkeletonZone3;
-    public GameObject SkeletonZone4;
-    public GameObject SkeletonZone5;
-    public GameObject SkeletonZone6;
-    public GameObject SkeletonZone7;
-    public GameObject SkeletonWave2a;
-    public GameObject SkeletonWave2b;
-    public GameObject SkeletonWave3a;
-    public GameObject SkeletonWave3b;
-    public GameObject SkeletonWave3c;
-    public GameObject SkeletonWave4a;
-    public GameObject SkeletonWave4b;
-    public GameObject SkeletonWave4c;
-    public GameObject SkeletonWave4d;
-    private bool chase1;
-    private bool chase2;
-    private bool chase3;
-    private bool chase4;
-    private bool chase5;
-    private bool chase6;
-    private bool chase7;
-    private bool chase;
+  
+    public static bool chase1;
+    public static bool chase2;
+    public static bool chase3;
+    public static bool chase4;
+    public static bool chase5;
+    public static bool chase6;
+    public static bool chase7;
+    public static bool chase;
     Vector3 moveDirection;
     private GameObject chaseEnemyID;
     Rigidbody rb;
@@ -159,59 +144,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (chase1)
-        {
-            SkeletonZone1.GetComponent<EnemyController>().ChasePlayer();
-        }
-
-         if (chase2)
-        {
-            SkeletonZone2.GetComponent<EnemyController>().ChasePlayer();
-        }
-
-         if (chase)
+        if (PlayerMovement.chase)
         {
             chaseEnemyID.GetComponent<EnemyController>().ChasePlayer();
         }
-         if(chase3)
-        {
-            SkeletonZone3.GetComponent<EnemyController>().ChasePlayer();
-        }
-        if (chase4)
-        {
-            SkeletonZone4.GetComponent<EnemyController>().ChasePlayer();
-        }
-        if (chase5)
-        {
-            SkeletonZone5.GetComponent<EnemyController>().ChasePlayer();
-        }
-        if (chase6)
-        {
-            SkeletonZone6.GetComponent<EnemyController>().ChasePlayer();
-        }
-        if (chase7)
-        {
-            SkeletonZone7.GetComponent<EnemyController>().ChasePlayer();
-        }
 
-        if(!SkeletonZone7.activeSelf)
-        {
-            SkeletonWave2a.GetComponent<EnemyController>().ChasePlayer();
-            SkeletonWave2b.GetComponent<EnemyController>().ChasePlayer();
-        }
-        if(!SkeletonWave2a.activeSelf && !SkeletonWave2b.activeSelf)
-        {
-            SkeletonWave3a.GetComponent<EnemyController>().ChasePlayer();
-            SkeletonWave3b.GetComponent<EnemyController>().ChasePlayer();
-            SkeletonWave3c.GetComponent<EnemyController>().ChasePlayer();
-        }
-        if(!SkeletonWave3a.activeSelf && !SkeletonWave3b.activeSelf && !SkeletonWave3c.activeSelf)
-        {
-            SkeletonWave4a.GetComponent<EnemyController>().ChasePlayer();
-            SkeletonWave4b.GetComponent<EnemyController>().ChasePlayer();
-            SkeletonWave4c.GetComponent<EnemyController>().ChasePlayer();
-            SkeletonWave4d.GetComponent<EnemyController>().ChasePlayer();
-        }
 
     }
     private void FixedUpdate()

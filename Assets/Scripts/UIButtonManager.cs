@@ -19,8 +19,7 @@ public class UIButtonManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+       
 
 
     }
@@ -72,16 +71,24 @@ public class UIButtonManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
         TutePrompt1.SetActive(true);
         tuteRight = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
+    public void StartLevel()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        ControlsPrompt.SetActive(false);
+    }
    
 
     public void Retry()
     {
         DeathScreen.SetActive(false);
-        SceneManager.LoadScene(1);
-     
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
     }
 
     public void Level1Button()

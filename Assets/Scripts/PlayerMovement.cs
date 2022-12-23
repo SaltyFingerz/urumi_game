@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static int PlayerHealth = 10;
+    public static int PlayerHealth = 100;
     public static bool inRange = false;
     [Header("Movement")]
     public float moveSpeed;
@@ -32,8 +32,27 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject SkeletonZone1;
     public GameObject SkeletonZone2;
+    public GameObject SkeletonZone3;
+    public GameObject SkeletonZone4;
+    public GameObject SkeletonZone5;
+    public GameObject SkeletonZone6;
+    public GameObject SkeletonZone7;
+    public GameObject SkeletonWave2a;
+    public GameObject SkeletonWave2b;
+    public GameObject SkeletonWave3a;
+    public GameObject SkeletonWave3b;
+    public GameObject SkeletonWave3c;
+    public GameObject SkeletonWave4a;
+    public GameObject SkeletonWave4b;
+    public GameObject SkeletonWave4c;
+    public GameObject SkeletonWave4d;
     private bool chase1;
     private bool chase2;
+    private bool chase3;
+    private bool chase4;
+    private bool chase5;
+    private bool chase6;
+    private bool chase7;
     private bool chase;
     Vector3 moveDirection;
     private GameObject chaseEnemyID;
@@ -154,6 +173,45 @@ public class PlayerMovement : MonoBehaviour
         {
             chaseEnemyID.GetComponent<EnemyController>().ChasePlayer();
         }
+         if(chase3)
+        {
+            SkeletonZone3.GetComponent<EnemyController>().ChasePlayer();
+        }
+        if (chase4)
+        {
+            SkeletonZone4.GetComponent<EnemyController>().ChasePlayer();
+        }
+        if (chase5)
+        {
+            SkeletonZone5.GetComponent<EnemyController>().ChasePlayer();
+        }
+        if (chase6)
+        {
+            SkeletonZone6.GetComponent<EnemyController>().ChasePlayer();
+        }
+        if (chase7)
+        {
+            SkeletonZone7.GetComponent<EnemyController>().ChasePlayer();
+        }
+
+        if(!SkeletonZone7.activeSelf)
+        {
+            SkeletonWave2a.GetComponent<EnemyController>().ChasePlayer();
+            SkeletonWave2b.GetComponent<EnemyController>().ChasePlayer();
+        }
+        if(!SkeletonWave2a.activeSelf && !SkeletonWave2b.activeSelf)
+        {
+            SkeletonWave3a.GetComponent<EnemyController>().ChasePlayer();
+            SkeletonWave3b.GetComponent<EnemyController>().ChasePlayer();
+            SkeletonWave3c.GetComponent<EnemyController>().ChasePlayer();
+        }
+        if(!SkeletonWave3a.activeSelf && !SkeletonWave3b.activeSelf && !SkeletonWave3c.activeSelf)
+        {
+            SkeletonWave4a.GetComponent<EnemyController>().ChasePlayer();
+            SkeletonWave4b.GetComponent<EnemyController>().ChasePlayer();
+            SkeletonWave4c.GetComponent<EnemyController>().ChasePlayer();
+            SkeletonWave4d.GetComponent<EnemyController>().ChasePlayer();
+        }
 
     }
     private void FixedUpdate()
@@ -181,6 +239,26 @@ public class PlayerMovement : MonoBehaviour
          if (other.CompareTag("ChaseZone2"))
         {
             chase2 = true;
+        }
+         if(other.CompareTag("ChaseZone3"))
+        {
+            chase3 = true;
+        }
+        if (other.CompareTag("ChaseZone4"))
+        {
+            chase4= true;
+        }
+        if (other.CompareTag("ChaseZone5"))
+        {
+            chase5 = true;
+        }
+        if (other.CompareTag("ChaseZone6"))
+        {
+            chase6 = true;
+        }
+        if (other.CompareTag("ChaseZone7"))
+        {
+            chase7 = true;
         }
 
     }

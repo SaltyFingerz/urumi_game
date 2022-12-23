@@ -12,8 +12,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("Damage Overlay")]
     public Image overlay;
-    public float duration;
-    public float fadeSpeed;
+    private float duration = 1f;
+    private float fadeSpeed = 1f;
 
     private float durationTimer;
     public AudioClip AttackSound;

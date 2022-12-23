@@ -12,6 +12,11 @@ TagManager:
   - secondGate
   - thirdGate
   - ChaseZone2
+  - ChaseZone3
+  - ChaseZone4
+  - ChaseZone5
+  - ChaseZone6
+  - ChaseZone7
   layers:
   - Default
   - TransparentFX

@@ -28,5 +28,10 @@ public class GateManager : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        if(CompareTag("thirdGate") && (!Skeleton1.activeSelf && !Skeleton2.activeSelf && !Skeleton3.activeSelf && !Skeleton4.activeSelf && !Skeleton5.activeSelf && !Skeleton6.activeSelf))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

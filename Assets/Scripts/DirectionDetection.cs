@@ -867,8 +867,9 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
 
+        if (whatHit.collider == null)
+            EnemyID = null;
         
 
         if(!PlayerMovement.inRange)

@@ -108,4 +108,19 @@ public class UIButtonManager : MonoBehaviour
         SceneManager.LoadScene(1);
 
     }
+
+    public void TutorialButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenuButton()
+    {
+        SceneManager.LoadScene(2);
+    }
 }

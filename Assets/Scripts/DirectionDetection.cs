@@ -648,6 +648,30 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void UrumiClashU()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = true;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("ClashU");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        AudioSource ac2 = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
     public void UrumiAttackO()
     {
         canStab = false;
@@ -667,6 +691,30 @@ public class DirectionDetection : MonoBehaviour
         anim.SetTrigger("AttackO");
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(WhipAttackSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
+    public void UrumiClashO()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = true;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("ClashO");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        AudioSource ac2 = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
     }
 
@@ -781,6 +829,30 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void UrumiClashR()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = true;
+        fromLeft = false;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("ClashR");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        AudioSource ac2 = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
+
 
 
     public void UrumiAttackL()
@@ -827,6 +899,29 @@ public class DirectionDetection : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public void UrumiClashL()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = true;
+        fromCentre = false;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("ClashL");
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(WhipAttackSound);
+        AudioSource ac2 = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
 
     public void UrumiAttackS()
     {
@@ -851,19 +946,41 @@ public class DirectionDetection : MonoBehaviour
 
     }
 
-   /* private void OnDrawGizmos()
-     {
+    public void UrumiClashS()
+    {
+        canStab = false;
+        canStab2 = false;
+        isAttacking = true;
+        fromRight = false;
+        fromLeft = false;
+        fromCentre = true;
+        CanAttack = false;
+        fromOver = false;
+        fromUnder = false;
+        fromBottomRight = false;
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Urumi.GetComponent<Animator>();
+        anim.SetTrigger("ClashS");
+        AudioSource ac2 = GetComponent<AudioSource>();
+        ac.PlayOneShot(SwordClashSound);
+        StartCoroutine(ResetAttackCooldown());
+    }
 
-         if (whatHit.collider.gameObject.CompareTag("Enemy"))
-         {
-             Gizmos.color = Color.red;
-         }
-         else
-         { Gizmos.color = Color.green; }
+    /* private void OnDrawGizmos()
+      {
 
-        Gizmos.DrawWireSphere(collision, radius: 0.5f);
-         Gizmos.DrawLine(transform.position, collision);
-     } */
+          if (whatHit.collider.gameObject.CompareTag("Enemy"))
+          {
+              Gizmos.color = Color.red;
+          }
+          else
+          { Gizmos.color = Color.green; }
+
+         Gizmos.DrawWireSphere(collision, radius: 0.5f);
+          Gizmos.DrawLine(transform.position, collision);
+      } */
     // Update is called once per frame
     void Update()
     {
@@ -871,12 +988,12 @@ public class DirectionDetection : MonoBehaviour
         if (whatHit.collider == null)
             EnemyID = null;
         */
-
+        /*
         if(!PlayerMovement.inRange)
         {
             EnemyID = null;
         }
-
+        */
             //Debug.DrawRay(this.transform.position, this.transform.forward * 5, Color.green);
             int mask = 1 << LayerMask.NameToLayer("Default");
         //mask |= 1 << LayerMask.NameToLayer("Enemy"); //this is for adding additional layers
@@ -1299,10 +1416,10 @@ public class DirectionDetection : MonoBehaviour
 
                 if (whatHit.collider != null)
                 {
-                    if (UrumiActive)
+                   /* if (UrumiActive)
                     {
                         UrumiHit = true;
-                    }
+                    } */
                     if (whatHit.collider.gameObject.CompareTag("Enemy")) //This is giving an error when the raycast doesn't hit anything. (not anymore?)
                     {
                         enemyHit = true;
@@ -1318,7 +1435,7 @@ public class DirectionDetection : MonoBehaviour
                             enemyDownHit = false;
                             enemyUpHit = false;
                         }
-                        else if (EnemyID.name.Contains("left"))
+                         if (EnemyID.name.Contains("left"))
                         {
                             enemyLeftHit = true;
                             enemyCenterHit = false;
@@ -1327,30 +1444,30 @@ public class DirectionDetection : MonoBehaviour
                             enemyRightHit = false;
 
                         }
-                        else if (EnemyID.name.Contains("center"))
+                         if (EnemyID.name.Contains("center"))
                         {
                             enemyCenterHit = true;
                             enemyLeftHit = false;
                             enemyRightHit = false;
-                            enemyDownHit = false;
-                            enemyUpHit = false;
+                           // enemyDownHit = false;
+                           // enemyUpHit = false;
 
                         }
 
-                        else if (EnemyID.name.Contains("down"))
+                         if (EnemyID.name.Contains("down"))
                         {
                             enemyDownHit = true;
                             enemyUpHit = false;
                             enemyLeftHit = false;
                             enemyRightHit = false;
-                            enemyCenterHit = false;
+                           // enemyCenterHit = false;
                         }
 
-                        else if (EnemyID.name.Contains("up"))
+                         if (EnemyID.name.Contains("up"))
                         {
                             enemyUpHit = true;
                             enemyLeftHit = false;
-                            enemyCenterHit = false;
+                            //enemyCenterHit = false;
                             enemyDownHit = false;
                             enemyRightHit = false;
 
@@ -1534,7 +1651,7 @@ public class DirectionDetection : MonoBehaviour
                                 }
                                 else if (enemyRightHit)
                                 {
-                                    UrumiHitR();
+                                    UrumiClashR();
                                     enemyHit = false;
                                     enemyRightHit = false;
                                 }
@@ -1577,7 +1694,7 @@ public class DirectionDetection : MonoBehaviour
                                 }
                                 else if (enemyLeftHit)
                                 {
-                                    UrumiHitL();
+                                    UrumiClashL();
                                     enemyHit = false;
                                     enemyLeftHit = false;
                                 }
@@ -1613,10 +1730,14 @@ public class DirectionDetection : MonoBehaviour
 
                             else if (UrumiActive)
                             {
-                               // if (!UrumiHit)
+                                // if (!UrumiHit)
+                                if (enemyDownHit)
+                                    UrumiClashU();
+                                else if (!enemyDownHit)
+                                {
                                     UrumiAttackU();
-                                if (!enemyDownHit)
                                     enemyHit = true;
+                                }
                              //   else if (UrumiHit)
                                   //  UrumiHitR();
                             }
@@ -1646,12 +1767,13 @@ public class DirectionDetection : MonoBehaviour
 
                             else if (UrumiActive)
                             {
-                               // if (!UrumiHit)
+                                if (enemyDownHit)
+                                    UrumiClashO();
+                                else if (!enemyDownHit)
+                                {
                                     UrumiAttackO();
-                                if (!enemyHit)
                                     enemyHit = true;
-                               // else if (UrumiHit)
-                               //     UrumiHitL();
+                                }
                             }
                         }
                     }
@@ -1702,8 +1824,8 @@ public class DirectionDetection : MonoBehaviour
                         }
                         else if (enemyCenterHit)
                         {
-                            UrumiAttackS();
-                            enemyHit = false;
+                            UrumiClashS();
+                            //enemyHit = false;
                             canStab = false;
                         }
                     }

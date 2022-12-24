@@ -15,6 +15,7 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
+            print("damage fro stab");
             DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
             DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());

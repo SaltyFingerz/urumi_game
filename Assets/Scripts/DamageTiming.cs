@@ -15,9 +15,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            print("damage fro stab");
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
 
@@ -33,7 +34,9 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
             DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if(DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
             DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
@@ -48,8 +51,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,
@@ -62,8 +67,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,
@@ -76,8 +83,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,
@@ -91,8 +100,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,
@@ -105,8 +116,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,
@@ -119,8 +132,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,
@@ -133,9 +148,10 @@ public class DamageTiming : MonoBehaviour
     {
         if (DirectionDetection.EnemyID != null)
         {
-
-            DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
-            DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
+            if (DirectionDetection.EnemyID.GetComponent<Animator>() != null)
+                DirectionDetection.EnemyID.GetComponent<Animator>().SetTrigger("Damage");
+            if (DirectionDetection.EnemyID.GetComponent<EnemyController>() != null)
+                DirectionDetection.EnemyID.GetComponent<EnemyController>().ReduceHealth(1);
             // StartCoroutine(EnemyHurtRight());
             HitParticle.SetActive(true);
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.9f,

@@ -125,6 +125,10 @@ public class DirectionDetection : MonoBehaviour
         {
             StartCoroutine(ShowCross());
         }
+        else if (UIButtonManager.tuteCentre)
+        {
+            StartCoroutine(ShowCross());
+        }
     }
 
     IEnumerator ShowTick()
@@ -963,7 +967,7 @@ public class DirectionDetection : MonoBehaviour
         fromTopLeft = false;
         Animator anim = Urumi.GetComponent<Animator>();
         anim.SetTrigger("ClashS");
-        AudioSource ac2 = GetComponent<AudioSource>();
+        AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordClashSound);
         StartCoroutine(ResetAttackCooldown());
     }
@@ -984,6 +988,7 @@ public class DirectionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("enemyleftHit = " + enemyLeftHit);
         /*
         if (whatHit.collider == null)
             EnemyID = null;
@@ -1427,16 +1432,45 @@ public class DirectionDetection : MonoBehaviour
                         EnemyID = whatHit.collider.gameObject;
 
 
-                        if (EnemyID.name.Contains("right"))
+                        if(EnemyID.name.Contains("right") && EnemyID.name.Contains("left"))
                         {
+                            enemyRightHit = true;
+                            enemyLeftHit = true;
+                            enemyCenterHit = false;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
+                        }
+
+                        if(EnemyID.name.Contains("right") && EnemyID.name.Contains("center"))
+                        {
+                            enemyRightHit = true;
+                            enemyLeftHit = false;
+                            enemyCenterHit = true;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
+                        }
+
+                        if(EnemyID.name.Contains("left") && EnemyID.name.Contains("center"))
+                        {
+                            enemyRightHit = false;
+                            enemyLeftHit = true;
+                            enemyCenterHit = true;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
+                        }
+
+                        else if (EnemyID.name.Contains("right"))
+                        {
+                            print("contains right");
                             enemyRightHit = true;
                             enemyLeftHit = false;
                             enemyCenterHit = false;
                             enemyDownHit = false;
                             enemyUpHit = false;
                         }
-                         if (EnemyID.name.Contains("left"))
+                         else if (EnemyID.name.Contains("left"))
                         {
+                            print("contains left");
                             enemyLeftHit = true;
                             enemyCenterHit = false;
                             enemyDownHit = false;
@@ -1444,13 +1478,14 @@ public class DirectionDetection : MonoBehaviour
                             enemyRightHit = false;
 
                         }
-                         if (EnemyID.name.Contains("center"))
+                        else if (EnemyID.name.Contains("center"))
                         {
+                            print("contains center");
                             enemyCenterHit = true;
                             enemyLeftHit = false;
                             enemyRightHit = false;
-                           // enemyDownHit = false;
-                           // enemyUpHit = false;
+                            enemyDownHit = false;
+                            enemyUpHit = false;
 
                         }
 
@@ -1460,14 +1495,14 @@ public class DirectionDetection : MonoBehaviour
                             enemyUpHit = false;
                             enemyLeftHit = false;
                             enemyRightHit = false;
-                           // enemyCenterHit = false;
+                            enemyCenterHit = false;
                         }
 
                          if (EnemyID.name.Contains("up"))
                         {
                             enemyUpHit = true;
                             enemyLeftHit = false;
-                            //enemyCenterHit = false;
+                            enemyCenterHit = false;
                             enemyDownHit = false;
                             enemyRightHit = false;
 
@@ -1670,13 +1705,14 @@ public class DirectionDetection : MonoBehaviour
                             {
                                 if (!enemyLeftHit)
                                 {
-                                    
+                                   
                                     SwordAttackL();
                                     enemyHit = true;
 
                                 }
                                 else if (enemyLeftHit)
                                 {
+                                   
                                     SwordClashL();
                                     enemyHit = false;
                                     enemyLeftHit = false;

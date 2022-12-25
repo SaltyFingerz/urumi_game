@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         if (DirectionDetection.ShouldAttack)
         {
             moveSpeed = 0f;
-            print("speed 0 cause should attack");
+            
         }
         else
         {

@@ -13,6 +13,9 @@ public class UIButtonManager : MonoBehaviour
     public GameObject TutePrompt3;
     public GameObject TutePrompt4;
     public GameObject WeaponSwitchPrompt;
+    public GameObject Scarecrow1;
+    public GameObject Scarecrow2;
+    public GameObject Scarecrow3;
     public Text correctAttacksTute;
     public static bool tuteRight = false;
     public static bool tuteLeft = false;
@@ -40,7 +43,7 @@ public class UIButtonManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 0 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf))
         correctAttacksTute.text = DirectionDetection.correctAttacks.ToString();
         if (tuteRight && DirectionDetection.correctAttacks >= 3)
         {
@@ -49,6 +52,8 @@ public class UIButtonManager : MonoBehaviour
             tuteLeft = true;
             TutePrompt2.SetActive(true);
             TutePrompt1.SetActive(false);
+            Scarecrow1.SetActive(false);
+            Scarecrow2.SetActive(true);
         }
 
         if (tuteLeft && DirectionDetection.correctAttacks >= 3)
@@ -56,6 +61,8 @@ public class UIButtonManager : MonoBehaviour
             DirectionDetection.correctAttacks = 0;
             TutePrompt2.SetActive(false);
             TutePrompt3.SetActive(true);
+            Scarecrow2.SetActive(false);
+            Scarecrow3.SetActive(true);
             tuteLeft = false;
             tuteCentre = true;
         }
@@ -65,6 +72,7 @@ public class UIButtonManager : MonoBehaviour
             DirectionDetection.correctAttacks = 0;
             TutePrompt3.SetActive(false);
             TutePrompt4.SetActive(true);
+            
             tuteCentre = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -112,6 +120,11 @@ public class UIButtonManager : MonoBehaviour
     public void TutorialButton()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void LevelPracticeButton()
+    {
+        SceneManager.LoadScene(3);
     }
 
     public void QuitGame()

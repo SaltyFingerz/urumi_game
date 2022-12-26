@@ -1368,7 +1368,7 @@ public class DirectionDetection : MonoBehaviour
         */
         //for right mouse button - camera not moving
 
-        if (Input.GetMouseButtonDown(1) )
+        if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
         {
             preventAttack = false;
             mouseXStart = CamController.yRotation;
@@ -1399,7 +1399,7 @@ public class DirectionDetection : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButton(1) && !preventAttack)
+        if ((Input.GetMouseButton(1) || Input.GetMouseButton(0)) && !preventAttack)
         {
             CamController.sensX = 0;
             CamController.sensY = 0;
@@ -1539,7 +1539,7 @@ public class DirectionDetection : MonoBehaviour
 
 
 
-        if (attackNow || (Input.GetMouseButtonUp(1) && !attackNow && !preventAttack))
+        if (attackNow || ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(0)) && !attackNow && !preventAttack))
         {
 
             mouseXEnd = CamController.yRotation2;
@@ -2055,7 +2055,7 @@ public class DirectionDetection : MonoBehaviour
     IEnumerator AttackTimer() // this is to trigger attacks without the player having to release the mouse button - the player can release the mouse button to attack slightly faster though
     {
         yield return new WaitForSeconds(0.3f);
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) || Input.GetMouseButton(0))
         {
             attackNow = true;
             preventAttack = true;

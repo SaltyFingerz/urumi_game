@@ -1039,6 +1039,8 @@ public class DirectionDetection : MonoBehaviour
 
         //To Change Weapon:
 
+      
+
         if (Input.GetKeyDown(KeyCode.E) && PlayerMovement.UrumiPicked)
         {
 
@@ -1051,9 +1053,11 @@ public class DirectionDetection : MonoBehaviour
 
             else if (UrumiActive)
             {
-
-                SwordActive = true;
-                UrumiActive = false;
+                if (Urumi.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("IdleWhip")) //only switch from Urumi to Swprd when Urumi is in Idle state, because otherwise it's transform and armature in Idle may get defined by the point it was switched from. 
+                {
+                    SwordActive = true;
+                    UrumiActive = false;
+                }
             }
 
            
@@ -1459,9 +1463,26 @@ public class DirectionDetection : MonoBehaviour
                             enemyUpHit = false;
                         }
 
+                        if(EnemyID.name.Contains("up") && EnemyID.name.Contains("center"))
+                        {
+                            enemyUpHit = true;
+                            enemyCenterHit = true;
+                            enemyLeftHit = false;
+                            enemyRightHit = false;
+                            enemyDownHit = false;
+                        }
+                        if (EnemyID.name.Contains("down") && EnemyID.name.Contains("center"))
+                        {
+                            enemyUpHit = false;
+                            enemyDownHit = true;
+                            enemyCenterHit = true;
+                            enemyRightHit = false;
+                            enemyLeftHit = false;
+                        }
+
                         else if (EnemyID.name.Contains("right"))
                         {
-                            print("contains right");
+                            
                             enemyRightHit = true;
                             enemyLeftHit = false;
                             enemyCenterHit = false;
@@ -1470,7 +1491,7 @@ public class DirectionDetection : MonoBehaviour
                         }
                          else if (EnemyID.name.Contains("left"))
                         {
-                            print("contains left");
+                           
                             enemyLeftHit = true;
                             enemyCenterHit = false;
                             enemyDownHit = false;
@@ -1480,31 +1501,31 @@ public class DirectionDetection : MonoBehaviour
                         }
                         else if (EnemyID.name.Contains("center"))
                         {
-                            print("contains center");
+                            
                             enemyCenterHit = true;
-                            enemyLeftHit = false;
+                            /*enemyLeftHit = false;
                             enemyRightHit = false;
                             enemyDownHit = false;
-                            enemyUpHit = false;
+                            enemyUpHit = false; */
 
                         }
 
-                         if (EnemyID.name.Contains("down"))
+                         else if (EnemyID.name.Contains("down"))
                         {
                             enemyDownHit = true;
-                            enemyUpHit = false;
+                           /* enemyUpHit = false;
                             enemyLeftHit = false;
                             enemyRightHit = false;
-                            enemyCenterHit = false;
+                            enemyCenterHit = false; */
                         }
 
-                         if (EnemyID.name.Contains("up"))
+                         else if (EnemyID.name.Contains("up"))
                         {
                             enemyUpHit = true;
-                            enemyLeftHit = false;
+                           /* enemyLeftHit = false;
                             enemyCenterHit = false;
                             enemyDownHit = false;
-                            enemyRightHit = false;
+                            enemyRightHit = false; */
 
 
                         }
@@ -1803,9 +1824,9 @@ public class DirectionDetection : MonoBehaviour
 
                             else if (UrumiActive)
                             {
-                                if (enemyDownHit)
+                                if (enemyUpHit)
                                     UrumiClashO();
-                                else if (!enemyDownHit)
+                                else if (!enemyUpHit)
                                 {
                                     UrumiAttackO();
                                     enemyHit = true;

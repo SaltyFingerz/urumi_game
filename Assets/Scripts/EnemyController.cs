@@ -72,6 +72,12 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator EnemyDie()
     {
+        DirectionDetection.EnemyID = null;
+        DirectionDetection.enemyLeftHit = false;
+        DirectionDetection.enemyRightHit = false;
+        DirectionDetection.enemyCenterHit = false;
+        DirectionDetection.enemyUpHit = false;
+        DirectionDetection.enemyDownHit = false;
         gameObject.GetComponent<Animator>().SetTrigger("Death");
         yield return new WaitForSeconds(1.5f);
         gameObject.SetActive(false);

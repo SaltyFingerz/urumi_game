@@ -18,6 +18,7 @@ TagManager:
   - ChaseZone6
   - ChaseZone7
   - Urumi
+  - FinalStage
   layers:
   - Default
   - TransparentFX

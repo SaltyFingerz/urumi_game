@@ -87,8 +87,20 @@ public class UIButtonManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         ControlsPrompt.SetActive(false);
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         TutePrompt1.SetActive(true);
+     
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void StartTutorialButton()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        ControlsPrompt.SetActive(false);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            TutePrompt1.SetActive(true);
         tuteRight = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -113,13 +125,13 @@ public class UIButtonManager : MonoBehaviour
 
     public void Level1Button()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
 
     }
 
     public void TutorialButton()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void LevelPracticeButton()
@@ -134,6 +146,6 @@ public class UIButtonManager : MonoBehaviour
 
     public void MainMenuButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 }

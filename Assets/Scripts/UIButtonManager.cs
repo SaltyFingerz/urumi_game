@@ -16,6 +16,8 @@ public class UIButtonManager : MonoBehaviour
     public GameObject Scarecrow1;
     public GameObject Scarecrow2;
     public GameObject Scarecrow3;
+    public GameObject PauseMenu;
+
     public Text correctAttacksTute;
     public static bool tuteRight = false;
     public static bool tuteLeft = false;
@@ -81,6 +83,17 @@ public class UIButtonManager : MonoBehaviour
     }
 
     
+
+  
+    public void ResumeButton()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1;
+        PauseMenu.SetActive(false);
+
+    }
+
 
     public  void CloseControlsPrompt()
     {

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag;
     public GameObject DeathScreen;
+    public GameObject PauseMenu;
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -150,7 +151,13 @@ public class PlayerMovement : MonoBehaviour
             chaseEnemyID.GetComponent<EnemyController>().ChasePlayer();
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+            PauseMenu.SetActive(true);
+        }
     }
     private void FixedUpdate()
     {

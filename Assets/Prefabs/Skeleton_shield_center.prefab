@@ -897,8 +897,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   overlay: {fileID: 0}
-  duration: 2
-  fadeSpeed: 1
   AttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
 --- !u!82 &97455250
 AudioSource:

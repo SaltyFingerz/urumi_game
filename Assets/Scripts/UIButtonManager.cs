@@ -45,7 +45,7 @@ public class UIButtonManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().buildIndex == 1 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf)) //the build index checks whether the active scene is the tutorial, so only then the text of correct attacks is shown.
+        if (SceneManager.GetActiveScene().buildIndex == 1 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf) && correctAttacksTute != null) //the build index checks whether the active scene is the tutorial, so only then the text of correct attacks is shown.
         correctAttacksTute.text = DirectionDetection.correctAttacks.ToString(); //the number of correct attacks done is shown as a Text UI element, after converting the number of correct attacks to string
         if (tuteRight && DirectionDetection.correctAttacks >= 3)
         {
@@ -135,15 +135,17 @@ public class UIButtonManager : MonoBehaviour
 
     }
     //The following are called from the main menu upon selecting each level
-    public void Level1Button() 
+    public void Level1Button()  //from main menu
     {
         SceneManager.LoadScene(2);
+        Time.timeScale = 1;
 
     }
 
-    public void TutorialButton() 
+    public void TutorialButton() //from main menu
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1;
     }
 
  
@@ -152,7 +154,7 @@ public class UIButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void MainMenuButton()
+    public void MainMenuButton() //called from pause menu
     {
         SceneManager.LoadScene(0);
     }

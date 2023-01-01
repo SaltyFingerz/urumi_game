@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyWaves : MonoBehaviour
 {
+    //this script is used to orchestrate when each wave of enemies should start chasing the player
+    //the script is attached to the ChaseZone7 EnemyWaves game object in level1.
 
+    //the following are skeletons that are alerted to chase the player upon the player entering specific areas of the level.
     public GameObject SkeletonZone1;
     public GameObject SkeletonZone2;
     public GameObject SkeletonZone3;
@@ -12,6 +15,8 @@ public class EnemyWaves : MonoBehaviour
     public GameObject SkeletonZone5;
     public GameObject SkeletonZone6;
     public GameObject SkeletonZone7;
+
+    //the following are skeleton enemies belonging to waves, which are activated one after the killing of another
     public GameObject SkeletonWave2a;
     public GameObject SkeletonWave2b;
     public GameObject SkeletonWave3a;

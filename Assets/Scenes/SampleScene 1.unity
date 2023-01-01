@@ -2202,18 +2202,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &131546650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131546648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 146936c3f8bea9744a8c01a9d55f4b14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &131546651
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2261,8 +2249,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 151446123}
-  - component: {fileID: 151446124}
-  - component: {fileID: 151446125}
   m_Layer: 0
   m_Name: Weapon Holder
   m_TagString: Untagged
@@ -2286,30 +2272,6 @@ Transform:
   m_Father: {fileID: 622376653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &151446124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151446122}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e595832b0843245ac7c82c667da9d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &151446125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151446122}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74143fe359aa4740b0c1bce55e2f1c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &157404080
 GameObject:
   m_ObjectHideFlags: 0
@@ -4131,10 +4093,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4453572ec3639884fa268303c3042c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   target: {fileID: 0}
   overlay: {fileID: 0}
   AttackSound: {fileID: 0}
-  Player: {fileID: 0}
 --- !u!1001 &398473667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5281,10 +5243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4453572ec3639884fa268303c3042c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   target: {fileID: 455542745}
   overlay: {fileID: 1438827264}
   AttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
-  Player: {fileID: 0}
 --- !u!136 &446918887
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5704,24 +5666,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f596b18d1fd791648a1fd43d8011ae82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  DeathScreen: {fileID: 1965863578}
+  PauseMenu: {fileID: 2092985989}
+  orientation: {fileID: 1845151571}
+  DeathSound: {fileID: 8300000, guid: 287187528e4a1aa4fbcc48dae0f2cdb4, type: 3}
+  Laughing: {fileID: 0}
   HurtSounds: []
   HurtSoundsLowHP: []
   AreaCleared: []
-  Laughing: {fileID: 0}
-  groundDrag: 5
-  DeathScreen: {fileID: 1965863578}
-  PauseMenu: {fileID: 2092985989}
-  jumpForce: 6
-  jumpCooldown: 0.25
-  airMultiplier: 0.4
-  DeathSound: {fileID: 8300000, guid: 287187528e4a1aa4fbcc48dae0f2cdb4, type: 3}
   jumpKey: 32
-  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
-  orientation: {fileID: 1845151571}
+  moveSpeed: 7
+  groundDrag: 5
+  jumpForce: 6
+  jumpCooldown: 0.25
+  airMultiplier: 0.4
+  playerHeight: 2
 --- !u!82 &455542747
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7248,10 +7210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4453572ec3639884fa268303c3042c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   target: {fileID: 455542745}
   overlay: {fileID: 0}
   AttackSound: {fileID: 0}
-  Player: {fileID: 0}
 --- !u!95 &548703015
 Animator:
   serializedVersion: 3
@@ -11816,18 +11778,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &953206239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953206235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 146936c3f8bea9744a8c01a9d55f4b14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &967661985
 GameObject:
   m_ObjectHideFlags: 0
@@ -12519,10 +12469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4453572ec3639884fa268303c3042c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   target: {fileID: 0}
   overlay: {fileID: 0}
   AttackSound: {fileID: 0}
-  Player: {fileID: 0}
 --- !u!95 &1005930076
 Animator:
   serializedVersion: 3
@@ -15795,7 +15745,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325508386}
-  - component: {fileID: 1325508385}
   - component: {fileID: 1325508384}
   - component: {fileID: 1325508383}
   m_Layer: 0
@@ -15854,18 +15803,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1325508382}
   m_Mesh: {fileID: 0}
---- !u!114 &1325508385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325508382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb539790c619834eab97ef2defc77a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1325508386
 Transform:
   m_ObjectHideFlags: 0
@@ -17600,8 +17537,6 @@ GameObject:
   - component: {fileID: 1478228162}
   - component: {fileID: 1478228161}
   - component: {fileID: 1478228160}
-  - component: {fileID: 1478228166}
-  - component: {fileID: 1478228167}
   - component: {fileID: 1478228170}
   - component: {fileID: 1478228169}
   - component: {fileID: 1478228168}
@@ -17659,9 +17594,6 @@ MonoBehaviour:
   mouseXEnd: 0
   mouseYEnd: 0
   AttackCooldown: 1
-  canStab: 0
-  canStab2: 0
-  eulerAngY: 0
 --- !u!114 &1478228161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17801,30 +17733,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1478228166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1478228158}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75861175378d15b408aef77048f6b589, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1478228167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1478228158}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c97b66cc17d82a45af7b4c4b6f98f43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1478228168
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20866,18 +20774,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1682069414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682069411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 146936c3f8bea9744a8c01a9d55f4b14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
@@ -21089,9 +20985,6 @@ MonoBehaviour:
   mouseXEnd: 0
   mouseYEnd: 0
   AttackCooldown: 0.4
-  canStab: 0
-  canStab2: 0
-  eulerAngY: 0
 --- !u!82 &1687258589
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22895,10 +22788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4453572ec3639884fa268303c3042c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   target: {fileID: 455542745}
   overlay: {fileID: 0}
   AttackSound: {fileID: 0}
-  Player: {fileID: 0}
 --- !u!136 &1824976029
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25685,7 +25578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlsPrompt: {fileID: 0}
   DeathScreen: {fileID: 0}
-  TutePrompt1: {fileID: 0}
+  TutePrompt1: {fileID: 924922075}
   TutePrompt2: {fileID: 0}
   TutePrompt3: {fileID: 0}
   TutePrompt4: {fileID: 0}

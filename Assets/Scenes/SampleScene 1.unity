@@ -2298,15 +2298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e595832b0843245ac7c82c667da9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sword: {fileID: 0}
-  Urumi: {fileID: 0}
-  Shield: {fileID: 0}
-  CanAttack: 1
-  AttackCooldown: 1
-  SwordAttackSound: {fileID: 0}
-  isAttacking: 0
-  fromRight: 0
-  fromLeft: 0
 --- !u!114 &151446125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2319,7 +2310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74143fe359aa4740b0c1bce55e2f1c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedWeapon: 0
 --- !u!1 &157404080
 GameObject:
   m_ObjectHideFlags: 0
@@ -4474,6 +4464,20 @@ CapsuleCollider:
   m_Height: 16.17
   m_Direction: 1
   m_Center: {x: 0, y: 8.34, z: 0}
+--- !u!136 &417839001
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417838998}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 15
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 8.71, z: 0}
 --- !u!1 &418757115
 GameObject:
   m_ObjectHideFlags: 0
@@ -9887,7 +9891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae61a375ab37fc041be6fef29e59375e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImpactFXPrefab: {fileID: 0}
   HitParticle: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
 --- !u!64 &754214367
 MeshCollider:
@@ -14381,6 +14384,20 @@ CapsuleCollider:
   m_Height: 16.17
   m_Direction: 1
   m_Center: {x: 0, y: 8.34, z: 0}
+--- !u!136 &1182296942
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182296939}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 15
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 8.71, z: 0}
 --- !u!4 &1183758749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c3b956a57e198e148b8bc99406e1efc7, type: 3}
@@ -17626,25 +17643,24 @@ MonoBehaviour:
   HitParticle: {fileID: 0}
   correctTick: {fileID: 0}
   incorrectCross: {fileID: 0}
+  cam: {fileID: 1687258581}
+  cam2: {fileID: 1478228158}
+  targetPoint: {fileID: 622376652}
   Sword: {fileID: 754214362}
   Urumi: {fileID: 131546648}
-  Shield: {fileID: 0}
+  SwordAttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
+  WhipAttackSound: {fileID: 8300000, guid: feee7acbd39688a4a960c37c20dca5cd, type: 3}
+  SwordClashSound: {fileID: 8300000, guid: aa1d15a49c9ab09479ac0ceddd0d16b2, type: 3}
+  orientation: {fileID: 1845151571}
   mouseXMove: 0
   mouseYMove: 0
   mouseXStart: 0
   mouseYStart: 0
   mouseXEnd: 0
   mouseYEnd: 0
-  cam: {fileID: 1687258581}
-  cam2: {fileID: 1478228158}
   AttackCooldown: 1
-  SwordAttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
-  WhipAttackSound: {fileID: 8300000, guid: feee7acbd39688a4a960c37c20dca5cd, type: 3}
-  SwordClashSound: {fileID: 8300000, guid: aa1d15a49c9ab09479ac0ceddd0d16b2, type: 3}
   canStab: 0
   canStab2: 0
-  targetPoint: {fileID: 622376652}
-  orientation: {fileID: 1845151571}
   eulerAngY: 0
 --- !u!114 &1478228161
 MonoBehaviour:
@@ -17797,31 +17813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75861175378d15b408aef77048f6b589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastHit: {fileID: 0}
-  HitParticle: {fileID: 0}
-  collision: {x: 0, y: 0, z: 0}
-  target: {x: 0, y: 0, z: 10}
-  Sword: {fileID: 754214362}
-  Urumi: {fileID: 131546648}
-  Shield: {fileID: 0}
-  mouseXStart: 0
-  mouseYStart: 0
-  mouseYStart2: 0
-  mouseXStart2: 0
-  mouseXEnd: 0
-  mouseYEnd: 0
-  cam: {fileID: 1687258581}
-  cam2: {fileID: 1478228158}
-  CanAttack: 1
-  AttackCooldown: 1
-  SwordAttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
-  WhipAttackSound: {fileID: 8300000, guid: feee7acbd39688a4a960c37c20dca5cd, type: 3}
-  SwordClashSound: {fileID: 8300000, guid: aa1d15a49c9ab09479ac0ceddd0d16b2, type: 3}
-  canStab: 0
-  canStab2: 0
-  targetPoint: {fileID: 622376652}
-  orientation: {fileID: 1845151571}
-  eulerAngY: 0
 --- !u!114 &1478228167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21082,25 +21073,24 @@ MonoBehaviour:
   HitParticle: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
   correctTick: {fileID: 363110819}
   incorrectCross: {fileID: 507173790}
+  cam: {fileID: 1687258581}
+  cam2: {fileID: 1478228158}
+  targetPoint: {fileID: 622376652}
   Sword: {fileID: 754214362}
   Urumi: {fileID: 131546648}
-  Shield: {fileID: 0}
+  SwordAttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
+  WhipAttackSound: {fileID: 8300000, guid: feee7acbd39688a4a960c37c20dca5cd, type: 3}
+  SwordClashSound: {fileID: 8300000, guid: aa1d15a49c9ab09479ac0ceddd0d16b2, type: 3}
+  orientation: {fileID: 1845151571}
   mouseXMove: 0
   mouseYMove: 0
   mouseXStart: 0
   mouseYStart: 0
   mouseXEnd: 0
   mouseYEnd: 0
-  cam: {fileID: 1687258581}
-  cam2: {fileID: 1478228158}
   AttackCooldown: 0.4
-  SwordAttackSound: {fileID: 8300000, guid: a91b59bb95ad274418748f5b56ab9c78, type: 3}
-  WhipAttackSound: {fileID: 8300000, guid: feee7acbd39688a4a960c37c20dca5cd, type: 3}
-  SwordClashSound: {fileID: 8300000, guid: aa1d15a49c9ab09479ac0ceddd0d16b2, type: 3}
   canStab: 0
   canStab2: 0
-  targetPoint: {fileID: 622376652}
-  orientation: {fileID: 1845151571}
   eulerAngY: 0
 --- !u!82 &1687258589
 AudioSource:
@@ -26060,6 +26050,20 @@ CapsuleCollider:
   m_Height: 16.17
   m_Direction: 1
   m_Center: {x: 0, y: 8.34, z: 0}
+--- !u!136 &2132888797
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132888794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 15
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 8.71, z: 0}
 --- !u!4 &2132928349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c3b956a57e198e148b8bc99406e1efc7, type: 3}

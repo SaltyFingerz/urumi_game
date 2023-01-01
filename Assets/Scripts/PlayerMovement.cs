@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
     private GameObject chaseEnemyID;
     Rigidbody rb;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -123,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
        
@@ -212,7 +211,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             inRange = true;
-            print("enemy attack");
             other.GetComponent<Animator>().SetBool("Attack", true);
             chase = true;
             chaseEnemyID = other.gameObject;
@@ -264,14 +262,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             inRange = false;
-           /* DirectionDetection.EnemyID = null;
-            DirectionDetection.enemyCenterHit = false;
-            DirectionDetection.enemyLeftHit = false;
-            DirectionDetection.enemyRightHit = false;
-            DirectionDetection.enemyDownHit = false;
-            DirectionDetection.enemyUpHit = false;
-  */
-            print("enemy stop attack");
             other.GetComponent<Animator>().SetBool("Attack" , false);
         }
     }

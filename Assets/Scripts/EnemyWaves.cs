@@ -21,14 +21,8 @@ public class EnemyWaves : MonoBehaviour
     public GameObject SkeletonWave4b;
     public GameObject SkeletonWave4c;
     public GameObject SkeletonWave4d;
-    private GameObject chaseEnemyID;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+   
+  
     void Update()
     {
         if (PlayerMovement.chase1)

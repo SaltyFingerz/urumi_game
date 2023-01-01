@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class UIButtonManager : MonoBehaviour
 {
+    //UI Prompt Elements
     public GameObject ControlsPrompt;
     public GameObject DeathScreen;
-    public  GameObject TutePrompt1;
+    public GameObject TutePrompt1;
     public GameObject TutePrompt2;
     public GameObject TutePrompt3;
     public GameObject TutePrompt4;
@@ -18,19 +19,18 @@ public class UIButtonManager : MonoBehaviour
     public GameObject Scarecrow3;
     public GameObject PauseMenu;
 
-    public Text correctAttacksTute;
+    //the number of correct attacks done, shown in the tutorial
+    public Text correctAttacksTute; 
+
+    //Booleans describing which stage of the tutorial the player is on. These are static to be used in Direction Detection, for displaying the visual feedback of tick/cross when correct/incorrect attacks are done.
     public static bool tuteRight = false;
     public static bool tuteLeft = false;
     public static bool tuteCentre = false;
+
+    //Boolean for detecting when the player has switched the weapon for the first time, so the prompt explaining how to switch the weapon does not get shown again.
     private bool weaponSwitched;
-    void Start()
-    {
-       
 
-
-    }
-
-    // Update is called once per frame
+   
     void Update()
     {
 
@@ -40,25 +40,25 @@ public class UIButtonManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {                                                  // E changes the weapon (in DirectionDetection.cs, when the player does this the prompt explaining how to change weapon goes away via the code here
                 WeaponSwitchPrompt.SetActive(false);
-                weaponSwitched = true;
+                weaponSwitched = true;                     //prevents the prompt for switching the weapon showing up again
             }
         }
 
 
-        if (SceneManager.GetActiveScene().buildIndex == 1 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf))
-        correctAttacksTute.text = DirectionDetection.correctAttacks.ToString();
+        if (SceneManager.GetActiveScene().buildIndex == 1 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf)) //the build index checks whether the active scene is the tutorial, so only then the text of correct attacks is shown.
+        correctAttacksTute.text = DirectionDetection.correctAttacks.ToString(); //the number of correct attacks done is shown as a Text UI element, after converting the number of correct attacks to string
         if (tuteRight && DirectionDetection.correctAttacks >= 3)
         {
-            DirectionDetection.correctAttacks = 0;
-            tuteRight = false;
+            DirectionDetection.correctAttacks = 0;  //the number of correct attacks is reset to zero upon reaching the required amount of three.
+            tuteRight = false;   //this boolean is used by the DirectionDetection Script to display the appropriate feedback of tick/cross during correct/incorrect attacks
             tuteLeft = true;
-            TutePrompt2.SetActive(true);
+            TutePrompt2.SetActive(true); //the next prompt is activated and the preceding one deactivated
             TutePrompt1.SetActive(false);
-            Scarecrow1.SetActive(false);
+            Scarecrow1.SetActive(false); //the scarecrow is changed to a replica with different positioning of the shields
             Scarecrow2.SetActive(true);
         }
 
-        if (tuteLeft && DirectionDetection.correctAttacks >= 3)
+        if (tuteLeft && DirectionDetection.correctAttacks >= 3) //the same as directtly above, for the next prompt (for teaching attacks from the left)
         {
             DirectionDetection.correctAttacks = 0;
             TutePrompt2.SetActive(false);
@@ -69,7 +69,7 @@ public class UIButtonManager : MonoBehaviour
             tuteCentre = true;
         }
 
-        if (tuteCentre && DirectionDetection.correctAttacks >= 3)
+        if (tuteCentre && DirectionDetection.correctAttacks >= 3) //the same as directly above, for the next prompt (for teaching stab attacks)
         {
             DirectionDetection.correctAttacks = 0;
             TutePrompt3.SetActive(false);
@@ -85,7 +85,7 @@ public class UIButtonManager : MonoBehaviour
     
 
   
-    public void ResumeButton()
+    public void ResumeButton() //this is called in the pause menu
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -95,31 +95,30 @@ public class UIButtonManager : MonoBehaviour
     }
 
 
-    public  void CloseControlsPrompt()
+    public  void CloseControlsPrompt() //not currently used, but can be used for displayig the controls at the start of a level
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         ControlsPrompt.SetActive(false);
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1) 
         TutePrompt1.SetActive(true);
      
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    public void StartTutorialButton()
+    public void StartTutorialButton() //called when the player presses Okay! in the first prompt of the tutorial that explains the movement controls
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        ControlsPrompt.SetActive(false);
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        Cursor.visible = false;                     //the cursor is locked to the centre of the screen and made invsibile for the first person gameplay 
+        ControlsPrompt.SetActive(false);             //the prompt is inactivated
+        if (SceneManager.GetActiveScene().buildIndex == 1)  //whether the scene is the tutorial is checked, and if so the nbext prompt is activated
             TutePrompt1.SetActive(true);
-        tuteRight = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        tuteRight = true;                                  //the current stage of the tutorial is saved as a public static bool for the DirectionDetection script to be able to display appropriate visual feedback with each correct/incorrect attack
+        
     }
 
-    public void StartLevel()
+    public void StartLevel() //called when closing the mission brief displayed at the start of level one
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -127,31 +126,27 @@ public class UIButtonManager : MonoBehaviour
     }
    
 
-    public void Retry()
+    public void Retry()                                                  //called upon pressing the retry button after dying
     {
-        PlayerMovement.PlayerHealth = 50;
-        DeathScreen.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerMovement.PlayerHealth = 50;  //resets player health
+        DeathScreen.SetActive(false);      //deactivates the death screen
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);  //reloads the scene
 
 
     }
-
-    public void Level1Button()
+    //The following are called from the main menu upon selecting each level
+    public void Level1Button() 
     {
         SceneManager.LoadScene(2);
 
     }
 
-    public void TutorialButton()
+    public void TutorialButton() 
     {
         SceneManager.LoadScene(1);
     }
 
-    public void LevelPracticeButton()
-    {
-        SceneManager.LoadScene(3);
-    }
-
+ 
     public void QuitGame()
     {
         Application.Quit();

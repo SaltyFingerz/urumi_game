@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class GateManager : MonoBehaviour
 {
-    public GameObject Skeleton1;
+    //This script is for triggering events based on the player's progress through the level. 
+    //When the enemies of each room are cleared, the gate opens to the next room & when the last room's enemies are cleared the level complete UI element is displayed.
+
+    public GameObject Skeleton1; //the level's skeletons are refered to to track when they have been killed
     public GameObject Skeleton2;
     public GameObject Skeleton3;
     public GameObject Skeleton4;
@@ -14,21 +17,21 @@ public class GateManager : MonoBehaviour
     public GameObject Skeleton8;
     public GameObject Skeleton9;
     public GameObject Skeleton10;
-    public GameObject LevelComplete;
-    public GameObject Player;
+    public GameObject LevelComplete; //UI element for level completion
+    public GameObject Player; //the player to access audio clips, and use them as the audio source for audio taunts
     void Start()
     {
         Player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
         if(CompareTag("firstGate") && (!Skeleton1.activeSelf && !Skeleton2.activeSelf))
         {
-            gameObject.SetActive(false);
-            Player.GetComponent<PlayerMovement>().PatheticSound();
+            gameObject.SetActive(false); //removed ie opens gate
+            Player.GetComponent<PlayerMovement>().PatheticSound(); //audio of player character taunting
 
         }
 
@@ -46,10 +49,10 @@ public class GateManager : MonoBehaviour
 
         if(CompareTag("FinalStage") &&  (!Skeleton7.activeSelf && !Skeleton8.activeSelf && !Skeleton9.activeSelf && !Skeleton10.activeSelf))
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(false); //this is used to prevent the audioclip below from being played multiple times upon itself causing distortion.
             Player.GetComponent<PlayerMovement>().VictoryLaugh();
-            LevelComplete.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
+            LevelComplete.SetActive(true); //activates UI element
+            Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
     }

@@ -4,110 +4,123 @@ using UnityEngine;
 
 public class DirectionDetection : MonoBehaviour
 {
+
     public GameObject lastHit;
     public GameObject HitParticle;
     public GameObject correctTick;
     public GameObject incorrectCross;
-     RaycastHit whatHit;
-     Vector3 collision = Vector3.zero;
-     Vector3 target = new Vector3(0, 0, 10);
+    public GameObject cam;
+    public GameObject cam2; 
+    public GameObject targetPoint;
+    public GameObject Sword, Urumi;
+    public static GameObject EnemyID; //public static so that it can be referenced by DamageTiming script (which contains animation event functions that deal damage to the enemy), so that damage is dealth to only the enemy that is being attacked
+  
+    public AudioClip SwordAttackSound;
+    public AudioClip WhipAttackSound;
+    public AudioClip SwordClashSound;
 
-    public GameObject Sword, Urumi, Shield;
+    private TrailRenderer tr;
+
+    public Transform orientation;
+
+    RaycastHit whatHit;
+    Vector3 collision = Vector3.zero;
+    Vector3 target = new Vector3(0, 0, 10);
+
+    
     [SerializeField]
     private  float mouseXMove;
-
-
     [SerializeField]
     private float mouseYMove;
     [SerializeField]
     private float mouseXStart;
     [SerializeField]
     private float mouseYStart;
-
     [SerializeField]
     private float mouseXEnd;
     [SerializeField]
     private float mouseYEnd;
-    private bool preventAttack = false;
-    public GameObject cam;
-    public GameObject cam2;
-    private float xRotation;
 
-    private bool CanAttack = true;
-    public static bool ShouldAttack = false; //this is so that it only attacks when it had made a strike path first.
+    private float xRotation;
     public float AttackCooldown = 0.1f;
-    public AudioClip SwordAttackSound;
-    public AudioClip WhipAttackSound;
-    public AudioClip SwordClashSound;
+
+    private bool preventAttack = false;     
+    private bool CanAttack = true;
+    private bool SwordActive = true;
+    private bool UrumiActive = false; 
+    private bool UrumiHit = false;
+    private bool attackNow = false;
     private bool isAttacking = false;
+
+    public bool canStab = false;
+    public bool canStab2 = false;
+
+    public static bool ShouldAttack = false; //this is so that it only attacks when it had made a strike path first.
     public static bool fromRight = false;
     public static bool fromLeft = false;
     public static bool fromCentre = false;
     public static bool fromOver = false;
     public static bool fromUnder = false;
-
-
     public static bool fromBottomRight = false;
     public static bool fromBottomLeft = false;
     public static bool fromTopRight = false;
     public static bool fromTopLeft = false;
-
-
     public static bool enemyRightHit = false;
     public static bool enemyLeftHit = false;
     public static bool enemyCenterHit = false;
     public static bool enemyUpHit = false;
     public static bool enemyDownHit = false;
 
-    public bool canStab = false;
-    public bool canStab2 = false;
-
     public static int correctAttacks = 0;
    
 
-    public static GameObject EnemyID;
-
-    public GameObject targetPoint;
-    private TrailRenderer tr;
-    private bool SwordActive = true;
-    private bool UrumiActive = false; 
-    
-    private bool UrumiHit = false;
-    private bool attackNow = false;
-    public Transform orientation;
 
     [SerializeField]
-    float eulerAngY;
+     float eulerAngY;
   
 
     void Start()
-    {
-        
+    {      
         tr = targetPoint.GetComponent<TrailRenderer>();
         tr.emitting = false;
-
-        
-        
-
     }
+   
+    //IEnumerators for showing visual UI feedback in tutorial, ie displaying tick or cross in center of screen for one seconds eery time a correct or incorrect attack is done
+    IEnumerator ShowTick()
+    {
+        correctAttacks += 1;
+        correctTick.SetActive(true);
+        yield return new WaitForSeconds(1);
+        correctTick.SetActive(false);
+       
+    }
+
+    IEnumerator ShowCross()
+    {
+        incorrectCross.SetActive(true);
+        yield return new WaitForSeconds(1);
+        incorrectCross.SetActive(false);
+    } 
+    
+    //What follows are functions for each direction of attack, depending on whether the attack hits or doesn't hit a shield.
     public void SwordAttackR()
     {
 
-        ShouldAttack = false;
+        ShouldAttack = false; 
         canStab = false;
         canStab2 = false;
         isAttacking = true;
-        fromRight = true;
+        fromRight = true;         
         fromLeft = false;
         fromCentre = false;
         CanAttack = false;
         fromOver = false;
         fromUnder = false;
         fromBottomRight = false;
-    fromBottomLeft = false;
-    fromTopRight = false;
-    fromTopLeft = false;
-    Animator anim = Sword.GetComponent<Animator>();
+        fromBottomLeft = false;
+        fromTopRight = false;
+        fromTopLeft = false;
+        Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("AttackR");
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
@@ -124,22 +137,6 @@ public class DirectionDetection : MonoBehaviour
         {
             StartCoroutine(ShowCross());
         }
-    }
-
-    IEnumerator ShowTick()
-    {
-        correctAttacks += 1;
-        correctTick.SetActive(true);
-        yield return new WaitForSeconds(1);
-        correctTick.SetActive(false);
-       
-    }
-
-    IEnumerator ShowCross()
-    {
-        incorrectCross.SetActive(true);
-        yield return new WaitForSeconds(1);
-        incorrectCross.SetActive(false);
     }
     public void SwordClashR()
     {
@@ -1172,8 +1169,11 @@ public class DirectionDetection : MonoBehaviour
   
     void Update()
     {
-        
-       
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            print(EnemyID.name);
+        }
         
             int mask = 1 << LayerMask.NameToLayer("Default");
         //mask |= 1 << LayerMask.NameToLayer("Enemy"); //this is for adding additional layers
@@ -1205,7 +1205,15 @@ public class DirectionDetection : MonoBehaviour
 
 
         
+        if (!PlayerMovement.inRange && SwordActive)
+        {
+            EnemyID = null;
+            enemyRightHit = false;
+            enemyLeftHit = false;
+            enemyUpHit = false;
+            enemyDownHit = false;
 
+        }
 
 
             eulerAngY = cam.transform.localEulerAngles.y;
@@ -1363,19 +1371,13 @@ public class DirectionDetection : MonoBehaviour
                         {
                             
                             enemyRightHit = true;
-                            enemyLeftHit = false;
-                            enemyCenterHit = false;
-                            enemyDownHit = false;
-                            enemyUpHit = false;
+                          
                         }
                          else if (EnemyID.name.Contains("left"))
                         {
                            
                             enemyLeftHit = true;
-                            enemyCenterHit = false;
-                            enemyDownHit = false;
-                            enemyUpHit = false;
-                            enemyRightHit = false;
+                           
 
                         }
                         else if (EnemyID.name.Contains("center"))

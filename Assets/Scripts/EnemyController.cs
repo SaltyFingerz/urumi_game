@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
    
     protected NavMeshAgent enemyMesh;
     public static bool hurtSound;
-    // Start is called before the first frame update
+
     void Start()
     {
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
         {
             
             transform.LookAt(targetPosition);
-           // transform.position = Vector3.Lerp(transform.position, target.position, 0.01f);
+
         }
 
     }

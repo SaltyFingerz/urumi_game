@@ -17,12 +17,18 @@ public class EnemyController : MonoBehaviour
 
     private float durationTimer;
     public AudioClip AttackSound;
+
+    public GameObject Player;
+   
     protected NavMeshAgent enemyMesh;
+    public static bool hurtSound;
     // Start is called before the first frame update
     void Start()
     {
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
         enemyMesh = GetComponent<NavMeshAgent>();
+        Player = GameObject.Find("Player");
+
     }
 
     // Update is called once per frame
@@ -79,6 +85,7 @@ public class EnemyController : MonoBehaviour
         DirectionDetection.enemyUpHit = false;
         DirectionDetection.enemyDownHit = false;
         gameObject.GetComponent<Animator>().SetTrigger("Death");
+        gameObject.GetComponent<NavMeshAgent>().enabled = false;
         yield return new WaitForSeconds(1.5f);
         gameObject.SetActive(false);
 
@@ -98,6 +105,27 @@ public class EnemyController : MonoBehaviour
             PlayerMovement.PlayerHealth -= 1;
             durationTimer = 0;
             overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0.5f);
+            if (PlayerMovement.PlayerHealth >= 25)
+                StartCoroutine(HurtSound());
+            else if (PlayerMovement.PlayerHealth < 25)
+                StartCoroutine(HurtSoundLowHP());
         }
     }
+
+    IEnumerator HurtSound()
+    {
+        yield return new WaitForSeconds(0.15f);
+        Player.GetComponent<PlayerMovement>().Sounds();
+       
+
+    }
+
+    IEnumerator HurtSoundLowHP()
+    {
+        yield return new WaitForSeconds(0.15f);
+        Player.GetComponent<PlayerMovement>().SoundsLowHP();
+
+
+    }
+
 }

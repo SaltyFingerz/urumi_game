@@ -10,6 +10,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
 
+
+
+    [SerializeField] AudioClip[] HurtSounds;
+    AudioSource hurtAudioSource;
+
+
+    [SerializeField] AudioClip[] HurtSoundsLowHP;
+    AudioSource veryHurtAudioSource;
+
+    [SerializeField] AudioClip[] AreaCleared;
+    AudioSource Pathetic;
+
+    public AudioClip Laughing;
     public float groundDrag;
     public GameObject DeathScreen;
     public GameObject PauseMenu;
@@ -49,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        hurtAudioSource = GetComponent<AudioSource>();
+        veryHurtAudioSource = GetComponent<AudioSource>();
+        Pathetic = GetComponent<AudioSource>();
     }
 
     private void MyInput()
@@ -158,7 +174,35 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale = 0;
             PauseMenu.SetActive(true);
         }
+
+      
+
     }
+
+    public void Sounds()
+    {
+        AudioClip clip = HurtSounds[UnityEngine.Random.Range(0, HurtSounds.Length)];
+        hurtAudioSource.PlayOneShot(clip);
+    }
+
+    public void SoundsLowHP()
+    {
+        AudioClip clip = HurtSoundsLowHP[UnityEngine.Random.Range(0, HurtSoundsLowHP.Length)];
+        veryHurtAudioSource.PlayOneShot(clip);
+    }
+
+    public void PatheticSound()
+    {
+        AudioClip clip = AreaCleared[UnityEngine.Random.Range(0, AreaCleared.Length)];
+        Pathetic.PlayOneShot(clip);
+    }
+
+    public void VictoryLaugh()
+    {
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(Laughing);
+    }
+
     private void FixedUpdate()
     {
         MovePlayer(); 

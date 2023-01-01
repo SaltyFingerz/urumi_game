@@ -15,9 +15,10 @@ public class GateManager : MonoBehaviour
     public GameObject Skeleton9;
     public GameObject Skeleton10;
     public GameObject LevelComplete;
+    public GameObject Player;
     void Start()
     {
-        
+        Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -27,20 +28,26 @@ public class GateManager : MonoBehaviour
         if(CompareTag("firstGate") && (!Skeleton1.activeSelf && !Skeleton2.activeSelf))
         {
             gameObject.SetActive(false);
+            Player.GetComponent<PlayerMovement>().PatheticSound();
+
         }
 
         if (CompareTag("secondGate") && (!Skeleton1.activeSelf))
         {
             gameObject.SetActive(false);
+          
         }
 
         if(CompareTag("thirdGate") && (!Skeleton1.activeSelf && !Skeleton2.activeSelf && !Skeleton3.activeSelf && !Skeleton4.activeSelf && !Skeleton5.activeSelf && !Skeleton6.activeSelf))
         {
             gameObject.SetActive(false);
+            Player.GetComponent<PlayerMovement>().PatheticSound();
         }
 
         if(CompareTag("FinalStage") &&  (!Skeleton7.activeSelf && !Skeleton8.activeSelf && !Skeleton9.activeSelf && !Skeleton10.activeSelf))
         {
+            gameObject.SetActive(false);
+            Player.GetComponent<PlayerMovement>().VictoryLaugh();
             LevelComplete.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

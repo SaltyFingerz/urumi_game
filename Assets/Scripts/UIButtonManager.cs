@@ -45,7 +45,7 @@ public class UIButtonManager : MonoBehaviour
         }
 
 
-        if (SceneManager.GetActiveScene().buildIndex == 0 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf))
+        if (SceneManager.GetActiveScene().buildIndex == 1 && (TutePrompt1.activeSelf || TutePrompt2.activeSelf || TutePrompt3.activeSelf))
         correctAttacksTute.text = DirectionDetection.correctAttacks.ToString();
         if (tuteRight && DirectionDetection.correctAttacks >= 3)
         {

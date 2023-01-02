@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    //This script controls the player movement, but also player health, player sounds and detecting when player moves into specific zones for triggering enemy chases.
+    //for the generic vertical and horizontal player movement control, the tutorial available at: www.youtube.com/watch?v=f473C43s8nE was used.
     private GameObject chaseEnemyID; 
     public GameObject DeathScreen;
     public GameObject PauseMenu;   
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 //Sound Arrays used for random sounds from within each to be played
 
-    [SerializeField] AudioClip[] HurtSounds;
+    [SerializeField] AudioClip[] HurtSounds;  // for implementing arrays of sounds and playing a sound from one randomly the tutorial available at : https://www.youtube.com/watch?v=OCRzBX3ON_c
     AudioSource hurtAudioSource;
 
     [SerializeField] AudioClip[] HurtSoundsLowHP;
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         Pathetic = GetComponent<AudioSource>();
     }
 
-    private void MyInput() //function for getting horizontal and vertical input for player movement
+    private void MyInput() //function for getting horizontal and vertical input for player movement. Done following tutorial: www.youtube.com/watch?v=f473C43s8nE
     {
      
             horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         
 
         //when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if(Input.GetKey(jumpKey) && readyToJump && grounded) //done following tutorial: www.youtube.com/watch?v=f473C43s8nE
         {
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown); //invoke is used to allow for another jump after the jump cooldown time has passed.
@@ -85,20 +86,20 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void MovePlayer()
+    private void MovePlayer() //done following tutorial: www.youtube.com/watch?v=f473C43s8nE
     {
         //calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput; //to always walk in the direction the player is looking when walking forward
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput; //to always walk in the direction the player is looking when walking forward. 
 
         //on ground
         if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force); //the player can move in the air but with less speed, with an air multiplier of value less than 1.
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force); //the player can move in the air but with less speed, with an air multiplier of value less than 1. 
 
     }
 
-    private void SpeedControl()
+    private void SpeedControl() //done following tutorial: www.youtube.com/watch?v=f473C43s8nE
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         //limit velocity if needed
@@ -109,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void Jump() //done following tutorial: www.youtube.com/watch?v=f473C43s8nE
     {
         //reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -138,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // handle drag
-        if (grounded)
+        if (grounded) //done following tutorial: www.youtube.com/watch?v=f473C43s8nE
         {
             rb.drag = groundDrag;
             

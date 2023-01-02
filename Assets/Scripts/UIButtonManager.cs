@@ -20,7 +20,7 @@ public class UIButtonManager : MonoBehaviour
     public GameObject PauseMenu;
 
     //the number of correct attacks done, shown in the tutorial
-    public Text correctAttacksTute; 
+    public Text correctAttacksTute; //sending the number of correct attacks to the UI was done following this tutorial: www.youtube.com/watch?v=ch4QCcsFQ4M&t=181s
 
     //Booleans describing which stage of the tutorial the player is on. These are static to be used in Direction Detection, for displaying the visual feedback of tick/cross when correct/incorrect attacks are done.
     public static bool tuteRight = false;

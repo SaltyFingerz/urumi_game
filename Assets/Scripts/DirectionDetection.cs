@@ -110,10 +110,10 @@ public class DirectionDetection : MonoBehaviour
     public void SwordAttackR()   //attack from right
     {
         SetAttackingBools();
-        Animator anim = Sword.GetComponent<Animator>();
+        Animator anim = Sword.GetComponent<Animator>(); // plays the attack animation, implemented following the tutorial www.youtube.com/watch?v=aNZw588BQBo&t=870s from 9:00-12:00
         anim.SetTrigger("AttackR");
         SwordAttackAudio();
-        StartCoroutine(ResetAttackCooldown());
+        StartCoroutine(ResetAttackCooldown()); //an attack cooldown is used to prevent attacking too fast. It was done following the tutorial : www.youtube.com/watch?v=aNZw588BQBo&t=870s from 9:00-12:00
         if (UIButtonManager.tuteRight)
         {
             StartCoroutine(ShowTick());
@@ -682,8 +682,8 @@ public class DirectionDetection : MonoBehaviour
     {
 
         
-            int mask = 1 << LayerMask.NameToLayer("Default"); //sets the mask for the raycasting to not detext the sword which is in front of the camera, to detect other objects.
-        
+            int mask = 1 << LayerMask.NameToLayer("Default"); //sets the mask for the raycasting to not detext the sword which is in front of the camera, to detect other objects. This was done following the tutorial available at www.youtube.com/watch?v=WpQOBsxFciE&t=312s , specifically at the timestamp: 5:16 - 5:40
+
         var ray = new Ray(origin: cam2.transform.position, direction: cam2.transform.forward); //the ray of the raycast is set to originate from cam2, which is the camera that moves with the strike trail, when the main camera is static, meaning cam2 is the camera faces in the direction of the target, not precisely the same as the direction the player is looking at.
             RaycastHit hit;
         if (SwordActive) //the active weapon is checked before raycasting as each weapon has a different attack range.
@@ -1273,15 +1273,15 @@ public class DirectionDetection : MonoBehaviour
     }
 
 
-    IEnumerator ResetAttackCooldown() //called at the end of each attack function, to preven another attack from being triggered till the current attack has finished. Controls the rate of possible attacks.
+    IEnumerator ResetAttackCooldown() //called at the end of each attack function, to preven another attack from being triggered till the current attack has finished. Controls the rate of possible attacks. 
     {
 
-        ShouldAttack = false;
+        ShouldAttack = false; //prevents extra attacks from occuring before the trail path can be rendered
        
         yield return new WaitForSeconds(AttackCooldown); //the cooldown time is set in the inspector
-        CanAttack = true;
-        UrumiHit = false;
-        isAttacking = false;
+        CanAttack = true; // allows a new attack to be initiated; this variable, and setting it via a coroutine with the above WaitForSeconds was done. following the tutorial: www.youtube.com/watch?v=aNZw588BQBo&t=870s from 9:00-12:00 
+        UrumiHit = false; //not currently used, but resets the urumi hit variable that can be used to differentiate the urumi animation that hits any object from that which doesn't 
+        isAttacking = false; //resets, informing that the attack is complete, allowing for a new attack to be initiated.
     }
 
  

@@ -51,17 +51,17 @@ public class EnemyController : MonoBehaviour
             
         }
 
-        Vector3 targetPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        Vector3 targetPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z); //transform.position.y rather than target.transform.position.y is used to prevent the enemy from tilting off the vertical y axis. 
         if(target != null)
         {
             
-            transform.LookAt(targetPosition);
+            transform.LookAt(targetPosition); //makes the enemy look at the player. This line of code was learnt from the tutorial available at: www.youtube.com/watch?v=rP_bEq248e4
 
         }
 
     }
 
-    public void ReduceHealth(int damage)
+    public void ReduceHealth(int damage) //this function is called in DamageTiming.cs to reduce the health of the enemy by the damage value (set in DamageTiming.ce) each time the enemy is successfully attacked.
     {
         EnemyHealth -= damage;
     }

@@ -862,36 +862,55 @@ public class DirectionDetection : MonoBehaviour
                             enemyLeftHit = false;
                         }
 
-                        else if (EnemyID.name.Contains("right"))
+                        else if (EnemyID.name.Contains("right") && !EnemyID.name.Contains("left") && !EnemyID.name.Contains("center"))
                         {
                             
                             enemyRightHit = true;
+                            enemyLeftHit = false;
+                            enemyCenterHit = false;
+                            enemyUpHit = false;
+
                           
                         }
-                         else if (EnemyID.name.Contains("left"))
+                         else if (EnemyID.name.Contains("left") && !EnemyID.name.Contains("right") && !EnemyID.name.Contains("center"))
                         {
                            
                             enemyLeftHit = true;
+                            enemyRightHit = false;
+                            enemyCenterHit = false;
+                            enemyUpHit = false;
+
                            
 
                         }
-                        else if (EnemyID.name.Contains("center"))
+                        else if (EnemyID.name.Contains("center") && !EnemyID.name.Contains("right") && !EnemyID.name.Contains("left") && !EnemyID.name.Contains("up") && !EnemyID.name.Contains("down"))
                         {
                             
                             enemyCenterHit = true;
+                            enemyRightHit = false;
+                            enemyLeftHit = false;
+                            enemyUpHit = false;
+                            enemyDownHit = false;
                           
 
                         }
 
-                         else if (EnemyID.name.Contains("down"))
+                         else if (EnemyID.name.Contains("down") && !EnemyID.name.Contains("left") && !EnemyID.name.Contains("right") && !EnemyID.name.Contains("up"))
                         {
                             enemyDownHit = true;
+                            enemyLeftHit = false;
+                            enemyRightHit = false;
+                            enemyUpHit = false;
                           
                         }
 
-                         else if (EnemyID.name.Contains("up"))
+                         else if (EnemyID.name.Contains("up") && !EnemyID.name.Contains("left") && !EnemyID.name.Contains("right") && !EnemyID.name.Contains("down"))
                         {
                             enemyUpHit = true;
+                            enemyLeftHit = false;
+                            enemyRightHit = false;
+                            enemyDownHit = false;
+
                          
 
 

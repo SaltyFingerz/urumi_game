@@ -5,9 +5,9 @@ using UnityEngine;
 public class trailManager : MonoBehaviour
 {
    // this script can be used to set the attack trail to change color depending on if it crosses an enemy. 
-   //It is not currently being used, as it was found to not be necesary as there is already visual and audio feedback on whether the player hits the enemy, because it seemed to overcomplicate the user experience.
-
-    /*
+   //It is not currently being used, as it was found to not be necesary as there is already visual and audio feedback on whether the player hits the enemy, because it seemed to overcomplicate the user experience, and to not draw the players attention away from the enemies onto the UI.
+   /*
+    
     void Update()
     { 
         if (DirectionDetection.enemyRightHit  || DirectionDetection.enemyLeftHit || DirectionDetection.enemyCenterHit || DirectionDetection.enemyDownHit || DirectionDetection.enemyUpHit) // this is to change the color of the trail depending on if the player is about to hit an enemy with it / if the trail crosses an enemy.
@@ -23,5 +23,7 @@ public class trailManager : MonoBehaviour
         trailRendererToChange.startColor = newColor;
         trailRendererToChange.endColor = Color.black; //a different color is used here to create  a gradient from the start to the end of the trail
     }
+    
     */
 }
+   

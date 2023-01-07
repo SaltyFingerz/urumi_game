@@ -47,6 +47,7 @@ public class EnemyController : MonoBehaviour
 
         if (EnemyHealth <= 0) //Enemy Death
         {
+            
             StartCoroutine(EnemyDie());
             
         }
@@ -84,7 +85,7 @@ public class EnemyController : MonoBehaviour
         //deactivate navmesh agent so that the dead skeleton ie the corpse doesnt move towards the player
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
         //some time is allowed to pass where the enemy corpse can be seen before removing it from the game:
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
 
     }

@@ -24,7 +24,7 @@ public class DamageTiming : MonoBehaviour
 
             Instantiate(HitParticle, new Vector3(DirectionDetection.EnemyID.gameObject.transform.position.x + 0.3f,
                        transform.position.y + 0.4f, DirectionDetection.EnemyID.gameObject.transform.position.z + 0.5f), Quaternion.Euler(0, -45, 0));  //instantiates the blood particle effect at a position and rotation adjusted to the direction of attack, so that it appears that the enemy is bleeding from the side they were hit.
-            HitParticle.GetComponent<ParticleSystem>().Play(); //plays the particle effect
+            //HitParticle.GetComponent<ParticleSystem>().Play(); //plays the particle effect
         }
 
         

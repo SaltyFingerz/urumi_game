@@ -32333,7 +32333,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246837902}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a413ae1c7f3bb134aa8318b9957f5d97, type: 3}
   m_Name: 
@@ -32394,7 +32394,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1246837904}
+      - m_Target: {fileID: 918746379}
         m_TargetAssemblyTypeName: UIButtonManager, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -33268,7 +33268,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291397846}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a413ae1c7f3bb134aa8318b9957f5d97, type: 3}
   m_Name: 
@@ -33329,7 +33329,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1291397848}
+      - m_Target: {fileID: 918746379}
         m_TargetAssemblyTypeName: UIButtonManager, Assembly-CSharp
         m_MethodName: MainMenuButton
         m_Mode: 1
@@ -41016,7 +41016,7 @@ RectTransform:
   m_LocalScale: {x: 0.94652164, y: 0.94652164, z: 0.94652164}
   m_Children: []
   m_Father: {fileID: 1965863579}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -49051,7 +49051,7 @@ RectTransform:
   m_Children:
   - {fileID: 837837596}
   m_Father: {fileID: 1965863579}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -49221,7 +49221,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.03
-  m_Height: 2
+  m_Height: 2.3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1895099261
@@ -51441,8 +51441,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0565, y: 1.0565, z: 1.0565}
   m_Children:
-  - {fileID: 1892981303}
   - {fileID: 1555297343}
+  - {fileID: 1892981303}
   - {fileID: 395824708}
   m_Father: {fileID: 918746378}
   m_RootOrder: 3

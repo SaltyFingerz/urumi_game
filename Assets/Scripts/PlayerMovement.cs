@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     bool readyToJump = true;
     bool grounded;
 
-    public static bool UrumiPicked;
+    public static bool UrumiPicked = false;
     public static bool inRange = false;
     public static bool chase1;
     public static bool chase2;
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public static bool chase7;
     public static bool chase;
 
-    public static int PlayerHealth = 50;
+    public static int PlayerHealth = 30;
 
     void Start()
     {
@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
             ac.PlayOneShot(DeathSound);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true; //cursor becomes visible to be able to interact with the Death Screen UI
-            PlayerHealth = 50; //health reset so player isn't automatically dead on replaying level
+            PlayerHealth = 30; //health reset so player isn't automatically dead on replaying level
         }
 
 

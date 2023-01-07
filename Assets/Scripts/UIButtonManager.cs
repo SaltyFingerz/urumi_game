@@ -130,6 +130,15 @@ public class UIButtonManager : MonoBehaviour
     {
         PlayerMovement.PlayerHealth = 50;  //resets player health
         DeathScreen.SetActive(false);      //deactivates the death screen
+        PlayerMovement.UrumiPicked = false;
+        PlayerMovement.chase = false;
+        PlayerMovement.chase1 = false;
+        PlayerMovement.chase2 = false;
+        PlayerMovement.chase3 = false;
+        PlayerMovement.chase4 = false;
+        PlayerMovement.chase5 = false;
+        PlayerMovement.chase6 = false;
+        PlayerMovement.chase7 = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);  //reloads the scene
 
 
@@ -138,6 +147,15 @@ public class UIButtonManager : MonoBehaviour
     public void Level1Button()  //from main menu
     {
         SceneManager.LoadScene(2);
+        PlayerMovement.UrumiPicked = false;
+        PlayerMovement.chase = false;
+        PlayerMovement.chase1 = false;
+        PlayerMovement.chase2 = false;
+        PlayerMovement.chase3 = false;
+        PlayerMovement.chase4 = false;
+        PlayerMovement.chase5 = false;
+        PlayerMovement.chase6 = false;
+        PlayerMovement.chase7 = false;
         Time.timeScale = 1;
 
     }
